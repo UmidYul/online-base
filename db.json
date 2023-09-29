@@ -1,0 +1,11 @@
+{
+    "users": [
+        {
+            "name": "Umid Yuldashev",
+            "login": "admin",
+            "password": "admin",
+            "role": "admin"
+        }
+    ],
+    "students": []
+}
