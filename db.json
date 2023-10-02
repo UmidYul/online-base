@@ -1,10 +1,21 @@
 {
-    "users": [
+    "logins": [
         {
             "login": "umid227",
             "password": "admin",
             "id": 689564
         }
     ],
-    "students": []
+    "users":[
+    689564:[
+        "info":{
+            "name":"Umid Yuldashev Ilhomovich",
+            "class":"10 A",
+            "role":"admin",
+            "amount":32,
+            "males":22,
+            "females":10
+        },
+        "students":[]
+    ]
 }
