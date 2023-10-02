@@ -1,22 +1,9 @@
 {
     "users": [
         {
-            "name": "Umid Yuldashev",
             "login": "umid227",
             "password": "admin",
-            "role": "admin"
-        },
-        {
-            "name": "Timur",
-            "login": "tima227",
-            "password": "admin",
-            "role": "teacher"
-        },
-        {
-            "name": "Timur",
-            "login": "lox",
-            "password": "admin",
-            "role": "admin"
+            "id": 689564
         }
     ],
     "students": []
