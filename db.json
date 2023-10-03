@@ -3,19 +3,22 @@
         {
             "login": "umid227",
             "password": "admin",
-            "id": 689564
+            "id": "689564"
         }
     ],
-    "users":[
-    689564:[
-        "info":{
-            "name":"Umid Yuldashev Ilhomovich",
-            "class":"10 A",
-            "role":"admin",
-            "amount":32,
-            "males":22,
-            "females":10
-        },
-        "students":[]
+    "users": [
+        {
+            "info": {
+                "id": "689564",
+                "img": "https://img.freepik.com/free-photo/pretty-young-woman-portrait-outdoor_624325-3559.jpg?q=10&h=200",
+                "name": "Rustamov R.B.",
+                "class": "10 A",
+                "role": "teacher",
+                "amount": 32,
+                "males": 22,
+                "females": 10,
+                "students": []
+            }
+        }
     ]
 }
