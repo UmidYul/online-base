@@ -4,7 +4,7 @@ import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
 import express from 'express'
 import bodyParser from 'body-parser'
-
+import session from 'express-session';
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -17,17 +17,40 @@ app.use(express.static('public'));
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// Настройка сессий
+app.use(session({
+    secret: 'secret-key', // Секретный ключ для подписи сессии
+    resave: false,
+    saveUninitialized: true
+}));
+
+// Middleware для проверки аутентификации
+const authMiddleware = (req, res, next) => {
+    if (req.session.authenticated) {
+        // Пользователь аутентифицирован, продолжаем выполнение запроса
+        next();
+    } else {
+        // Пользователь не аутентифицирован, перенаправляем на страницу входа
+        res.redirect('/');
+    }
+};
+
+
+
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + "/views/main.html")
+    if (req.session.authenticated == true) {
+        res.redirect(`/user:${req.session.userId}`)
+    } else {
+        res.sendFile(__dirname + "/views/login.html")
+    }
 })
-app.get('/login', function (req, res) {
-    res.sendFile(__dirname + "/views/login.html")
-})
-app.get('/admin:id', function (req, res) {
-    res.sendFile(__dirname + "/views/admin.html")
-})
-app.get('/teacher:id', function (req, res) {
-    res.sendFile(__dirname + "/views/teacher.html")
+app.get('/user:id', authMiddleware, function (req, res) {
+    if (req.session.authenticated === true) {
+        res.sendFile(__dirname + "/views/user.html")
+    } else {
+        res.redirect("/")
+    }
+
 })
 app.post("/login-api", async function (req, res) {
     const { log, pass } = req.body
@@ -36,21 +59,18 @@ app.post("/login-api", async function (req, res) {
     const user = logins.find(({ login }) => login == log)
     if (user) {
         if (user.password === pass) {
+            req.session.authenticated = true;
             for (let i = 0; i < users.length; i++) {
                 const el = users[i].info;
                 if (el.id == user.id) {
-                    if (el.role == "admin") {
-                        res.redirect(`/admin:${el.id}`)
-                    } else {
-                        res.redirect(`/teacher:${el.id}`)
-                    }
+                    res.redirect(`/user:${el.id}`)
                 }
             }
         } else {
-            res.redirect("/login")
+            res.redirect("/")
         }
     } else {
-        res.redirect("/login")
+        res.redirect("/")
     }
 })
 app.post("/id", async function (req, res) {
@@ -60,7 +80,9 @@ app.post("/id", async function (req, res) {
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
         if (el.id == data) {
+            req.session.userId = el.id
             res.send(JSON.stringify(el))
+            console.log(el);
         }
     }
 })
