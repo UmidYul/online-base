@@ -45,12 +45,7 @@ app.get('/', function (req, res) {
     }
 })
 app.get('/user:id', authMiddleware, function (req, res) {
-    if (req.session.authenticated === true) {
-        res.sendFile(__dirname + "/views/user.html")
-    } else {
-        res.redirect("/")
-    }
-
+    res.sendFile(__dirname + "/views/user.html")
 })
 app.post("/login-api", async function (req, res) {
     const { log, pass } = req.body
