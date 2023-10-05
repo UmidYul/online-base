@@ -1,42 +1,36 @@
 {
-    "logins": [
-        {
-            "login": "umid227",
-            "password": "admin",
-            "id": "x1mhb7s3xvrtaqs4ab2oasa7h43pl5"
-        },
-        {
-            "login": "tima227",
-            "password": "lox",
-            "id": "a1aa1a15ss5sadsa1sdd1a4fdfsdfsd"
-        }
-    ],
-    "users": [
-        {
-            "info": {
-                "id": "x1mhb7s3xvrtaqs4ab2oasa7h43pl5",
-                "img": "https://t4.ftcdn.net/jpg/04/25/65/97/360_F_425659755_5BaLdNbbCtQbbiz1JNFBikshfiCWI5NE.jpg",
-                "name": "Rustamov R.B.",
-                "class": "10 A",
-                "role": "teacher",
-                "amount": 32,
-                "males": 22,
-                "females": 10,
-                "students": []
-            }
-        },
-        {
-            "info": {
-                "id": "a1aa1a15ss5sadsa1sdd1a4fdfsdfsd",
-                "img": "https://img.freepik.com/free-photo/pretty-young-woman-portrait-outdoor_624325-3559.jpg?q=10&h=200",
-                "name": "Timurov R.B.",
-                "class": "6 Z",
-                "role": "ADMIN",
-                "amount": 32,
-                "males": 22,
-                "females": 10,
-                "students": []
-            }
-        }
-    ]
+  "logins": [
+    {
+      "login": "umid",
+      "password": "admin",
+      "id": "1696509479105"
+    },
+    {
+      "login": "tima",
+      "password": "teacher",
+      "id": "1696509479100"
+    }
+  ],
+  "users": [
+    {
+      "info": {
+        "id": "1696509479105",
+        "img": "https://t4.ftcdn.net/jpg/04/25/65/97/360_F_425659755_5BaLdNbbCtQbbiz1JNFBikshfiCWI5NE.jpg",
+        "name": "Rustamov R.B.",
+        "class": "10 A",
+        "role": "admin",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1696509479100",
+        "img": "https://img.freepik.com/free-photo/pretty-young-woman-portrait-outdoor_624325-3559.jpg?q=10&h=200",
+        "name": "Timurov R.B.",
+        "class": "6 Z",
+        "role": "teacher",
+        "students": []
+      }
+    }
+  ]
 }

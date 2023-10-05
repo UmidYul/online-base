@@ -5,6 +5,7 @@ import { JSONFile } from 'lowdb/node'
 import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session';
+import moment from 'moment'
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -47,6 +48,47 @@ app.get('/', function (req, res) {
 app.get('/user:id', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/user.html")
 })
+app.get('/user:id/add-student', authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/add_student.html")
+})
+app.post('/add-student', async function (req, res) {
+    const { name, born } = req.body
+    const currentDate = moment().format('DD-MM-YYYY');
+    await db.read()
+    const { users } = db.data
+    for (let i = 0; i < users.length; i++) {
+        const el = users[i].info;
+        if (el.id == req.session.userId) {
+            el.students.push({ id: Date.now(), name: name, born_date: born, add_date: currentDate })
+            db.write()
+            res.redirect(`/user:${req.session.userId}`)
+        }
+    }
+})
+app.post('/logout', function (req, res) {
+    const { data } = req.body
+    req.session.authenticated = data
+    res.redirect("/")
+})
+app.get('/user:id/add-class', authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/add_class.html")
+})
+app.post('/add-class', async function (req, res) {
+    const { name, clas, letter, image, log, pass } = req.body
+    const currentDate = moment().format('DD-MM-YYYY');
+    await db.read()
+    const { logins, users } = db.data
+    const id = Date.now().toString()
+    logins.push({ login: log, password: pass, id: id })
+    users.push({ info: { id: id, name: name, class: clas + letter, image: __dirname + "/" + image, add_date: currentDate, role: "teacher", students: [] } })
+    db.write()
+    console.log(req.session.authenticated)
+    res.redirect(`/user:${req.session.userId}`)
+})
+// app.post("/class-id", (req, res) => {
+//     const { data } = req.body
+//     req.session.class = data
+// })
 app.post("/login-api", async function (req, res) {
     const { log, pass } = req.body
     await db.read()

@@ -21,11 +21,24 @@
                 <img
                     src="https://funart.top/uploads/posts/2021-12/1640296057_2-funart-pro-p-belie-foni-s-litsami-2.jpg">
             </a>
+            <button onclick="logout()">Выйти</button>
         </nav>
-        <div class="table"></div>
+        <div class="field">
+
+        </div>
     </div>
 </body>
 <script>
+    function logout() {
+        fetch("/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: false })
+        })
+        window.location.href = "/"
+    }
     const id = window.location.href.slice(27)
     const response = fetch("/id", {
         method: 'POST',
@@ -35,20 +48,25 @@
         body: JSON.stringify({ data: id })
     })
         .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        //     let arr = []
-        //     arr.push(data)
-        //     document.getElementsByClassName("col")[0].innerHTML =
-        //         arr.map(i => `
-        //       <img class="img" src=${i.img}></img>
-        //       <p class="name">${i.name}</p>
-        //       <p>Класс: <span>${i.class}</span> </p>
-        //       <p>Учеников: <span>${i.amount}</span> </p>
-        //       <p>Мальчиков: <span>${i.males}</span> </p>
-        //       <p>Девочек: <span>${i.females}</span> </p>
-        //           `).join("")
-        // })
+        .then(data => {
+            console.log(document.getElementsByClassName("field")[0]);
+            let arr = []
+            arr.push(data)
+            document.getElementsByClassName("field")[0].innerHTML =
+                arr.map(i => {
+                    if (data.role == "admin") {
+                        return `
+                <div class="table"></div>
+    <a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a>
+                  `
+                    } else {
+                        return `
+                <div class="table"></div>
+    <a id="teacher-link" href="/user:${id}/add-student"><button>Добавить Ученика</button></a>
+                  `
+                    }
+                }).join("")
+        })
 </script>
 
 </html>
