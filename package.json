@@ -5,7 +5,7 @@
   "main": "bot.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon bot.js"
+    "start": "node bot.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +16,7 @@
     "lowdb": "^6.0.1",
     "moment": "^2.29.4",
     "nodemon": "^3.0.1"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "./db.json"
-    ]
+  }
   },
   "devDependencies": {
     "express-session": "^1.17.3"
