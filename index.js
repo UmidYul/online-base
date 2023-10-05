@@ -14,7 +14,7 @@ const adapter = new JSONFile(file)
 const defaultData = { logins: [], users: [] }
 const db = new Low(adapter, defaultData)
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + "/public/"))
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
