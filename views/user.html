@@ -5,32 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
 
 <body>
     <div class="container">
-        <div class="col"></div>
-        <div class="col">
-            <table>
-                <tr>
-                    <th>Company</th>
-                    <th>Contact</th>
-                    <th>Country</th>
-                </tr>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-            </table>
-        </div>
+        <nav>
+            <span class="searching">
+                <h1>online-base.uz</h1>
+                <input placeholder="Поиск по Ф.И.О." type="text">
+            </span>
+            <a href="">
+                <img
+                    src="https://funart.top/uploads/posts/2021-12/1640296057_2-funart-pro-p-belie-foni-s-litsami-2.jpg">
+            </a>
+        </nav>
+        <div class="table"></div>
     </div>
 </body>
 <script>
@@ -43,20 +35,20 @@
         body: JSON.stringify({ data: id })
     })
         .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            let arr = []
-            arr.push(data)
-            document.getElementsByClassName("col")[0].innerHTML =
-                arr.map(i => `
-              <img class="img" src=${i.img}></img>
-              <p class="name">${i.name}</p>
-              <p>Класс: <span>${i.class}</span> </p>
-              <p>Учеников: <span>${i.amount}</span> </p>
-              <p>Мальчиков: <span>${i.males}</span> </p>
-              <p>Девочек: <span>${i.females}</span> </p>
-                  `).join("")
-        })
+        // .then(data => {
+        //     console.log(data);
+        //     let arr = []
+        //     arr.push(data)
+        //     document.getElementsByClassName("col")[0].innerHTML =
+        //         arr.map(i => `
+        //       <img class="img" src=${i.img}></img>
+        //       <p class="name">${i.name}</p>
+        //       <p>Класс: <span>${i.class}</span> </p>
+        //       <p>Учеников: <span>${i.amount}</span> </p>
+        //       <p>Мальчиков: <span>${i.males}</span> </p>
+        //       <p>Девочек: <span>${i.females}</span> </p>
+        //           `).join("")
+        // })
 </script>
 
 </html>

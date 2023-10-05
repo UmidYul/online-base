@@ -77,7 +77,6 @@ app.post("/id", async function (req, res) {
         if (el.id == data) {
             req.session.userId = el.id
             res.send(JSON.stringify(el))
-            console.log(el);
         }
     }
 })
