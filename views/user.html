@@ -46,7 +46,7 @@
     window.onload = function () {
         setTimeout(() => {
             console.log("ok")
-            const id = window.location.href.slice(27)
+            const id = window.location.href.slice(-13)
             const response = fetch("/id", {
                 method: 'POST',
                 headers: {
