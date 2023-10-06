@@ -61,6 +61,7 @@ app.post('/add-student', async function (req, res) {
         if (el.id == req.session.userId) {
             el.students.push({ id: Date.now(), name: name, born_date: born, add_date: currentDate })
             db.write()
+            console.log("added");
             res.redirect(`/user:${req.session.userId}`)
         }
     }
@@ -82,7 +83,7 @@ app.post('/add-class', async function (req, res) {
     logins.push({ login: log, password: pass, id: id })
     users.push({ info: { id: id, name: name, class: clas + letter, image: __dirname + "/" + image, add_date: currentDate, role: "teacher", students: [] } })
     db.write()
-    console.log(req.session.authenticated)
+    console.log("added");
     res.redirect(`/user:${req.session.userId}`)
 })
 // app.post("/class-id", (req, res) => {
