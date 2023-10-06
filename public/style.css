@@ -17,8 +17,6 @@ nav h1 {
     display: inline-block;
 }
 
-/* nav .searching {} */
-
 nav .searching input {
     margin-left: 40px;
     padding: 0 5px;
@@ -33,4 +31,27 @@ nav img {
     height: 50px;
     border-radius: 100px;
     float: right !important;
+}
+
+.add-form {
+    width: 50%;
+    border: #574343 1px solid;
+}
+
+.add-form input,
+.add-form select {
+    padding: 4px 10px;
+}
+
+#img {
+    display: none;
+}
+
+label {
+    border: #000 1px solid;
+    padding: 4px 10px;
+}
+
+.save_btn {
+    padding: 4px 10px;
 }

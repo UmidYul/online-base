@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
-<script>
-    document.getElementById("sm-wrapper").remove()
-</script>
 
-<body>
-    <form action="/add-class" method="post">
-        <input type="text" placeholder="login" name="log">
-        <input type="pasword" placeholder="password" name="pass">
-        <select id="class" name="clas">
+<body class="add-class">
+    <form class="add-form" action="/add-class" method="post">
+        <input type="text" placeholder="login" name="log" required>
+        <input type="pasword" placeholder="password" name="pass" required>
+        <select id="class" name="clas" required>
             <option value="Выберите класс">Выберите класс</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -28,7 +26,7 @@
             <option value="10">10</option>
             <option value="11">11</option>
         </select>
-        <select id="letter" name="letter">
+        <select id="letter" name="letter" required>
             <option value="Выберите букву">Выберите букву</option>
             <option value="А">А</option>
             <option value="Б">Б</option>
@@ -39,27 +37,14 @@
             <option value="Ж">Ж</option>
             <option value="З">З</option>
             <option value="И">И</option>
-            <option value="Й">Й</option>
             <option value="К">К</option>
             <option value="л">л</option>
             <option value="М">М</option>
-            <option value="Н">Н</option>
-            <option value="О">О</option>
-            <option value="П">П</option>
-            <option value="Р">Р</option>
-            <option value="С">С</option>
-            <option value="Т">Т</option>
-            <option value="У">У</option>
-            <option value="Ф">Ф</option>
-            <option value="Х">Х</option>
-            <option value="Ц">Ц</option>
-            <option value="Ш">Ш</option>
-            <option value="Ю">Ю</option>
-            <option value="Я">Я</option>
         </select>
-        <input type="text" placeholder="teacher name" name="name">
-        <input type="file" accept="image/webp" placeholder="image" name="image">
-        <button>Send</button>
+        <input type="text" placeholder="teacher name" name="name" required>
+        <label for="img">Выбрать фото</label>
+        <input id="img" type="file" accept="image/webp" name="image" required>
+        <button class="save_btn">Сохранить</button>
     </form>
 </body>
 
