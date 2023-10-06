@@ -21,10 +21,7 @@
                 <h1>online-base.uz</h1>
                 <input placeholder="Поиск по Ф.И.О." type="text">
             </span>
-            <a href="">
-                <img
-                    src="https://funart.top/uploads/posts/2021-12/1640296057_2-funart-pro-p-belie-foni-s-litsami-2.jpg">
-            </a>
+            <img id="profile-img">
             <button onclick="logout()">Выйти</button>
         </nav>
         <div class="field">
@@ -57,7 +54,7 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                console.log(document.getElementsByClassName("field")[0]);
+                document.getElementById("profile-img").src = arr[0].img
                 document.getElementsByClassName("field")[0].innerHTML =
                     arr.map(i => {
                         if (data.role == "admin") {

@@ -1,34 +1,19 @@
 {
   "logins": [
     {
-      "login": "umid",
-      "password": "admin",
-      "id": "1696509479105"
-    },
-    {
       "login": "tima",
-      "password": "teacher",
+      "password": "admin",
       "id": "1696509479100"
     }
   ],
   "users": [
     {
       "info": {
-        "id": "1696509479105",
-        "img": "https://t4.ftcdn.net/jpg/04/25/65/97/360_F_425659755_5BaLdNbbCtQbbiz1JNFBikshfiCWI5NE.jpg",
-        "name": "Rustamov R.B.",
-        "class": "10 A",
-        "role": "admin",
-        "students": []
-      }
-    },
-    {
-      "info": {
         "id": "1696509479100",
-        "img": "https://img.freepik.com/free-photo/pretty-young-woman-portrait-outdoor_624325-3559.jpg?q=10&h=200",
+        "img": "/images/1696575564035.webp",
         "name": "Timurov R.B.",
         "class": "6 Z",
-        "role": "teacher",
+        "role": "admin",
         "students": []
       }
     }

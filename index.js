@@ -6,6 +6,10 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session';
 import moment from 'moment'
+import path from "path"
+import formidable from 'formidable'
+import fs from "fs"
+
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -75,15 +79,28 @@ app.get('/user:id/add-class', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_class.html")
 })
 app.post('/add-class', async function (req, res) {
-    const { name, clas, letter, image, log, pass } = req.body
+    const { name, clas, letter, log, pass } = req.body
+    console.log(req);
     const currentDate = moment().format('DD-MM-YYYY');
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
+    const form = formidable({ multiples: true });
+
+    form.parse(req, (err, fields, files) => {
+        const oldPath = files.image[0].filepath;
+        const newPath = path.join(__dirname, '/public/images/', `${id}.webp`);
+
+        fs.rename(oldPath, newPath, (error) => {
+            if (error) {
+                res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                return;
+            }
+        });
+    });
     logins.push({ login: log, password: pass, id: id })
-    users.push({ info: { id: id, name: name, class: clas + letter, image: __dirname + "/" + image, add_date: currentDate, role: "teacher", students: [] } })
+    users.push({ info: { id: id, name: name, class: clas + letter, image: "/images/" + `${id}.webp`, add_date: currentDate, role: "teacher", students: [] } })
     db.write()
-    console.log("added");
     res.redirect(`/user:${req.session.userId}`)
 })
 // app.post("/class-id", (req, res) => {
