@@ -1,19 +1,35 @@
 {
   "logins": [
     {
-      "login": "tima",
+      "login": "umid",
       "password": "admin",
       "id": "1696509479100"
+    },
+    {
+      "id": "1696608380766",
+      "login": "tima",
+      "password": "admin"
     }
   ],
   "users": [
     {
       "info": {
         "id": "1696509479100",
-        "img": "/images/1696575564035.webp",
+        "img": "/images/stuff/1696509479100.webp",
         "name": "Timurov R.B.",
         "class": "6 Z",
         "role": "admin",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1696608380766",
+        "name": "Йулдашев Умиджон Илхомович",
+        "class": "9В",
+        "img": "/images/error/error.webp",
+        "add_date": "06-10-2023",
+        "role": "teacher",
         "students": []
       }
     }

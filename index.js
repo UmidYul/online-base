@@ -22,9 +22,8 @@ app.use(express.static(__dirname + "/public/"))
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// Настройка сессий
 app.use(session({
-    secret: 'secret-key', // Секретный ключ для подписи сессии
+    secret: 'secret-key',
     resave: false,
     saveUninitialized: true
 }));
@@ -32,10 +31,8 @@ app.use(session({
 // Middleware для проверки аутентификации
 const authMiddleware = (req, res, next) => {
     if (req.session.authenticated) {
-        // Пользователь аутентифицирован, продолжаем выполнение запроса
         next();
     } else {
-        // Пользователь не аутентифицирован, перенаправляем на страницу входа
         res.redirect('/');
     }
 };
@@ -65,7 +62,6 @@ app.post('/add-student', async function (req, res) {
         if (el.id == req.session.userId) {
             el.students.push({ id: Date.now(), name: name, born_date: born, add_date: currentDate })
             db.write()
-            console.log("added");
             res.redirect(`/user:${req.session.userId}`)
         }
     }
@@ -80,33 +76,49 @@ app.get('/user:id/add-class', authMiddleware, function (req, res) {
 })
 app.post('/add-class', async function (req, res) {
     const { name, clas, letter, log, pass } = req.body
-    console.log(req);
     const currentDate = moment().format('DD-MM-YYYY');
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
-    const form = formidable({ multiples: true });
+    const form = formidable({ multiples: false });
 
     form.parse(req, (err, fields, files) => {
-        const oldPath = files.image[0].filepath;
-        const newPath = path.join(__dirname, '/public/images/', `${id}.webp`);
-
-        fs.rename(oldPath, newPath, (error) => {
-            if (error) {
-                res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                return;
-            }
-        });
+        if (files.length > 0 == true) {
+            const oldPath = files.image[0].filepath;
+            const newPath = path.join(__dirname, '/public/images/stuff/', `${id}.webp`);
+            fs.rename(oldPath, newPath, (error) => {
+                if (error) {
+                    res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                    return;
+                }
+            });
+            f(fields, "/images/stuff/" + `${id}.webp`)
+        } else {
+            f(fields, "/images/error/error.webp")
+        }
     });
-    logins.push({ login: log, password: pass, id: id })
-    users.push({ info: { id: id, name: name, class: clas + letter, image: "/images/" + `${id}.webp`, add_date: currentDate, role: "teacher", students: [] } })
-    db.write()
-    res.redirect(`/user:${req.session.userId}`)
+    function f(log, img) {
+        logins.push({
+            id: id,
+            login: log.log[0],
+            password: log.pass[0],
+        })
+        users.push({
+            info: {
+                id: id,
+                name: log.name[0],
+                class: log.clas[0] + log.letter[0],
+                img: img,
+                add_date: currentDate,
+                role: "teacher",
+                students: []
+            }
+        })
+        db.write()
+        res.redirect(`/user:${req.session.userId}`)
+    }
 })
-// app.post("/class-id", (req, res) => {
-//     const { data } = req.body
-//     req.session.class = data
-// })
+
 app.post("/login-api", async function (req, res) {
     const { log, pass } = req.body
     await db.read()
