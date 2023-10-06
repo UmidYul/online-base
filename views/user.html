@@ -42,7 +42,7 @@
         })
         window.location.href = "/"
     }
-    window.onload = () => {
+    window.onload = function () {
         const id = window.location.href.slice(27)
         const response = fetch("/id", {
             method: 'POST',
