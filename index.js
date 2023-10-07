@@ -53,16 +53,49 @@ app.get('/user:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
 app.post('/add-student', async function (req, res) {
-    const { name, born } = req.body
     const currentDate = moment().format('DD-MM-YYYY');
+    const id = Date.now().toString()
     await db.read()
     const { users } = db.data
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
         if (el.id == req.session.userId) {
-            el.students.push({ id: Date.now(), name: name, born_date: born, add_date: currentDate })
-            db.write()
-            res.redirect(`/user:${req.session.userId}`)
+            const form1 = formidable({ multiples: true });
+            form1.parse(req, (err, fields, files) => {
+                console.log(files);
+                // if (files.length > 0 == true) {
+                //     const oldPath = files.image[0].filepath;
+                //     const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
+                //     fs.rename(oldPath, newPath, (error) => {
+                //         if (error) {
+                //             res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                //             return;
+                //         }
+                //     });
+                //     f(fields, "/images/student/" + `${id}.webp`)
+                // } else {
+                //     f(fields, "/images/error/error.webp")
+                // }
+            });
+            function f(log, img) {
+                console.log(log);
+                el.students.push({
+                    id: id,
+                    img: img,
+                    name: log.student_name[0],
+                    born_date: log.student_birth_date[0],
+                    add_date: currentDate,
+                    document: log.document_type[0],
+                    phone_number: log.student_tel[0],
+                    adress: log.adress[0],
+                    mother_name: log.mother_name[0],
+                    father_name: log.father_name[0],
+                    family_status: log.family_status[0]
+                })
+                db.write()
+                res.redirect(`/user:${req.session.userId}`)
+            }
+
         }
     }
 })

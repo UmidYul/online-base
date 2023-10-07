@@ -11,32 +11,25 @@
 </script>
 
 <body>
-    <form action="/add-student" method="post">
-        <input type="text" name="name">
-        <input type="date" name="born">
-        <select name="passport">
+    <form action="/add-student" method="post" enctype="multipart/form-data">
+        <input type="text" name="student_name">
+        <input type="date" name="student_birth_date">
+        <select name="document_type">
             <option value="Паспорт/ID-карта">Паспорт/ID-карта</option>
             <option value="Свидетельство о рождении">Свидетельство о рождении</option>
             <option value="Паспорт другого государства">Паспорт другого государства</option>
         </select>
-        <select name="serial">
-            <option value="AA">AA</option>
-            <option value="AB">AB</option>
-            <option value="AC">AC</option>
-            <option value="AD">AD</option>
-            <option value="AAA">AAA</option>
-        </select>
-        <input type="tel" name="tel" placeholder="phone number">
+        <input type="text" name="serial_number">
+        <input type="tel" name="student_tel" placeholder="phone number">
         <input type="text" name="adress" placeholder="Adress">
         <input type="text" name="mother_name" placeholder="Mother name">
         <input type="text" name="father_name" placeholder="Father name">
-        <select name="family">
+        <select name="family_status">
             <option value="Полноценная">Полноценная</option>
             <option value="В разводе">В разводе</option>
             <option value="Приёмные">Приёмные</option>
         </select>
-        <label for="img">Выбрать фото</label>
-        <input id="img" type="file" accept="image/webp" required>
+        <input id="img" type="file" name="img" accept="image/webp" required>
         <button>Сохранить</button>
     </form>
 </body>
