@@ -1,14 +1,16 @@
 * {
     padding: 0;
     margin: 0;
-    font-size: 19px;
+}
+
+.container {
+    z-index: 99;
 }
 
 nav {
     height: auto;
     border-bottom: 2px solid black;
-    padding: 5px 100px;
-    background: #574343;
+    padding: 10px 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,33 +32,61 @@ nav .searching input {
 nav img {
     width: 50px;
     height: 50px;
-    border-radius: 100px;
-    float: right !important;
+    border-radius: 100%;
+    border: 1px solid black;
+    cursor: pointer;
 }
 
-.add-form {
-    width: 50%;
-    border: #574343 1px solid;
-}
-
-.add-form input,
-.add-form select {
-    padding: 4px 10px;
-}
-
-#img {
+.profile-container {
     display: none;
+    background: #000000AA;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    transition: 1s;
+    transform: translateY(-100vh);
 }
 
-label {
-    border: #000 1px solid;
-    padding: 4px 10px;
+.__visible {
+    z-index: 100;
+    display: flex;
+    transform: none !important;
 }
 
-.save_btn {
-    padding: 7px 15px;
-    background-color: #28A745;
+.profile {
+    background: #fff;
+    border-radius: 30px;
+    border: 1px solid black;
+    width: 600px;
+}
+
+.profile img {
+    display: block;
+}
+
+.profile .exit-btn {
+    cursor: pointer;
+}
+
+.profile button {
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    color: #FF6969;
+    background-color: #fff;
+    border: #FF6969 1px solid;
+    font-size: 18px;
+    transition: all 500ms ease;
+    float: right;
+}
+
+.profile button:hover {
+    background-color: #FF6969;
     color: #fff;
-    border-radius: 6px;
-    border: 1px solid #28A745;
 }

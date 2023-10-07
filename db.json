@@ -6,13 +6,8 @@
       "id": "1696509479100"
     },
     {
-      "id": "1696653157197",
-      "login": "tima",
-      "password": "admin"
-    },
-    {
-      "id": "1696653326477",
-      "login": "tima",
+      "id": "1696655345295",
+      "login": "umid1",
       "password": "admin"
     }
   ],
@@ -24,28 +19,6 @@
         "name": "Timurov R.B.",
         "class": "6 Z",
         "role": "admin",
-        "students": []
-      }
-    },
-    {
-      "info": {
-        "id": "1696653157197",
-        "name": "Дамир",
-        "class": "1Б",
-        "img": "/images/error/error.webp",
-        "add_date": "07-10-2023",
-        "role": "teacher",
-        "students": []
-      }
-    },
-    {
-      "info": {
-        "id": "1696653326477",
-        "name": "Дамир",
-        "class": "1В",
-        "img": "/images/error/error.webp",
-        "add_date": "07-10-2023",
-        "role": "teacher",
         "students": []
       }
     }

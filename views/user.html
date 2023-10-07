@@ -7,12 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
+    <title>online-base.uz</title>
 </head>
-<script>
-    const e = document.getElementById("sm-wrapper")
-    e.remove()
-</script>
+
 
 <body>
     <div class="container">
@@ -22,10 +19,20 @@
                 <input placeholder="Поиск по Ф.И.О." type="text">
             </span>
             <img id="profile-img">
-            <button onclick="logout()">Выйти</button>
         </nav>
-        <div class="field">
+        <div id="field">
 
+        </div>
+
+    </div>
+    <div class="profile-container">
+        <div class="profile">
+            <img id="img-top">
+            <i class="exit-btn fa-solid fa-xmark">
+
+            </i>
+            <img id="img-top">
+            <button onclick="logout()">Выйти</button>
         </div>
     </div>
 </body>
@@ -41,7 +48,6 @@
     }
 
     window.onload = function () {
-        console.log("ok")
         const id = window.location.href.slice(-13)
         const response = fetch("/id", {
             method: 'POST',
@@ -55,22 +61,32 @@
                 let arr = []
                 arr.push(data)
                 document.getElementById("profile-img").src = arr[0].img
-                document.getElementsByClassName("field")[0].innerHTML =
+                document.getElementById("img-top").src = arr[0].img
+                document.getElementById("field").innerHTML =
                     arr.map(i => {
                         if (data.role == "admin") {
                             return `
-            <div class="table"></div>
-<a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a>
-              `
+<div class="table"></div>
+<a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a>`
                         } else {
                             return `
-            <div class="table"></div>
+                            <div class="table"></div>
 <a class="teacher-link" id="teacher-link" href="/user:${id}/add-student"><button>Добавить Ученика</button></a>
-              `
+`
                         }
                     }).join("")
             })
     }
+    let profile = document.getElementsByClassName('profile-container')[0];
+    let profile_img = document.getElementById('profile-img');
+    let exit_btn = document.getElementsByClassName('exit-btn')[0];
+
+    exit_btn.addEventListener('click', () => {
+        profile.classList.remove('__visible')
+    })
+    profile_img.addEventListener('click', () => {
+        profile.classList.add('__visible')
+    }) 
 </script>
 
 </html>

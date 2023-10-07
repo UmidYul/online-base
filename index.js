@@ -9,6 +9,7 @@ import moment from 'moment'
 import path from "path"
 import formidable from 'formidable'
 import fs from "fs"
+import { ifError } from 'node:assert'
 
 const app = express()
 const PORT = 3000
@@ -49,19 +50,22 @@ app.get('/user:id', authMiddleware, function (req, res) {
 app.get('/user:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
+
 app.post('/add-student', async function (req, res) {
     const currentDate = moment().format('DD-MM-YYYY');
     const id = Date.now().toString()
     await db.read()
     const { users } = db.data
     const form1 = formidable({ multiples: false });
-
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
         if (el.id == req.session.userId) {
             form1.parse(req, (err, fields, files) => {
-                if (files.length > 0 == true) {
-                    const oldPath = files.image[0].filepath;
+                if (err) {
+                    console.log(err);
+                }
+                if (files.img) {
+                    const oldPath = files.img[0].filepath;
                     const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
                     fs.rename(oldPath, newPath, (error) => {
                         if (error) {
@@ -75,7 +79,6 @@ app.post('/add-student', async function (req, res) {
                 }
             });
             function f(log, img) {
-                console.log(log);
                 el.students.push({
                     id: id,
                     img: img,
@@ -110,11 +113,9 @@ app.post('/add-class', async function (req, res) {
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
-
     form.parse(req, (err, fields, files) => {
-        console.log(files)
-        if (files.length > 0 == true) {
-            const oldPath = files.image[0].filepath;
+        if (files.img) {
+            const oldPath = files.img[0].filepath;
             const newPath = path.join(__dirname, '/public/images/stuff/', `${id}.webp`);
             fs.rename(oldPath, newPath, (error) => {
                 if (error) {
@@ -139,6 +140,7 @@ app.post('/add-class', async function (req, res) {
                 name: log.name[0],
                 class: log.clas[0] + log.letter[0],
                 img: img,
+                subject: log.subject[0],
                 add_date: currentDate,
                 role: "teacher",
                 students: []
