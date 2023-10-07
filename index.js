@@ -28,7 +28,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Middleware для проверки аутентификации
 const authMiddleware = (req, res, next) => {
     if (req.session.authenticated) {
         next();
@@ -36,8 +35,6 @@ const authMiddleware = (req, res, next) => {
         res.redirect('/');
     }
 };
-
-
 
 app.get('/', function (req, res) {
     if (req.session.authenticated == true) {
@@ -57,25 +54,25 @@ app.post('/add-student', async function (req, res) {
     const id = Date.now().toString()
     await db.read()
     const { users } = db.data
+    const form1 = formidable({ multiples: false });
+
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
         if (el.id == req.session.userId) {
-            const form1 = formidable({ multiples: true });
             form1.parse(req, (err, fields, files) => {
-                console.log(files);
-                // if (files.length > 0 == true) {
-                //     const oldPath = files.image[0].filepath;
-                //     const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
-                //     fs.rename(oldPath, newPath, (error) => {
-                //         if (error) {
-                //             res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                //             return;
-                //         }
-                //     });
-                //     f(fields, "/images/student/" + `${id}.webp`)
-                // } else {
-                //     f(fields, "/images/error/error.webp")
-                // }
+                if (files.length > 0 == true) {
+                    const oldPath = files.image[0].filepath;
+                    const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
+                    fs.rename(oldPath, newPath, (error) => {
+                        if (error) {
+                            res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                            return;
+                        }
+                    });
+                    f(fields, "/images/student/" + `${id}.webp`)
+                } else {
+                    f(fields, "/images/error/error.webp")
+                }
             });
             function f(log, img) {
                 console.log(log);
@@ -108,14 +105,14 @@ app.get('/user:id/add-class', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_class.html")
 })
 app.post('/add-class', async function (req, res) {
-    const { name, clas, letter, log, pass } = req.body
+    const form = formidable({ multiples: false });
     const currentDate = moment().format('DD-MM-YYYY');
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
-    const form = formidable({ multiples: false });
 
     form.parse(req, (err, fields, files) => {
+        console.log(files)
         if (files.length > 0 == true) {
             const oldPath = files.image[0].filepath;
             const newPath = path.join(__dirname, '/public/images/stuff/', `${id}.webp`);

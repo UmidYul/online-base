@@ -6,7 +6,12 @@
       "id": "1696509479100"
     },
     {
-      "id": "1696608380766",
+      "id": "1696653157197",
+      "login": "tima",
+      "password": "admin"
+    },
+    {
+      "id": "1696653326477",
       "login": "tima",
       "password": "admin"
     }
@@ -24,53 +29,24 @@
     },
     {
       "info": {
-        "id": "1696608380766",
-        "name": "Йулдашев Умиджон Илхомович",
-        "class": "9В",
+        "id": "1696653157197",
+        "name": "Дамир",
+        "class": "1Б",
         "img": "/images/error/error.webp",
-        "add_date": "06-10-2023",
+        "add_date": "07-10-2023",
         "role": "teacher",
-        "students": [
-          {
-            "id": "1696650108843",
-            "img": "/images/error/error.webp",
-            "name": "damir",
-            "born_date": "2023-10-18",
-            "add_date": "07-10-2023",
-            "document": "Свидетельство о рождении",
-            "phone_number": "564364566",
-            "adress": "5fgbwfgtbhwt45h4",
-            "mother_name": "h5rhtgh5h",
-            "father_name": "h45h5h5th5",
-            "family_status": "Приёмные"
-          },
-          {
-            "id": "1696650206096",
-            "img": "/images/error/error.webp",
-            "name": "damir",
-            "born_date": "2023-10-11",
-            "add_date": "07-10-2023",
-            "document": "Паспорт другого государства",
-            "phone_number": "fghfdjgjg55",
-            "adress": "hghdfhfh",
-            "mother_name": "gfhhfhgdhgfg",
-            "father_name": "gfnfdg",
-            "family_status": "В разводе"
-          },
-          {
-            "id": "1696650304031",
-            "img": "/images/error/error.webp",
-            "name": "",
-            "born_date": "",
-            "add_date": "07-10-2023",
-            "document": "Паспорт/ID-карта",
-            "phone_number": "",
-            "adress": "",
-            "mother_name": "",
-            "father_name": "",
-            "family_status": "Полноценная"
-          }
-        ]
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1696653326477",
+        "name": "Дамир",
+        "class": "1В",
+        "img": "/images/error/error.webp",
+        "add_date": "07-10-2023",
+        "role": "teacher",
+        "students": []
       }
     }
   ]
