@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/swiper.css">
     <title>online-base.uz</title>
 </head>
 
@@ -14,31 +16,200 @@
 <body>
     <div class="container">
         <nav>
-            <span class="searching">
+            <div>
                 <h1>online-base.uz</h1>
-                <input placeholder="Поиск по Ф.И.О." type="text">
-            </span>
+                <span class="searching">
+
+                </span>
+            </div>
             <img id="profile-img">
         </nav>
-        <div id="field">
+
+        <div class="swiper">
+
+            <div id="swiper" class="swiper-wrapper">
+                <div class="swiper-slide" id="1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="2">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody2">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody3">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="4">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody4">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="5">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody5">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="6">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody6">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="7">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody7">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="8">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody8">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="9">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody9">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="10">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Класс</th>
+                                <th>Кол-во</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody10">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="swiper-slide" id="11">
+                    <div class="table-container" role="region" tabindex="0">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Класс</th>
+                                    <th>Кол-во</th>
+                                    <th>Класс.Рук</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody11">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
 
         </div>
 
+        <div id="field">
+
+        </div>
     </div>
+
     <div class="profile-container">
         <div class="profile">
             <i class="exit-btn fa-solid fa-xmark"></i>
-            <div class="col">
+            <div class="col info_1">
                 <img id="img-top">
-                <p>Фамилия И.О.</p>
+                <p class="profile_name">Фамилия И.О.</p>
                 <p><span>ID: </span>287707099</p>
             </div>
-            <div class="col">
+            <div class="col info_2">
                 <p><span>Класс: </span>10 "А"</p>
                 <p><span>Кол-во: </span>29 учеников</p>
                 <p><span>Предмет: </span>Математика</p>
             </div>
-            <button onclick="logout()">Выйти</button>
+
+            <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
         </div>
     </div>
 </body>
@@ -66,19 +237,59 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                document.getElementById("profile-img").src = arr[0].img
-                document.getElementById("img-top").src = arr[0].img
+                console.log(arr[0].el.role);
+                if (arr[0].el.role == "admin") {
+                    arr[0].users.forEach(e => {
+
+                        //     document.getElementById(e.info.class_num).innerHTML =
+                        //         arr[0].users.map(i => {
+                        //             return `
+                        //             <tr>
+                        //                 <td>${i.info.class_num + " " + i.info.class_letter}</td>
+                        //                 <td>${i.info.students.length}</td>
+                        //                 <td>${i.info.name}</td>
+                        //             </tr>
+                        // `
+                        //         }).join(" ")
+                    });
+                } else {
+                    arr[0].users.forEach(e => {
+                        document.getElementById("tbody" + e.info.class_num).innerHTML =
+                            arr[0].users.map(i => {
+                                return `
+
+                                <tr>
+                                    <td>${i.info.class_num + " " + i.info.class_letter}</td>
+                                    <td>${i.info.students.length}</td>
+                                    <td>${i.info.name}</td>
+                                </tr>
+                    `
+                            })
+                    });
+                }
+                document.getElementById("profile-img").src = arr[0].el.img
+                document.getElementById("img-top").src = arr[0].el.img
+                document.getElementsByClassName('searching')[0].innerHTML =
+                    arr.map(i => {
+                        if (arr[0].el.role == "admin") {
+                            return `
+                            <input placeholder="Поиск по классу" type="text">
+                            `}
+                        else {
+                            return `
+                                <input placeholder="Поиск по Ф.И.О." type="text">
+                                `
+                        }
+                    })
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
-                        if (data.role == "admin") {
+                        if (arr[0].el.role == "admin") {
                             return `
-<div class="table"></div>
-<a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a>`
-                        } else {
+
+<div><a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a></div>`
+                        } if (arr[0].el.role == "teacher") {
                             return `
-                            <div class="table"></div>
-<a class="teacher-link" id="teacher-link" href="/user:${id}/add-student"><button>Добавить Ученика</button></a>
-`
+                            <div><a class="teacher-link" id="teacher-link" href="/user:${id}/add-student"><button>Добавить Ученика</button></a></div>`
                         }
                     }).join("")
             })
@@ -92,7 +303,25 @@
     })
     profile_img.addEventListener('click', () => {
         profile.classList.add('__visible')
-    }) 
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs'
+
+
+    var swiper = new Swiper(".swiper", {
+        noSwiping: true,
+        noSwipingClass: 'swiper-slide',
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            renderBullet: function (index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+        },
+    });
+
 </script>
 
 </html>

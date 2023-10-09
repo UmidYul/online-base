@@ -9,7 +9,6 @@ import moment from 'moment'
 import path from "path"
 import formidable from 'formidable'
 import fs from "fs"
-import { ifError } from 'node:assert'
 
 const app = express()
 const PORT = 3000
@@ -52,7 +51,6 @@ app.get('/user:id/add-student', authMiddleware, function (req, res) {
 })
 
 app.post('/add-student', async function (req, res) {
-    const currentDate = moment().format('DD-MM-YYYY');
     const id = Date.now().toString()
     await db.read()
     const { users } = db.data
@@ -61,39 +59,61 @@ app.post('/add-student', async function (req, res) {
         const el = users[i].info;
         if (el.id == req.session.userId) {
             form1.parse(req, (err, fields, files) => {
-                if (err) {
-                    console.log(err);
-                }
-                if (files.img) {
-                    const oldPath = files.img[0].filepath;
-                    const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
-                    fs.rename(oldPath, newPath, (error) => {
-                        if (error) {
-                            res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                            return;
-                        }
-                    });
-                    f(fields, "/images/student/" + `${id}.webp`)
-                } else {
-                    f(fields, "/images/error/error.webp")
-                }
+                f(fields, "/aqsdas/asd")
+                // if (err) {
+                //     console.log(err);
+                // }
+                // if (files.img) {
+                //     const oldPath = files.img[0].filepath;
+                //     const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
+                //     fs.rename(oldPath, newPath, (error) => {
+                //         if (error) {
+                //             res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                //             return;
+                //         }
+                //     });
+                //     f(fields, "/images/student/" + `${id}.webp`)
+                // } else {
+                //     f(fields, "/images/error/error.webp")
+                // }
             });
             function f(log, img) {
-                el.students.push({
-                    id: id,
-                    img: img,
-                    name: log.student_name[0],
-                    born_date: log.student_birth_date[0],
-                    add_date: currentDate,
-                    document: log.document_type[0],
-                    phone_number: log.student_tel[0],
-                    adress: log.adress[0],
-                    mother_name: log.mother_name[0],
-                    father_name: log.father_name[0],
-                    family_status: log.family_status[0]
-                })
+                console.log(log, img);
+                // el.students.push({
+                //     id: id,
+                //     img: img,
+                //     student_name: log.student_name[0],
+                //     student_birth_date: log.student_birth_date[0],
+                //     student_accept_date: log.student_accept_date[0],
+                //     document_type: log.document_type[0],
+                //     serial_number: log.student_serial_number[0],
+                //     student_tel: log.student_tel[0],
+                //     student_adress: log.student_adress[0],
+                //     student_mahalla: log.student_mahalla[0],
+                //     family_status: log.family_status[0],
+                //     student_attraction: log.student_attraction[0],
+                //     student_health_status: log.student_health_status[0],
+                //     mother: {
+                //         mother_name: log.mother_name[0],
+                //         mother_serial_number: log.mother_serial_number[0],
+                //         mother_birth_date: log.mother_birth_date[0],
+                //         mother_adress: log.mother_adress[0],
+                //         mother_mahalla: log.mother_mahalla[0],
+                //         mother_tel: log.mother_tel[0],
+                //         mother_workplace: log.mother_workplace[0]
+                //     },
+                //     father: {
+                //         father_name: log.father_name[0],
+                //         mother_serial_number: log.mother_serial_number[0],
+                //         father_birth_date: log.father_birth_date[0],
+                //         father_adress: log.father_adress[0],
+                //         father_mahalla: log.father_mahalla[0],
+                //         father_tel: log.father_tel[0],
+                //         father_workplace: log.father_workplace[0]
+                //     }
+                // })
                 db.write()
-                res.redirect(`/user:${req.session.userId}`)
+                console.log("ok");
             }
 
         }
@@ -107,9 +127,9 @@ app.post('/logout', function (req, res) {
 app.get('/user:id/add-class', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_class.html")
 })
+
 app.post('/add-class', async function (req, res) {
     const form = formidable({ multiples: false });
-    const currentDate = moment().format('DD-MM-YYYY');
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
@@ -138,10 +158,10 @@ app.post('/add-class', async function (req, res) {
             info: {
                 id: id,
                 name: log.name[0],
-                class: log.clas[0] + log.letter[0],
+                class: log.clas[0],
+                class_letter: log.letter[0],
                 img: img,
                 subject: log.subject[0],
-                add_date: currentDate,
                 role: "teacher",
                 students: []
             }
@@ -180,7 +200,7 @@ app.post("/id", async function (req, res) {
         const el = users[i].info;
         if (el.id == data) {
             req.session.userId = el.id
-            res.send(JSON.stringify(el))
+            res.send(JSON.stringify({ el, users }))
         }
     }
 })

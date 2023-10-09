@@ -6,8 +6,8 @@
       "id": "1696509479100"
     },
     {
-      "id": "1696655345295",
-      "login": "umid1",
+      "id": "1696841382255",
+      "login": "tima",
       "password": "admin"
     }
   ],
@@ -17,9 +17,26 @@
         "id": "1696509479100",
         "img": "/images/stuff/1696509479100.webp",
         "name": "Timurov R.B.",
-        "class": "6 Z",
+        "class_num": "6",
+        "class_letter": "Z",
         "role": "admin",
         "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1696841382255",
+        "name": "Roza Najmidinnovna",
+        "class_num": "1",
+        "class_letter": "В",
+        "img": "/images/stuff/1696841382255.webp",
+        "subject": "Экономика",
+        "role": "teacher",
+        "students": [
+          {
+            "name": "adas"
+          }
+        ]
       }
     }
   ]
