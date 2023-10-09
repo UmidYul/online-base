@@ -59,7 +59,7 @@ app.post('/add-student', async function (req, res) {
         const el = users[i].info;
         if (el.id == req.session.userId) {
             form1.parse(req, (err, fields, files) => {
-                f(fields, "/aqsdas/asd")
+                f(fields, el.id)
                 // if (err) {
                 //     console.log(err);
                 // }
@@ -112,8 +112,8 @@ app.post('/add-student', async function (req, res) {
                 //         father_workplace: log.father_workplace[0]
                 //     }
                 // })
-                db.write()
-                console.log("ok");
+                // db.write()
+                res.redirect(`/user:${el.id}`)
             }
 
         }
