@@ -6,7 +6,7 @@
       "id": "1696509479100"
     },
     {
-      "id": "1696841382255",
+      "id": "1698900766758",
       "login": "tima",
       "password": "admin"
     }
@@ -25,18 +25,14 @@
     },
     {
       "info": {
-        "id": "1696841382255",
-        "name": "Roza Najmidinnovna",
-        "class_num": "1",
-        "class_letter": "В",
-        "img": "/images/stuff/1696841382255.webp",
-        "subject": "Экономика",
+        "id": "1698900766758",
+        "name": "Ism familiya",
+        "class": "1",
+        "class_letter": "А",
+        "img": "/images/stuff/1698900766758.webp",
+        "subject": "Матеметика",
         "role": "teacher",
-        "students": [
-          {
-            "name": "adas"
-          }
-        ]
+        "students": []
       }
     }
   ]

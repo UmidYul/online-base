@@ -4,43 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <title>online-base.uz</title>
 </head>
 
 <body>
-    <form action="/add-student" enctype="multipart/form-data" method="post">
-        <input type="file" name="img" accept="image/webp">
-        <input type="text" placeholder="Ф.И.О" name="student_name">
-        <input type="date" name="student_birth_date">
-        <input type="date" name="student_accept_date">
-        <select name="document_type">
-            <option value="none">Документ</option>
-            <option value="Паспорт/ID-карта">Паспорт/ID-карта</option>
-            <option value="Свидетельство о рождении">Свидетельство о рождении</option>
-            <option value="Паспорт другого государства">Паспорт другого государства</option>
-        </select>
-        <input type="text" placeholder="Серия паспорта" name="student_serial_number">
-        <input type="tel" placeholder="+998(90)000-00-00" name="student_tel">
-        <input type="text" placeholder="Адресс" name="student_adress">
-        <input type="text" placeholder="Махалла" name="student_mahalla">
-        <select name="family_status">
-            <option value="none">Состояние семьи</option>
-            <option value="Малообеспеченная">Малообеспеченная</option>
-            <option value="Социально опасное положение">Социально опасное положение</option>
-            <option value="Полная">Полная</option>
-            <option value="Не полная">Не полная</option>
-            <option value="Многодетная (3 и более детей)">Многодетная (3 и более детей)</option>
-            <option value="мать вдова">Мать вдова</option>
-            <option value="отец вдовец">Отец вдовец</option>
-            <option value="сирота (воспитанник семейного детского дома)">Сирота</option>
-        </select>
-        <textarea name="student_attraction" placeholder="Увлечения ребёнка(Интересы,Изучаемые языки,Посещяемые кружки)"
-            cols="30" rows="5"></textarea>
-        <textarea name="student_health_status" placeholder="Состояние здоровья (группа, диагноз)" cols="30"
-            rows="5"></textarea>
-        <button type="submit">azdasd</button>
-    </form>
-    <!-- <form action="/add-student" method="post" enctype="multipart/form-data">
+    <form action="/add-student" method="post" enctype="multipart/form-data">
         <h1>Ученик</h1>
         <input type="file" name="img" accept="image/webp">
         <input type="text" placeholder="Ф.И.О" name="student_name">
@@ -91,8 +60,7 @@
         <input type="tel" placeholder="+998(90)000-00-00" name="father_tel">
         <input type="text" placeholder="Место работы" name="father_workplace">
         <button type="submit">Submit</button>
-
-    </form> -->
+    </form>
 
 </body>
 
