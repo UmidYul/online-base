@@ -157,7 +157,7 @@ app.post('/add-class', async function (req, res) {
             info: {
                 id: id,
                 name: log.name[0],
-                class: log.class_num[0],
+                class_num: log.class_num[0],
                 class_letter: log.letter[0],
                 img: img,
                 subject: log.subject[0],

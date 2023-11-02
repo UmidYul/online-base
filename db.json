@@ -9,6 +9,11 @@
       "id": "1698900766758",
       "login": "tima",
       "password": "admin"
+    },
+    {
+      "id": "1698942081035",
+      "login": "dsadd",
+      "password": "ad"
     }
   ],
   "users": [
@@ -17,9 +22,30 @@
         "id": "1696509479100",
         "img": "/images/stuff/1696509479100.webp",
         "name": "Timurov R.B.",
-        "class_num": "6",
-        "class_letter": "Z",
-        "role": "admin",
+        "role": "admin"
+      }
+    },
+    {
+      "info": {
+        "id": "1698900766758",
+        "name": "Ism familiya",
+        "class_num": "1",
+        "class_letter": "А",
+        "img": "/images/stuff/1698900766758.webp",
+        "subject": "Матеметика",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1698942081035",
+        "name": "adsdasda",
+        "class_num": "2",
+        "class_letter": "B",
+        "img": "/images/stuff/1698942081035.webp",
+        "subject": "Матеметика",
+        "role": "teacher",
         "students": []
       }
     },
@@ -27,7 +53,7 @@
       "info": {
         "id": "1698900766758",
         "name": "Ism familiya",
-        "class": "1",
+        "class_num": "1",
         "class_letter": "А",
         "img": "/images/stuff/1698900766758.webp",
         "subject": "Матеметика",

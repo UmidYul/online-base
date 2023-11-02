@@ -116,6 +116,10 @@ nav img {
     font-weight: 600;
 }
 
+.profile_name {
+    font-weight: 400 !important;
+}
+
 .profile .info_1 p,
 .profile .info_2 p {
     display: block;
