@@ -22,7 +22,8 @@
         "id": "1696509479100",
         "img": "/images/stuff/1696509479100.webp",
         "name": "Timurov R.B.",
-        "role": "admin"
+        "role": "admin",
+        "students": []
       }
     },
     {
@@ -51,10 +52,10 @@
     },
     {
       "info": {
-        "id": "1698900766758",
+        "id": "16989007667598",
         "name": "Ism familiya",
         "class_num": "1",
-        "class_letter": "А",
+        "class_letter": "З",
         "img": "/images/stuff/1698900766758.webp",
         "subject": "Матеметика",
         "role": "teacher",

@@ -42,10 +42,18 @@ app.get('/', function (req, res) {
         res.sendFile(__dirname + "/views/login.html")
     }
 })
+app.get("/user:id/class:id/student:id", authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/student.html")
+})
+app.get("/user:id/class:id", authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/class.html")
+})
+
 app.get('/user:id', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/user.html")
 })
-app.get('/user:id/add-student', authMiddleware, function (req, res) {
+
+app.get('/user:id/class:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
 
@@ -62,7 +70,6 @@ app.post('/add-student', async function (req, res) {
                 // if (err) {
                 //     console.log(err);
                 // }
-                console.log(files.img[0].filepath);
                 if (files.img) {
                     const oldPath = files.img[0].filepath;
                     const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
@@ -200,6 +207,66 @@ app.post("/id", async function (req, res) {
         if (el.id == data) {
             req.session.userId = el.id
             res.send(JSON.stringify({ el, users }))
+        }
+    }
+})
+app.post("/classid", async function (req, res) {
+    const { data } = req.body
+    await db.read()
+    const { users } = db.data
+    for (let i = 0; i < users.length; i++) {
+        const el = users[i].info;
+        if (el.id == data) {
+            res.send(JSON.stringify({ el }))
+        }
+    }
+})
+app.post("/studentid", async function (req, res) {
+    const { sid, cid } = req.body
+    await db.read()
+    const { users } = db.data
+    for (let i = 0; i < users.length; i++) {
+        const el = users[i].info;
+        if (el.id == cid) {
+            for (let e = 0; e < el.students.length; e++) {
+                const x = el.students[e];
+                if (x.id == sid) {
+                    res.send(JSON.stringify({ x }))
+                }
+            }
+        }
+    }
+})
+app.post("/remove/student", async function (req, res) {
+    const { uid, sid, cid } = req.body
+    await db.read()
+    const { users } = db.data
+    for (let i = 0; i < users.length; i++) {
+        const el = users[i].info;
+        if (el.id == cid) {
+            for (let e = 0; e < el.students.length; e++) {
+                const x = el.students[e];
+                if (x.id == sid) {
+                    let responseSent = false;
+
+                    users.forEach(element => {
+                        if (element.info.students && Array.isArray(element.info.students)) {
+                            const index = element.info.students.findIndex(user => user.id == sid);
+                            element.info.students.splice(index, 1);
+                            db.write();
+                            if (!responseSent) {
+                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}` }));
+                                responseSent = true;
+                            }
+                        } else {
+                            if (!responseSent) {
+                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}/student:${sid}` }));
+                                responseSent = true;
+                            }
+                        }
+                    });
+                }
+            }
         }
     }
 })

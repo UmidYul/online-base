@@ -43,9 +43,10 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Класс</th>
-                                <th>Кол-во</th>
-                                <th>Класс.Рук</th>
+                                <th>Ф.И.О</th>
+                                <th>Номер</th>
+                                <th>Адрес</th>
+                                <th>Махалля</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -126,6 +127,7 @@
                         }
                     })
                 if (arr[0].el.role == "admin") {
+                    document.getElementById("class_num_option").style.display = "block"
                     let arr2 = []
                     arr[0].users.forEach(e => {
                         arr[0].users.map(i => {
@@ -147,7 +149,7 @@
                                     num_arr.map(x => {
                                         return `
                                             <tr>
-                                                <td>${x.info.class_num + " " + x.info.class_letter}</td>
+                                                <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                                 <td>${x.info.students.length}</td>
                                                 <td>${x.info.name}</td>
                                             </tr>
@@ -159,18 +161,30 @@
                     });
 
                 } else {
-                    arr[0].users.forEach(e => {
-                        document.getElementById("tbody" + e.info.class_num).innerHTML =
-                            arr[0].users.map(i => {
-                                return `
-                                    <tr>
-                                        <td>${i.info.class_num + " " + i.info.class_letter}</td>
-                                        <td>${i.info.students.length}</td>
-                                        <td>${i.info.name}</td>
-                                    </tr>
-                        `
-                            }).join(" ")
-                    })
+                    document.getElementById("tbody").innerHTML =
+                        arr[0].el.students.map(x => {
+                            return `
+                                                <tr>
+                                                <td><a href=/user:${id}/class:${id}/student:${x.id}>${x.student_name}</a></td>
+                                                <td>${x.student_tel}</td>
+                                                <td>${x.student_mahalla}</td>
+                                                <td>${x.student_adress}</td>
+                                                </tr>
+                                    `
+                        }).join(" ")
+                    // arr[0].users.forEach(e => {
+                    //     document.getElementById("tbody" + e.info.class_num).innerHTML =
+                    //         arr[0].users.map(i => {
+                    //             console.log(i.info.students.length);
+                    //             return `
+                    //                 <tr>
+                    //                     <td>${i.info.class_num + " " + i.info.class_letter}</td>
+                    //                     <td>${i.info.students}</td>
+                    //                     <td>${i.info.name}</td>
+                    //                 </tr>
+                    //     `
+                    //         }).join(" ")
+                    // })
                 }
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img

@@ -23,8 +23,25 @@
             </div>
             <img id="profile-img">
         </nav>
-        <div class="studentInfo">
+        <div class="swiper">
+            <div id="swiper" class="swiper-wrapper">
+                <div class="swiper-slide" id="1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ф.И.О</th>
+                                <th>Номер</th>
+                                <th>Адрес</th>
+                                <th>Махалля</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
         <div id="field"></div>
     </div>
@@ -47,9 +64,8 @@
     }
 
     window.onload = function () {
-        const classId = window.location.href.slice(-35, -22)
-        const userId = window.location.href.slice(-55, -42)
-        const studentId = window.location.href.slice(-13)
+        const classId = window.location.href.slice(-13)
+        const userId = window.location.href.slice(-33, -20)
         const res = fetch("/id", {
             method: 'POST',
             headers: {
@@ -90,76 +106,51 @@
                         }
                     })
 
+
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img
-                document.getElementById("field").innerHTML = `
-                <div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
-                <div><button id="remove">Удалить</button></div>
-                `
+                document.getElementsByClassName('searching')[0].innerHTML =
+                    arr.map(i => {
+                        if (arr[0].el.role == "admin") {
+                            return `<input placeholder="Поиск по классу" type="text">`
+                        }
+                        else {
+                            return `<input placeholder="Поиск по Ф.И.О." type="text">`
+                        }
+                    })
+                document.getElementById("field").innerHTML =
+                    arr.map(i => {
+                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button>Добавить Ученика</button></a></div>`
+                    }).join("")
             })
-
-        const response = fetch("/studentid", {
+        const response = fetch("/classid", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ sid: studentId, cid: classId, uid: userId })
+            body: JSON.stringify({ data: classId })
         })
             .then(response => response.json())
             .then(data => {
                 let arr = []
                 arr.push(data)
-                document.getElementsByClassName("studentInfo")[0].innerHTML =
-                    `
-    <h1>Ученик</h1>
-            <img src=${arr[0].x.img}>
-            <p>Ф.И.О: ${arr[0].x.student_name}</p>
-            <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
-            <p>Дата принятия в школу: ${arr[0].x.student_accept_date}</p>
-            <p>Тип документа: ${arr[0].x.document_type}</p>
-            <p>Серия документа: ${arr[0].x.serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.student_tel}</p>
-            <p>Адресс: ${arr[0].x.student_adress}</p>
-            <p>Махалля: ${arr[0].x.student_mahalla}</p>
-            <p>Семейное положение: ${arr[0].x.family_status}</p>
-            <p>Увлечения: ${arr[0].x.student_attraction}</p>
-            <p>Здоровье: ${arr[0].x.student_health_status}</p>
-            
-            <hr>
-            <h1>Мать:</h1>
-            <p>Имя: ${arr[0].x.mother.mother_name}</p>
-            <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
-            <p>Серя паспорта: ${arr[0].x.mother.mother_serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
-            <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
-            <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
-            <p>Место работы: ${arr[0].x.mother.mother_workplace}</p>
-
-            <hr>
-            <h1>Отец:</h1>
-            <p>Имя: ${arr[0].x.father.mother_name}</p>
-            <p>Дата Рождения: ${arr[0].x.father.mother_birth_date}</p>
-            <p>Серя паспорта: ${arr[0].x.father.mother_serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.father.mother_tel}</p>
-            <p>Адресс: ${arr[0].x.father.mother_adress}</p>
-            <p>Махалля: ${arr[0].x.father.mother_mahalla}</p>
-            <p>Место работы: ${arr[0].x.father.mother_workplace}</p>
-    `
+                document.getElementsByClassName('searching')[0].innerHTML =
+                    arr.map(i => {
+                        return `<input placeholder="Поиск по Ф.И.О." type="text">`
+                    })
+                document.getElementById("tbody").innerHTML =
+                    arr[0].el.students.map(x => {
+                        return `
+                                                <tr>
+                                                <td><a href=/user:${userId}/class:${classId}/student:${x.id}>${x.student_name}</a></td>
+                                                <td>${x.student_tel}</td>
+                                                <td>${x.student_mahalla}</td>
+                                                <td>${x.student_adress}</td>
+                                                </tr>
+                                    `
+                    }).join(" ")
             })
         setTimeout(() => {
-            document.getElementById("remove").addEventListener("click", () => {
-                fetch("/remove/student", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ sid: studentId, cid: classId, uid: userId })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        window.location.replace(data.url)
-                    })
-            })
             let profile = document.getElementsByClassName('profile-container')[0];
             let profile_img = document.getElementById('profile-img');
             let exit_btn = document.getElementsByClassName('exit-btn')[0];
@@ -170,9 +161,27 @@
             profile_img.addEventListener('click', () => {
                 profile.classList.add('__visible')
             })
-        }, 500);
+        }, 1000);
 
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.mjs'
+
+
+    var swiper = new Swiper(".swiper", {
+        noSwiping: true,
+        noSwipingClass: 'swiper-slide',
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            renderBullet: function (index, className) {
+                return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+        },
+    });
+
 </script>
 
 </html>
