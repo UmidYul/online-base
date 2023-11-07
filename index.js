@@ -248,7 +248,6 @@ app.post("/remove/student", async function (req, res) {
                 const x = el.students[e];
                 if (x.id == sid) {
                     let responseSent = false;
-
                     users.forEach(element => {
                         if (element.info.students && Array.isArray(element.info.students)) {
                             const index = element.info.students.findIndex(user => user.id == sid);
@@ -265,8 +264,29 @@ app.post("/remove/student", async function (req, res) {
                             }
                         }
                     });
+                    fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
                 }
             }
+        }
+    }
+})
+
+app.post("/remove/class", async function (req, res) {
+    const { uid, cid } = req.body
+    await db.read()
+    const { users } = db.data
+    for (let i = 0; i < users.length; i++) {
+        const el = users[i].info;
+        if (el.id == cid) {
+            let responseSent = false;
+            const index = users.findIndex(user => user.info.id == cid);
+            users.splice(index, 1)
+            db.write()
+            if (!responseSent) {
+                res.send(JSON.stringify({ url: `/user:${uid}` }));
+                responseSent = true;
+            }
+            fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err");; });
         }
     }
 })

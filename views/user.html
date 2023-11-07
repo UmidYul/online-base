@@ -41,13 +41,8 @@
             <div id="swiper" class="swiper-wrapper">
                 <div class="swiper-slide" id="1">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Ф.И.О</th>
-                                <th>Номер</th>
-                                <th>Адрес</th>
-                                <th>Махалля</th>
-                            </tr>
+                        <thead id="thead">
+
                         </thead>
                         <tbody id="tbody">
 
@@ -127,6 +122,15 @@
                         }
                     })
                 if (arr[0].el.role == "admin") {
+                    document.getElementById("thead").innerHTML =
+
+                        `
+                                        <tr>
+                                <th>Класс</th>
+                                <th>Кол-во Учеников</th>
+                                <th>Класс.Рук</th>
+                            </tr>
+                                `
                     document.getElementById("class_num_option").style.display = "block"
                     let arr2 = []
                     arr[0].users.forEach(e => {
@@ -159,8 +163,17 @@
                         }, 500);
 
                     });
-
                 } else {
+                    document.getElementById("thead").innerHTML =
+                        `
+                                        <tr>
+                                <th>Ф.И.О</th>
+                                <th>Номер</th>
+                                <th>Адрес</th>
+                                <th>Махалля</th>
+                            </tr>
+                                `
+
                     document.getElementById("tbody").innerHTML =
                         arr[0].el.students.map(x => {
                             return `
@@ -202,7 +215,7 @@
                         if (arr[0].el.role == "admin") {
                             return `<div><a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a></div>`
                         } if (arr[0].el.role == "teacher") {
-                            return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/add-student"><button>Добавить Ученика</button></a></div>`
+                            return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/class:${id}/add-student"><button>Добавить Ученика</button></a></div>`
                         }
                     }).join("")
             })

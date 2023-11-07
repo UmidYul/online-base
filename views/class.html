@@ -120,8 +120,23 @@
                     })
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
-                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button>Добавить Ученика</button></a></div>`
+                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button>Добавить Ученика</button></a></div>
+                                <div><button id="removeClass">Удалить</button></div>
+                        `
                     }).join("")
+                document.getElementById("removeClass").addEventListener("click", () => {
+                    fetch("/remove/class", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ cid: classId, uid: userId })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            window.location.replace(data.url)
+                        })
+                })
             })
         const response = fetch("/classid", {
             method: 'POST',
