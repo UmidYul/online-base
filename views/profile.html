@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/swiper.css">
+    <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
+    <title>online-base.uz</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <nav>
+            <div>
+                <h1>online-base.uz</h1>
+                <span class="searching"></span>
+            </div>
+            <img id="profile-img">
+        </nav>
+        <div class="teacherInfo">
+        </div>
+        <div id="field"></div>
+    </div>
+    <div class="profile-container">
+        <div class="profile">
+
+        </div>
+    </div>
+</body>
+<script>function logout() {
+        fetch("/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: false })
+        })
+        window.location.href = "/"
+    }
+
+    window.onload = function () {
+        const userID = window.location.href.slice(-41, -28)
+        const classID = window.location.href.slice(-21, -8)
+        const response = fetch("/id", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: userID })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let arr = []
+                arr.push(data)
+                document.getElementsByClassName('profile')[0].innerHTML =
+                    arr.map(i => {
+                        return `
+                        <i class="exit-btn fa-solid fa-xmark"></i>
+            <div class="col info_1">
+                <img id="img-top">
+                <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                <p><span>ID: </span>${arr[0].el.id}</p>
+            </div>
+            <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+            `
+
+                    })
+                document.getElementById("profile-img").src = arr[0].el.img
+                document.getElementById("img-top").src = arr[0].el.img
+            })
+        const res = fetch("/classid", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: classID })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let arr = []
+                arr.push(data)
+                console.log(arr[0]);
+                document.getElementsByClassName("teacherInfo")[0].innerHTML =
+                    arr.map(i => {
+                        return `
+                        <input type="text" class="name" disabled placeholder='${i.el.name}'>
+                        <button onclick="enableInput()" id="name"><i class="fa-solid fa-pen"></i></button>
+                        <input class="subject" type="text" disabled placeholder='${i.el.subject}'>
+                        <button onclick="enableInput()" id="subject"><i class="fa-solid fa-pen"></i></button>
+                        <input class="num" type="text" disabled placeholder='${i.el.class_num}'>
+                        <button onclick="enableInput()" id="num"><i class="fa-solid fa-pen"></i></button>
+                        <input class="letter" type="text" disabled placeholder='${i.el.class_letter}'>
+                        <button onclick="enableInput()" id="letter"><i class="fa-solid fa-pen"></i></button>
+                `
+                    })
+            })
+
+    }
+    setTimeout(() => {
+        let profile = document.getElementsByClassName('profile-container')[0];
+        let profile_img = document.getElementById('profile-img');
+        let exit_btn = document.getElementsByClassName('exit-btn')[0];
+        exit_btn.addEventListener('click', () => {
+            profile.classList.remove('__visible')
+        })
+        profile_img.addEventListener('click', () => {
+            profile.classList.add('__visible')
+        })
+
+    }, 1000);
+    function enableInput() {
+        let name = this.document.activeElement.id
+        document.getElementsByClassName(name)[0].value = document.getElementsByClassName(name)[0].placeholder
+        document.getElementsByClassName(name)[0].disabled = false
+    }
+</script>
+
+</html>

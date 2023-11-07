@@ -6,17 +6,7 @@
       "id": "1696509479100"
     },
     {
-      "id": "1698900766758",
-      "login": "tima",
-      "password": "admin"
-    },
-    {
-      "id": "1698942081035",
-      "login": "dsadd",
-      "password": "ad"
-    },
-    {
-      "id": "1699370764699",
+      "id": "1699376480146",
       "login": "fozilov",
       "password": "tarakan82"
     }
@@ -33,11 +23,11 @@
     },
     {
       "info": {
-        "id": "1699370764699",
+        "id": "1699376480146",
         "name": "Фозилов У.И",
         "class_num": "11",
         "class_letter": "В",
-        "img": "/images/stuff/1699370764699.webp",
+        "img": "/images/stuff/1699376480146.webp",
         "subject": "Информатика",
         "role": "teacher",
         "students": []

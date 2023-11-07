@@ -57,6 +57,10 @@ app.get('/user:id/class:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
 
+app.get('/user:id/class:id/profile', authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/profile.html")
+})
+
 app.post('/add-student', async function (req, res) {
     const id = Date.now().toString()
     await db.read()
@@ -213,11 +217,12 @@ app.post("/id", async function (req, res) {
 app.post("/classid", async function (req, res) {
     const { data } = req.body
     await db.read()
-    const { users } = db.data
+    const { users, logins } = db.data
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
-        if (el.id == data) {
-            res.send(JSON.stringify({ el }))
+        const ex = logins[i];
+        if (el.id == data & ex.id == data) {
+            res.send(JSON.stringify({ el, ex }))
         }
     }
 })
@@ -274,13 +279,15 @@ app.post("/remove/student", async function (req, res) {
 app.post("/remove/class", async function (req, res) {
     const { uid, cid } = req.body
     await db.read()
-    const { users } = db.data
+    const { users, logins } = db.data
     for (let i = 0; i < users.length; i++) {
         const el = users[i].info;
         if (el.id == cid) {
             let responseSent = false;
-            const index = users.findIndex(user => user.info.id == cid);
-            users.splice(index, 1)
+            const usersIndex = users.findIndex(user => user.info.id == cid);
+            const loginsIndex = logins.findIndex(login => login.id == cid);
+            users.splice(usersIndex, 1)
+            logins.splice(loginsIndex, 1)
             db.write()
             if (!responseSent) {
                 res.send(JSON.stringify({ url: `/user:${uid}` }));
