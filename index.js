@@ -297,5 +297,12 @@ app.post("/remove/class", async function (req, res) {
         }
     }
 })
-
+app.post("/save-image", function (req, res) {
+    const { data } = req.body
+    const form = formidable({ multiples: false });
+    form.parse(req, (err, fields, files) => {
+        console.log(files);
+    });
+    res.sendStatus(200)
+})
 app.listen(PORT, console.log(`http://localhost:${PORT}`))

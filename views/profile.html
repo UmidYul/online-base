@@ -24,6 +24,7 @@
             <img id="profile-img">
         </nav>
         <div class="teacherInfo">
+            <form action="/save-image" method="post" class="teacherInfoForm"></form>
         </div>
         <div id="field"></div>
     </div>
@@ -85,18 +86,20 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                console.log(arr[0]);
-                document.getElementsByClassName("teacherInfo")[0].innerHTML =
+                document.getElementsByClassName("teacherInfoForm")[0].innerHTML =
                     arr.map(i => {
                         return `
-                        <input type="text" class="name" disabled placeholder='${i.el.name}'>
-                        <button onclick="enableInput()" id="name"><i class="fa-solid fa-pen"></i></button>
-                        <input class="subject" type="text" disabled placeholder='${i.el.subject}'>
-                        <button onclick="enableInput()" id="subject"><i class="fa-solid fa-pen"></i></button>
-                        <input class="num" type="text" disabled placeholder='${i.el.class_num}'>
-                        <button onclick="enableInput()" id="num"><i class="fa-solid fa-pen"></i></button>
-                        <input class="letter" type="text" disabled placeholder='${i.el.class_letter}'>
-                        <button onclick="enableInput()" id="letter"><i class="fa-solid fa-pen"></i></button>
+                <img id="labelImg" src=${i.el.img}>
+                <input id="editimg" class="img" type="file" accept="image/webp" placeholder="Изменить фото!">
+                <input type="text" class="name" disabled placeholder='${i.el.name}'>
+                <button type="button" onclick="enableInput()" id="name"><i class="fa-solid fa-pen"></i></button>
+                <input class="subject" type="text" disabled placeholder='${i.el.subject}'>
+                <button type="button" onclick="enableInput()" id="subject"><i class="fa-solid fa-pen"></i></button>
+                <input class="num" type="text" disabled placeholder='${i.el.class_num}'>
+                <button type="button" onclick="enableInput()" id="num"><i class="fa-solid fa-pen"></i></button>
+                <input class="letter" type="text" disabled placeholder='${i.el.class_letter}'>
+                <button type="button" onclick="enableInput()" id="letter"><i class="fa-solid fa-pen"></i></button>
+                <button onclick="saveImage()" type="submit">Сохранить</button>
                 `
                     })
             })
@@ -112,8 +115,19 @@
         profile_img.addEventListener('click', () => {
             profile.classList.add('__visible')
         })
+        document.querySelector("#editimg").addEventListener("change", function () {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector("#labelImg").src = e.target.result
 
+            }
+            reader.readAsDataURL(this.files[0]);
+            const formData = new FormData();
+            formData.append('image', this.files[0]);
+            console.log(formData);
+        })
     }, 1000);
+
     function enableInput() {
         let name = this.document.activeElement.id
         document.getElementsByClassName(name)[0].value = document.getElementsByClassName(name)[0].placeholder
