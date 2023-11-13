@@ -24,13 +24,11 @@
             <img id="profile-img">
         </nav>
         <div class="teacherInfo">
-            <form action="/save-image" method="post" class="teacherInfoForm"></form>
         </div>
         <div id="field"></div>
     </div>
     <div class="profile-container">
         <div class="profile">
-
         </div>
     </div>
 </body>
@@ -86,25 +84,30 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
+                document.getElementsByClassName("teacherInfo")[0].innerHTML =
+                    arr.map(i => {
+                        return `
+                    <img id="labelImg" src=${i.el.img}>
+                    <form action="/edit" method="post" class="teacherInfoForm" enctype="multipart/form-data">
+                    </form>
+                    `
+                    })
                 document.getElementsByClassName("teacherInfoForm")[0].innerHTML =
                     arr.map(i => {
                         return `
-                <img id="labelImg" src=${i.el.img}>
-                <input id="editimg" class="img" type="file" accept="image/webp" placeholder="Изменить фото!">
-                <input type="text" class="name" disabled placeholder='${i.el.name}'>
-                <button type="button" onclick="enableInput()" id="name"><i class="fa-solid fa-pen"></i></button>
-                <input class="subject" type="text" disabled placeholder='${i.el.subject}'>
-                <button type="button" onclick="enableInput()" id="subject"><i class="fa-solid fa-pen"></i></button>
-                <input class="num" type="text" disabled placeholder='${i.el.class_num}'>
-                <button type="button" onclick="enableInput()" id="num"><i class="fa-solid fa-pen"></i></button>
-                <input class="letter" type="text" disabled placeholder='${i.el.class_letter}'>
-                <button type="button" onclick="enableInput()" id="letter"><i class="fa-solid fa-pen"></i></button>
-                <button onclick="saveImage()" type="submit">Сохранить</button>
-                `
+                    <div class="inputVis"></div>
+                    <input type="text" name="cid" value=${classID} style="opacity: 0; width:0; height:0;">
+                    <input type="checkbox" class="vis"><p>Изменить фото!</p>
+                    <input name="name" class="name" type="text" value="${i.el.name}" placeholder='${i.el.name}'>
+                    <input name="subject" class="subject" type="text" value="${i.el.subject}" placeholder='${i.el.subject}'>
+                    <input name="num" class="num" type="text" value="${i.el.class_num}" placeholder='${i.el.class_num}'>
+                    <input name="letter" class="letter" type="text" value=${i.el.class_letter} placeholder='${i.el.class_letter}'>
+                    <button type="submit">Сохранить</button>
+                    `
                     })
             })
-
     }
+
     setTimeout(() => {
         let profile = document.getElementsByClassName('profile-container')[0];
         let profile_img = document.getElementById('profile-img');
@@ -115,24 +118,26 @@
         profile_img.addEventListener('click', () => {
             profile.classList.add('__visible')
         })
-        document.querySelector("#editimg").addEventListener("change", function () {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector("#labelImg").src = e.target.result
-
+        document.querySelector(".vis").addEventListener("change", (e) => {
+            if (e.target.checked == true) {
+                document.querySelector(".vis").placeholder = "Отключить изменение фото!"
+                document.querySelector(".inputVis").innerHTML = `<input name="img" id="editimg" class="img" type="file" accept="image/webp">`
+                document.querySelector("#editimg").addEventListener("change", function () {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.querySelector("#labelImg").src = e.target.result
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                    const formData = new FormData();
+                    formData.append('image', this.files[0]);
+                })
+            } if (e.target.checked == false) {
+                document.querySelector(".vis").placeholder = "Изменить фото!"
+                document.getElementById("editimg").remove()
             }
-            reader.readAsDataURL(this.files[0]);
-            const formData = new FormData();
-            formData.append('image', this.files[0]);
-            console.log(formData);
         })
-    }, 1000);
 
-    function enableInput() {
-        let name = this.document.activeElement.id
-        document.getElementsByClassName(name)[0].value = document.getElementsByClassName(name)[0].placeholder
-        document.getElementsByClassName(name)[0].disabled = false
-    }
+    }, 1000);
 </script>
 
 </html>

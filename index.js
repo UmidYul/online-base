@@ -8,6 +8,7 @@ import session from 'express-session';
 import path from "path"
 import formidable from 'formidable'
 import fs from "fs"
+import { userInfo } from 'node:os'
 
 const app = express()
 const PORT = 3000
@@ -293,16 +294,41 @@ app.post("/remove/class", async function (req, res) {
                 res.send(JSON.stringify({ url: `/user:${uid}` }));
                 responseSent = true;
             }
-            fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err");; });
+            fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
         }
     }
 })
-app.post("/save-image", function (req, res) {
-    const { data } = req.body
+app.post("/edit", async function (req, res) {
+    await db.read()
+    const { users, logins } = db.data
     const form = formidable({ multiples: false });
     form.parse(req, (err, fields, files) => {
-        console.log(files);
+        if (files.img) {
+            const usersIndex = users.findIndex(user => user.info.id == fields.cid);
+            users[usersIndex].info.name = fields.name[0]
+            users[usersIndex].info.subject = fields.subject[0]
+            users[usersIndex].info.class_num = fields.num[0]
+            users[usersIndex].info.class_letter = fields.letter[0]
+            db.write()
+            const oldPath = files.img[0].filepath;
+            const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
+            fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) console.log("err") });
+            fs.rename(oldPath, newPath, (error) => {
+                if (error) {
+                    res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                    return;
+                }
+            });
+            res.redirect(`/user:${req.session.userId}`)
+        } else {
+            const usersIndex = users.findIndex(user => user.info.id == fields.cid);
+            users[usersIndex].info.name = fields.name[0]
+            users[usersIndex].info.subject = fields.subject[0]
+            users[usersIndex].info.class_num = fields.num[0]
+            users[usersIndex].info.class_letter = fields.letter[0]
+            db.write()
+            res.redirect(`/user:${req.session.userId}`)
+        }
     });
-    res.sendStatus(200)
 })
 app.listen(PORT, console.log(`http://localhost:${PORT}`))
