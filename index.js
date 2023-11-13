@@ -298,7 +298,7 @@ app.post("/remove/class", async function (req, res) {
         }
     }
 })
-app.post("/edit", async function (req, res) {
+app.post("/editClass", async function (req, res) {
     await db.read()
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
