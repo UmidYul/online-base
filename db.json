@@ -4,11 +4,6 @@
       "login": "umid",
       "password": "gnusmas201414",
       "id": "1696509479100"
-    },
-    {
-      "id": "1699376480146",
-      "login": "fozilov",
-      "password": "tarakan13"
     }
   ],
   "users": [
@@ -19,51 +14,6 @@
         "name": "Timurov R.B.",
         "role": "admin",
         "students": []
-      }
-    },
-    {
-      "info": {
-        "id": "1699376480146",
-        "name": "Фозилов У.И",
-        "class_num": "1",
-        "class_letter": "Б",
-        "img": "/images/stuff/1699376480146.webp",
-        "subject": "Информатикаas",
-        "role": "teacher",
-        "students": [
-          {
-            "id": "1699971475744",
-            "img": "/images/student/1699971475744.webp",
-            "student_name": "daddsadddddddddddddddddddddddddd",
-            "student_birth_date": "aasdasdeqweqqqqqqqqqqqqqqqqqqq",
-            "student_accept_date": "aasdasdasd",
-            "serial_number": "aasdasd",
-            "student_tel": "aasdasd",
-            "student_adress": "aasdasd",
-            "student_mahalla": "aadasd",
-            "family_status": "aasdasdasd",
-            "student_attraction": "asadasda",
-            "student_health_status": "adasdas",
-            "mother": {
-              "mother_name": "aasdasdas",
-              "mother_serial_number": "aasdasd",
-              "mother_birth_date": "aasdasdasdad",
-              "mother_adress": "aasdasd",
-              "mother_mahalla": "aasdasd",
-              "mother_tel": "+aasdasd",
-              "mother_workplace": "aasdasdasd"
-            },
-            "father": {
-              "father_name": "aasdasdas",
-              "father_serial_number": "aasdasd",
-              "father_birth_date": "aasdasdasdad",
-              "father_adress": "aasdasd",
-              "father_mahalla": "aasdasd",
-              "father_tel": "+aasdasd",
-              "father_workplace": "aasdasdasd"
-            }
-          }
-        ]
       }
     }
   ]

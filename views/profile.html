@@ -99,6 +99,22 @@
                     `
                     })
             })
+        document.getElementById("field").innerHTML =
+            `<div><button id="removeClass">Удалить</button></div>`
+        document.getElementById("removeClass").addEventListener("click", () => {
+            fetch("/remove/class", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cid: classID, uid: userID })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    window.location.replace(data.url)
+                })
+        })
+
     }
 
     setTimeout(() => {
