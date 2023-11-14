@@ -309,16 +309,11 @@ app.post("/editClass", async function (req, res) {
             users[usersIndex].info.subject = fields.subject[0]
             users[usersIndex].info.class_num = fields.num[0]
             users[usersIndex].info.class_letter = fields.letter[0]
-            db.write()
             const oldPath = files.img[0].filepath;
             const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
-            fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) console.log("err") });
-            fs.rename(oldPath, newPath, (error) => {
-                if (error) {
-                    res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                    return;
-                }
-            });
+            fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!")});
+            fs.rename(oldPath, newPath, (error) => {if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+            db.write()
             res.redirect(`/user:${req.session.userId}`)
         } else {
             const usersIndex = users.findIndex(user => user.info.id == fields.cid);
