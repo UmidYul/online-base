@@ -24,7 +24,6 @@
             <img id="profile-img">
         </nav>
         <select id="class_num_option">
-            <option value=" ">Класс</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -139,6 +138,23 @@
                                 arr2.push(i)
                             }
                         })
+                        const uniqueArr4 = Array.from(new Set(arr2));
+                        let num_arr3 = []
+                        for (let i = 0; i < uniqueArr4.length; i++) {
+                            if (uniqueArr4[i].info.class_num == 1) {
+                                num_arr3.push(uniqueArr4[i])
+                            }
+                        }
+                        document.getElementById("tbody").innerHTML =
+                            num_arr3.map(x => {
+                                return `
+                                        <tr>
+                                            <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
+                                            <td>${x.info.students.length}</td>
+                                            <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
+                                        </tr>
+                            `
+                            }).join(" ")
                         setTimeout(() => {
                             document.getElementById("class_num_option").addEventListener("change", () => {
                                 const uniqueArr2 = Array.from(new Set(arr2));
@@ -155,7 +171,7 @@
                                             <tr>
                                                 <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                                 <td>${x.info.students.length}</td>
-                                                <td><a href=/user:${id}/class:${x.info.id}/profile>${x.info.name}</a></td>
+                                                <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                             </tr>
                                 `
                                     }).join(" ")

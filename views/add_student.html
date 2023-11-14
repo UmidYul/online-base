@@ -9,19 +9,14 @@
 </head>
 
 <body>
+    <img id="labelImg">
     <form action="/add-student" method="post" enctype="multipart/form-data">
         <h1>Ученик</h1>
-        <input type="file" name="img" accept="image/webp">
+        <input type="file" id="img" name="img" accept="image/webp">
         <input type="text" placeholder="Ф.И.О" name="student_name">
         <input type="date" name="student_birth_date">
         <input type="date" name="student_accept_date">
-        <select name="document_type">
-            <option value="none">Документ</option>
-            <option value="Паспорт/ID-карта">Паспорт/ID-карта</option>
-            <option value="Свидетельство о рождении">Свидетельство о рождении</option>
-            <option value="Паспорт другого государства">Паспорт другого государства</option>
-        </select>
-        <input type="text" placeholder="Серия паспорта" name="student_serial_number">
+        <input type="text" placeholder="Серия документа" name="student_serial_number">
         <input type="tel" placeholder="+998(90)000-00-00" name="student_tel">
         <input type="text" placeholder="Адресс" name="student_adress">
         <input type="text" placeholder="Махалла" name="student_mahalla">
@@ -63,8 +58,16 @@
     </form>
 
 </body>
-
 <script>
+    document.querySelector("#img").addEventListener("change", function () {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector("#labelImg").src = e.target.result
+        }
+        reader.readAsDataURL(this.files[0]);
+        const formData = new FormData();
+        formData.append('image', this.files[0]);
+    })
     const id = window.location.href.slice(-25, -12)
     const response = fetch("/id", {
         method: 'POST',

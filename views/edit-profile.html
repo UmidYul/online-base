@@ -44,9 +44,8 @@
     }
 
     window.onload = function () {
-        const userID = window.location.href.slice(-47, -34)
-        const classID = window.location.href.slice(-27, -14)
-        console.log(classID);
+        const userID = window.location.href.slice(-52, -39)
+        const classID = window.location.href.slice(-32, -19)
         const response = fetch("/id", {
             method: 'POST',
             headers: {
@@ -89,13 +88,23 @@
                     arr.map(i => {
                         return `
                     <img id="labelImg" src=${i.el.img}>
-                    <a href=${i.el.img} download><button><i class="fa-solid fa-download"></i></button></a>
-                    <p>Ф.И.О: ${i.el.name}</p>
-                    <p>Предмент: ${i.el.subject}</p>
-                    <p>Класс: ${i.el.class_num} ${i.el.class_letter}</p>
-                    <p>Логин: ${i.ex.login}</p>
-                    <p>Пароль: ${i.ex.password}</p>
-                    <a href=/user:${userID}/class:${classID}/stuff-profile/edit><button type="submit">Изменить</button></a>
+                    <form action="/editClass" method="post" class="teacherInfoForm" enctype="multipart/form-data">
+                    </form>
+                    `
+                    })
+                document.getElementsByClassName("teacherInfoForm")[0].innerHTML =
+                    arr.map(i => {
+                        return `
+                    <div class="inputVis"></div>
+                    <input type="text" name="cid" value=${classID} style="opacity: 0; width:0; height:0;">
+                    <input type="checkbox" class="vis"><p>Изменить фото!</p>
+                    <input name="name" class="name" type="text" value="${i.el.name}" placeholder='${i.el.name}'>
+                    <input name="subject" class="subject" type="text" value="${i.el.subject}" placeholder='${i.el.subject}'>
+                    <input name="num" class="num" type="text" value="${i.el.class_num}" placeholder='${i.el.class_num}'>
+                    <input name="letter" class="letter" type="text" value=${i.el.class_letter} placeholder='${i.el.class_letter}'>
+                    <input name="login" class="num" type="text" value="${i.ex.login}" placeholder='${i.ex.login}'>
+                    <input name="pass" class="letter" type="text" value=${i.ex.password} placeholder='${i.ex.password}'>
+                    <button type="submit">Сохранить</button>
                     `
                     })
             })
@@ -111,6 +120,25 @@
         profile_img.addEventListener('click', () => {
             profile.classList.add('__visible')
         })
+        document.querySelector(".vis").addEventListener("change", (e) => {
+            if (e.target.checked == true) {
+                document.querySelector(".vis").placeholder = "Отключить изменение фото!"
+                document.querySelector(".inputVis").innerHTML = `<input name="img" id="editimg" class="img" type="file" accept="image/webp">`
+                document.querySelector("#editimg").addEventListener("change", function () {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.querySelector("#labelImg").src = e.target.result
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                    const formData = new FormData();
+                    formData.append('image', this.files[0]);
+                })
+            } if (e.target.checked == false) {
+                document.querySelector(".vis").placeholder = "Изменить фото!"
+                document.getElementById("editimg").remove()
+            }
+        })
+
     }, 1000);
 </script>
 

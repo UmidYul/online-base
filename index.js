@@ -46,6 +46,9 @@ app.get('/', function (req, res) {
 app.get("/user:id/class:id/student:id", authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/student.html")
 })
+app.get("/user:id/class:id/student:id/edit", authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/edit-student.html")
+})
 app.get("/user:id/class:id", authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/class.html")
 })
@@ -58,8 +61,12 @@ app.get('/user:id/class:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
 
-app.get('/user:id/class:id/profile', authMiddleware, function (req, res) {
+app.get('/user:id/class:id/stuff-profile', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/profile.html")
+})
+
+app.get('/user:id/class:id/stuff-profile/edit', authMiddleware, function (req, res) {
+    res.sendFile(__dirname + "/views/edit-profile.html")
 })
 
 app.post('/add-student', async function (req, res) {
@@ -96,7 +103,6 @@ app.post('/add-student', async function (req, res) {
                     student_name: log.student_name[0],
                     student_birth_date: log.student_birth_date[0],
                     student_accept_date: log.student_accept_date[0],
-                    document_type: log.document_type[0],
                     serial_number: log.student_serial_number[0],
                     student_tel: log.student_tel[0],
                     student_adress: log.student_adress[0],
@@ -115,7 +121,7 @@ app.post('/add-student', async function (req, res) {
                     },
                     father: {
                         father_name: log.father_name[0],
-                        mother_serial_number: log.mother_serial_number[0],
+                        father_serial_number: log.father_serial_number[0],
                         father_birth_date: log.father_birth_date[0],
                         father_adress: log.father_adress[0],
                         father_mahalla: log.father_mahalla[0],
@@ -305,24 +311,100 @@ app.post("/editClass", async function (req, res) {
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             const usersIndex = users.findIndex(user => user.info.id == fields.cid);
+            const loginsIndex = logins.findIndex(login => login.id == fields.cid);
+            logins[loginsIndex].login = fields.login[0]
+            logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
             users[usersIndex].info.subject = fields.subject[0]
             users[usersIndex].info.class_num = fields.num[0]
             users[usersIndex].info.class_letter = fields.letter[0]
             const oldPath = files.img[0].filepath;
             const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
-            fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!")});
-            fs.rename(oldPath, newPath, (error) => {if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+            fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
+            fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
             db.write()
-            res.redirect(`/user:${req.session.userId}`)
+            res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
         } else {
             const usersIndex = users.findIndex(user => user.info.id == fields.cid);
+            const loginsIndex = logins.findIndex(login => login.id == fields.cid);
+            logins[loginsIndex].login = fields.login[0]
+            logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
             users[usersIndex].info.subject = fields.subject[0]
             users[usersIndex].info.class_num = fields.num[0]
             users[usersIndex].info.class_letter = fields.letter[0]
             db.write()
+            res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+        }
+    });
+})
+app.post("/editStudent", async function (req, res) {
+    await db.read()
+    const { users, logins } = db.data
+    const form = formidable({ multiples: false });
+    form.parse(req, (err, fields, files) => {
+        if (files.img) {
+            const userIndex = users.findIndex(user => user.info.id == fields.cid);
+            const studentsIndex = users[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
+            users[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
+            users[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
+            users[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+            users[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
+            users[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
+            users[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
+            users[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
+            users[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
+            users[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
+            users[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
+            users[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
+            users[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
+            users[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
+            users[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
+            users[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
+            users[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
+            users[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
+            const oldPath = files.img[0].filepath;
+            const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
+            fs.unlink(__dirname + `/public/images/student/${fields.sid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
+            fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+            db.write()
             res.redirect(`/user:${req.session.userId}`)
+        } else {
+            const userIndex = users.findIndex(user => user.info.id == fields.cid);
+            const studentsIndex = users[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
+            users[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
+            users[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
+            users[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+            users[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
+            users[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
+            users[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
+            users[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
+            users[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
+            users[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
+            users[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
+            users[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
+            users[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
+            users[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
+            users[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
+            users[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
+            users[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
+            users[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
+            users[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
+            db.write()
+            res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
         }
     });
 })

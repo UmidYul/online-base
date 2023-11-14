@@ -113,10 +113,10 @@
                     `
     <h1>Ученик</h1>
             <img src=${arr[0].x.img}>
+            <a href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
             <p>Ф.И.О: ${arr[0].x.student_name}</p>
             <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
             <p>Дата принятия в школу: ${arr[0].x.student_accept_date}</p>
-            <p>Тип документа: ${arr[0].x.document_type}</p>
             <p>Серия документа: ${arr[0].x.serial_number}</p>
             <p>Номер телефона: ${arr[0].x.student_tel}</p>
             <p>Адресс: ${arr[0].x.student_adress}</p>
@@ -127,9 +127,9 @@
             
             <hr>
             <h1>Мать:</h1>
-            <p>Имя: ${arr[0].x.mother.mother_name}</p>
+            <p>Ф.И.О: ${arr[0].x.mother.mother_name}</p>
             <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
-            <p>Серя паспорта: ${arr[0].x.mother.mother_serial_number}</p>
+            <p>Серия паспорта: ${arr[0].x.mother.mother_serial_number}</p>
             <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
             <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
             <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
@@ -137,13 +137,13 @@
 
             <hr>
             <h1>Отец:</h1>
-            <p>Имя: ${arr[0].x.father.mother_name}</p>
-            <p>Дата Рождения: ${arr[0].x.father.mother_birth_date}</p>
-            <p>Серя паспорта: ${arr[0].x.father.mother_serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.father.mother_tel}</p>
-            <p>Адресс: ${arr[0].x.father.mother_adress}</p>
-            <p>Махалля: ${arr[0].x.father.mother_mahalla}</p>
-            <p>Место работы: ${arr[0].x.father.mother_workplace}</p>
+            <p>Ф.И.О: ${arr[0].x.father.father_name}</p>
+            <p>Дата Рождения: ${arr[0].x.father.father_birth_date}</p>
+            <p>Серия паспорта: ${arr[0].x.father.father_serial_number}</p>
+            <p>Номер телефона: ${arr[0].x.father.father_tel}</p>
+            <p>Адресс: ${arr[0].x.father.father_adress}</p>
+            <p>Махалля: ${arr[0].x.father.father_mahalla}</p>
+            <p>Место работы: ${arr[0].x.father.father_workplace}</p>
     `
             })
         setTimeout(() => {

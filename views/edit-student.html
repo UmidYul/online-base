@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/swiper.css">
+    <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
+    <title>online-base.uz</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <nav>
+            <div>
+                <h1>online-base.uz</h1>
+                <span class="searching"></span>
+            </div>
+            <img id="profile-img">
+        </nav>
+        <div class="studentInfo">
+        </div>
+        <div id="field"></div>
+    </div>
+    <div class="profile-container">
+        <div class="profile">
+        </div>
+    </div>
+</body>
+<script>
+    function logout() {
+        fetch("/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: false })
+        })
+        window.location.href = "/"
+    }
+
+    window.onload = function () {
+        const classId = window.location.href.slice(-40, -27)
+        const userId = window.location.href.slice(-60, -47)
+        const studentId = window.location.href.slice(-18, -5)
+        console.log(studentId);
+        const res = fetch("/id", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: userId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let arr = []
+                arr.push(data)
+                document.getElementsByClassName('profile')[0].innerHTML =
+                    arr.map(i => {
+                        if (arr[0].el.role == "admin") {
+                            return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                        }
+                        else {
+                            return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col info_2">
+                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
+                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
+                    <p><span>Предмет: </span>${arr[0].el.subject}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                        }
+                    })
+
+                document.getElementById("profile-img").src = arr[0].el.img
+                document.getElementById("img-top").src = arr[0].el.img
+            })
+
+        const response = fetch("/studentid", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sid: studentId, cid: classId, uid: userId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let arr = []
+                arr.push(data)
+                document.getElementsByClassName("studentInfo")[0].innerHTML =
+                    `
+            <form action="/editStudent" method="post" enctype="multipart/form-data">
+                <input type="text" name="cid" value=${classId} style="opacity: 0; width:0; height:0;">
+            <input type="text" name="sid" value=${studentId} style="opacity: 0; width:0; height:0;">
+            <h1>Ученик</h1>
+            <img id="labelImg" src=${arr[0].x.img}>
+            <div class="inputVis"></div>
+            <input type="checkbox" class="vis"><p>Изменить фото!</p>
+            <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
+            <input name="student_birth_date" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
+            <input name="student_accept_date" value="${arr[0].x.student_accept_date}" placeholder="${arr[0].x.student_accept_date}">
+            <input name="serial_number" value="${arr[0].x.serial_number}" placeholder="${arr[0].x.serial_number}">
+            <input name="student_tel" value="${arr[0].x.student_tel}" placeholder="${arr[0].x.student_tel}">
+            <input name="student_adress" value="${arr[0].x.student_adress}" placeholder="${arr[0].x.student_adress}">
+            <input name="student_mahalla" value="${arr[0].x.student_mahalla}" placeholder="${arr[0].x.student_mahalla}">
+            <input name="family_status" value="${arr[0].x.family_status}" placeholder="${arr[0].x.family_status}">
+            <textarea name="student_attraction" placeholder="${arr[0].x.student_attraction}" cols="30" rows="10">${arr[0].x.student_attraction}</textarea>
+            <textarea name="student_health_status" placeholder="${arr[0].x.student_health_status}" cols="30" rows="10">${arr[0].x.student_health_status}</textarea>
+            
+            <hr>
+            <h1>Мать:</h1>
+            <input name="mother_name" value="${arr[0].x.mother.mother_name}" placeholder="${arr[0].x.mother.mother_name}">
+            <input name="mother_birth_date" value="${arr[0].x.mother.mother_birth_date}" placeholder="${arr[0].x.mother.mother_birth_date}">
+            <input name="mother_serial_number" value="${arr[0].x.mother.mother_serial_number}" placeholder="${arr[0].x.mother.mother_serial_number}">
+            <input name="mother_tel" value="${arr[0].x.mother.mother_tel}" placeholder="${arr[0].x.mother.mother_tel}">
+            <input name="mother_adress" value="${arr[0].x.mother.mother_adress}" placeholder="${arr[0].x.mother.mother_adress}">
+            <input name="mother_mahalla" value="${arr[0].x.mother.mother_mahalla}" placeholder="${arr[0].x.mother.mother_mahalla}">
+            <input name="mother_workplace" value="${arr[0].x.mother.mother_workplace}" placeholder="${arr[0].x.mother.mother_workplace}">
+
+            <hr>
+            <h1>Отец:</h1>
+            <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
+            <input name="father_birth_date" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
+            <input name="father_serial_number" value="${arr[0].x.father.father_serial_number}" placeholder="${arr[0].x.father.father_serial_number}">
+            <input name="father_tel" value="${arr[0].x.father.father_tel}" placeholder="${arr[0].x.father.father_tel}">
+            <input name="father_adress" value="${arr[0].x.father.father_adress}" placeholder="${arr[0].x.father.father_adress}">
+            <input name="father_mahalla" value="${arr[0].x.father.father_mahalla}" placeholder="${arr[0].x.father.father_mahalla}">
+            <input name="father_workplace" value="${arr[0].x.father.father_workplace}" placeholder="${arr[0].x.father.father_workplace}">
+            <button type="submit">Сохранить</button>
+            </form>
+    `
+            })
+        setTimeout(() => {
+            let profile = document.getElementsByClassName('profile-container')[0];
+            let profile_img = document.getElementById('profile-img');
+            let exit_btn = document.getElementsByClassName('exit-btn')[0];
+
+            exit_btn.addEventListener('click', () => {
+                profile.classList.remove('__visible')
+            })
+            profile_img.addEventListener('click', () => {
+                profile.classList.add('__visible')
+            })
+            document.querySelector(".vis").addEventListener("change", (e) => {
+                if (e.target.checked == true) {
+                    document.querySelector(".vis").placeholder = "Отключить изменение фото!"
+                    document.querySelector(".inputVis").innerHTML = `<input name="img" id="editimg" class="img" type="file" accept="image/webp">`
+                    document.querySelector("#editimg").addEventListener("change", function () {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.querySelector("#labelImg").src = e.target.result
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                        const formData = new FormData();
+                        formData.append('image', this.files[0]);
+                    })
+                } if (e.target.checked == false) {
+                    document.querySelector(".vis").placeholder = "Изменить фото!"
+                    document.getElementById("editimg").remove()
+                }
+            })
+        }, 500);
+
+    }
+</script>
+
+</html>

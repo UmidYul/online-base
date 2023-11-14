@@ -10,6 +10,7 @@
 </head>
 
 <body class="/add-class">
+    <img id="labelImg">
     <form class="add-form" action="/add-class" method="post" enctype="multipart/form-data">
         <input type="text" placeholder="login" name="log" required>
         <input type="pasword" placeholder="password" name="pass" required>
@@ -66,5 +67,16 @@
         <button class="save_btn">Сохранить</button>
     </form>
 </body>
+<script>
+    document.querySelector("#img").addEventListener("change", function () {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector("#labelImg").src = e.target.result
+        }
+        reader.readAsDataURL(this.files[0]);
+        const formData = new FormData();
+        formData.append('image', this.files[0]);
+    })
+</script>
 
 </html>
