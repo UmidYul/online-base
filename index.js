@@ -178,7 +178,7 @@ app.post('/add-class', async function (req, res) {
                 class_num: log.class_num[0],
                 class_letter: log.letter[0],
                 img: img,
-                subject: log.subject[0],
+                // subject: log.subject[0],
                 role: "teacher",
                 students: []
             }
@@ -315,7 +315,7 @@ app.post("/editClass", async function (req, res) {
             logins[loginsIndex].login = fields.login[0]
             logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
-            users[usersIndex].info.subject = fields.subject[0]
+            // users[usersIndex].info.subject = fields.subject[0]
             users[usersIndex].info.class_num = fields.num[0]
             users[usersIndex].info.class_letter = fields.letter[0]
             const oldPath = files.img[0].filepath;
@@ -330,7 +330,7 @@ app.post("/editClass", async function (req, res) {
             logins[loginsIndex].login = fields.login[0]
             logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
-            users[usersIndex].info.subject = fields.subject[0]
+            // users[usersIndex].info.subject = fields.subject[0]
             users[usersIndex].info.class_num = fields.num[0]
             users[usersIndex].info.class_letter = fields.letter[0]
             db.write()

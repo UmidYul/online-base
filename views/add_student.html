@@ -12,15 +12,15 @@
     <img id="labelImg">
     <form action="/add-student" method="post" enctype="multipart/form-data">
         <h1>Ученик</h1>
-        <input type="file" id="img" name="img" accept="image/webp">
-        <input type="text" placeholder="Ф.И.О" name="student_name">
-        <input type="date" name="student_birth_date">
-        <input type="date" name="student_accept_date">
-        <input type="text" placeholder="Серия документа" name="student_serial_number">
-        <input type="tel" placeholder="+998(90)000-00-00" name="student_tel">
-        <input type="text" placeholder="Адресс" name="student_adress">
-        <input type="text" placeholder="Махалла" name="student_mahalla">
-        <select name="family_status">
+        <input type="file" id="img" name="img" accept="image/webp" required>
+        <input type="text" placeholder="Ф.И.О" name="student_name" required>
+        <input type="date" name="student_birth_date" required>
+        <input type="date" name="student_accept_date" required>
+        <input type="text" placeholder="Серия документа" name="student_serial_number" required>
+        <input type="tel" placeholder="+998(90)000-00-00" name="student_tel" required>
+        <input type="text" placeholder="Адресс" name="student_adress" required>
+        <input type="text" placeholder="Махалла" name="student_mahalla" required>
+        <select name="family_status" required>
             <option value="none">Состояние семьи</option>
             <option value="Малообеспеченная">Малообеспеченная</option>
             <option value="Социально опасное положение">Социально опасное положение</option>
@@ -32,28 +32,28 @@
             <option value="сирота (воспитанник семейного детского дома)">Сирота</option>
         </select>
         <textarea name="student_attraction" placeholder="Увлечения ребёнка(Интересы,Изучаемые языки,Посещяемые кружки)"
-            cols="30" rows="5"></textarea>
+            cols="30" rows="5" required></textarea>
         <textarea name="student_health_status" placeholder="Состояние здоровья (группа, диагноз)" cols="30"
-            rows="5"></textarea>
+            rows="5" required></textarea>
         <hr>
         <h1>Мать:</h1>
-        <input type="text" placeholder="Ф.И.О" name="mother_name">
-        <input type="text" placeholder="Серия паспорта" name="mother_serial_number">
-        <input type="date" name="mother_birth_date">
-        <input type="text" placeholder="Адресс" name="mother_adress">
-        <input type="text" placeholder="Махалла" name="mother_mahalla">
-        <input type="tel" placeholder="+998(90)000-00-00" name="mother_tel">
-        <input type="text" placeholder="Место работы" name="mother_workplace">
+        <input type="text" placeholder="Ф.И.О" name="mother_name" required>
+        <input type="text" placeholder="Серия паспорта" name="mother_serial_number" required>
+        <input type="date" name="mother_birth_date" required>
+        <input type="text" placeholder="Адресс" name="mother_adress" required>
+        <input type="text" placeholder="Махалла" name="mother_mahalla" required>
+        <input type="tel" placeholder="+998(90)000-00-00" name="mother_tel" required>
+        <input type="text" placeholder="Место работы" name="mother_workplace" required>
 
         <hr>
         <h1>Отец:</h1>
-        <input type="text" placeholder="Ф.И.О" name="father_name">
-        <input type="text" placeholder="Серия паспорта" name="father_serial_number">
-        <input type="date" name="father_birth_date">
-        <input type="text" placeholder="Адресс" name="father_adress">
-        <input type="text" placeholder="Махалла" name="father_mahalla">
-        <input type="tel" placeholder="+998(90)000-00-00" name="father_tel">
-        <input type="text" placeholder="Место работы" name="father_workplace">
+        <input type="text" placeholder="Ф.И.О" name="father_name" required>
+        <input type="text" placeholder="Серия паспорта" name="father_serial_number" required>
+        <input type="date" name="father_birth_date" required>
+        <input type="text" placeholder="Адресс" name="father_adress" required>
+        <input type="text" placeholder="Махалла" name="father_mahalla" required>
+        <input type="tel" placeholder="+998(90)000-00-00" name="father_tel" required>
+        <input type="text" placeholder="Место работы" name="father_workplace" required>
         <button type="submit">Submit</button>
     </form>
 
