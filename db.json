@@ -204,6 +204,96 @@
       "id": "1700061431538",
       "login": "muhiddinov_rustam013118",
       "password": "s7VJUA2Q"
+    },
+    {
+      "id": "1700062085002",
+      "login": "kilsinbaeva_flora664047",
+      "password": "b51rOenQ"
+    },
+    {
+      "id": "1700062429242",
+      "login": "numonova_nargiza765086",
+      "password": "PVeNif8o"
+    },
+    {
+      "id": "1700062534580",
+      "login": "dolidze_natella549783",
+      "password": "eYvk40V8"
+    },
+    {
+      "id": "1700062634288",
+      "login": "shokirova_dilorom217656",
+      "password": "lthzM1Gp"
+    },
+    {
+      "id": "1700062703842",
+      "login": "sobirova_farida275267",
+      "password": "XwTKm8ZA"
+    },
+    {
+      "id": "1700062847368",
+      "login": "atabaeva_dinora638995",
+      "password": "kJDNq90P"
+    },
+    {
+      "id": "1700062941160",
+      "login": "aziza_hamidovna569271",
+      "password": "uwH5w6Zp"
+    },
+    {
+      "id": "1700063156218",
+      "login": "sobirova_farida945837",
+      "password": "CPRpRp1N"
+    },
+    {
+      "id": "1700063235641",
+      "login": "kurbanova_nadejda972667",
+      "password": "7IUC0Piw"
+    },
+    {
+      "id": "1700063309553",
+      "login": "ismailova_gulchehra151266",
+      "password": "eHY6PFrv"
+    },
+    {
+      "id": "1700063678896",
+      "login": "asrarova_sevara498991",
+      "password": "QxnHf48C"
+    },
+    {
+      "id": "1700063790770",
+      "login": "urinova_mukadda447221",
+      "password": "n7u1AqfK"
+    },
+    {
+      "id": "1700063915245",
+      "login": "hakimova_aziza894666",
+      "password": "fUtpUd1f"
+    },
+    {
+      "id": "1700064055858",
+      "login": "mansurova_manzura421145",
+      "password": "J8mQPpQd"
+    },
+    {
+      "id": "1700064152721",
+      "login": "bobohonova_gulhomor238755",
+      "password": "BrNOYN6g"
+    },
+    {
+      "id": "1700064223561",
+      "login": "askarova_nafisa433860",
+      "password": "h4IqTf4d"
+    },
+    {
+      "id": "1700064293591",
+      "login": "bobohonova_gulhomor413493",
+      "password": "39loVGQ5"
+    },
+    {
+      "id": "1700064423337",
+      "login": "mamajonova_roza256520",
+      "password": "7WYWU2rL"
     }
   ],
   "users": [
@@ -652,6 +742,204 @@
         "class_num": "10",
         "class_letter": "З",
         "img": "/images/stuff/1700061431538.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062085002",
+        "name": "Кильсинбаева Ф.Г",
+        "class_num": "9",
+        "class_letter": "Б",
+        "img": "/images/stuff/1700062085002.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062429242",
+        "name": "Нумонова Н.И",
+        "class_num": "9",
+        "class_letter": "В",
+        "img": "/images/stuff/1700062429242.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062534580",
+        "name": "Доллидзе Н.А",
+        "class_num": "9",
+        "class_letter": "Г",
+        "img": "/images/stuff/1700062534580.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062634288",
+        "name": "Шокирова Д.Р",
+        "class_num": "9",
+        "class_letter": "Д",
+        "img": "/images/stuff/1700062634288.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062703842",
+        "name": "Собирова Ф.А",
+        "class_num": "9",
+        "class_letter": "Е",
+        "img": "/images/stuff/1700062703842.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062847368",
+        "name": "Атабаева Динора",
+        "class_num": "9",
+        "class_letter": "Ж",
+        "img": "/images/stuff/1700062847368.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700062941160",
+        "name": "Азиза Хамидовна",
+        "class_num": "9",
+        "class_letter": "К",
+        "img": "/images/stuff/1700062941160.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063156218",
+        "name": "Собирова Ф.А",
+        "class_num": "8",
+        "class_letter": "А",
+        "img": "/images/stuff/1700063156218.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063235641",
+        "name": "Курбанова Н.Н",
+        "class_num": "8",
+        "class_letter": "Б",
+        "img": "/images/stuff/1700063235641.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063309553",
+        "name": "Исмаилова Г.А",
+        "class_num": "8",
+        "class_letter": "В",
+        "img": "/images/stuff/1700063309553.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063678896",
+        "name": "Асрарова С.А",
+        "class_num": "8",
+        "class_letter": "Г",
+        "img": "/images/stuff/1700063678896.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063790770",
+        "name": "Уринова Мукаддам",
+        "class_num": "8",
+        "class_letter": "Д",
+        "img": "/images/stuff/1700063790770.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700063915245",
+        "name": "Хакимова А.Х",
+        "class_num": "8",
+        "class_letter": "Е",
+        "img": "/images/stuff/1700063915245.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700064055858",
+        "name": "Мансурова М.М",
+        "class_num": "8",
+        "class_letter": "Ж",
+        "img": "/images/stuff/1700064055858.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700064152721",
+        "name": "Бобохонова Г.Г",
+        "class_num": "8",
+        "class_letter": "З",
+        "img": "/images/stuff/1700064152721.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700064223561",
+        "name": "Аскарова Н.А",
+        "class_num": "8",
+        "class_letter": "И",
+        "img": "/images/stuff/1700064223561.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700064293591",
+        "name": "Бобохонова Г.Г",
+        "class_num": "8",
+        "class_letter": "К",
+        "img": "/images/stuff/1700064293591.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700064423337",
+        "name": "Мамажонова Р.Н",
+        "class_num": "8",
+        "class_letter": "Л",
+        "img": "/images/stuff/1700064423337.webp",
         "role": "teacher",
         "students": []
       }
