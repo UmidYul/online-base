@@ -46,7 +46,7 @@
     window.onload = function () {
         const userID = window.location.href.slice(-47, -34)
         const classID = window.location.href.slice(-27, -14)
-        console.log(classID);
+        console.log(classID == 1700059887658);
         const response = fetch("/id", {
             method: 'POST',
             headers: {
@@ -91,7 +91,6 @@
                     <img id="labelImg" src=${i.el.img}>
                     <a href=${i.el.img} download><button><i class="fa-solid fa-download"></i></button></a>
                     <p>Ф.И.О: ${i.el.name}</p>
-                    <p>Предмент: ${i.el.subject}</p>
                     <p>Класс: ${i.el.class_num} ${i.el.class_letter}</p>
                     <p>Логин: ${i.ex.login}</p>
                     <p>Пароль: ${i.ex.password}</p>
