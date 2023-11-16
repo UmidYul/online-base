@@ -122,7 +122,7 @@
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
                         return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>
-                                <div><button id="removeClass" class="button-31" role="button">Удалить</button></div>
+                                <div><button id="removeClass" class="button-31" role="button">Удалить Класс</button></div>
                         `
                     }).join("")
                 document.getElementById("removeClass").addEventListener("click", () => {
@@ -150,7 +150,7 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                document.getElementById("class_num_h1").innerText = arr[0].el.class_num + " " + arr[0].el.class_letter
+                document.getElementById("class_num_h1").innerText = "Класс: " + arr[0].el.class_num + " " + arr[0].el.class_letter
                 document.getElementsByClassName('searching')[0].innerHTML =
                     arr.map(i => {
                         return `<input placeholder="Поиск по Ф.И.О" type="text">`

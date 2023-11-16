@@ -312,7 +312,7 @@ app.post("/editClass", async function (req, res) {
         if (files.img) {
             const usersIndex = users.findIndex(user => user.info.id == fields.cid);
             const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-            logins[loginsIndex].login = fields.login[0]
+            // logins[loginsIndex].login = fields.login[0]
             logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
             // users[usersIndex].info.subject = fields.subject[0]
@@ -327,7 +327,7 @@ app.post("/editClass", async function (req, res) {
         } else {
             const usersIndex = users.findIndex(user => user.info.id == fields.cid);
             const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-            logins[loginsIndex].login = fields.login[0]
+            // logins[loginsIndex].login = fields.login[0]
             logins[loginsIndex].password = fields.pass[0]
             users[usersIndex].info.name = fields.name[0]
             // users[usersIndex].info.subject = fields.subject[0]

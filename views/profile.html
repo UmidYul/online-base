@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/profile.css">
     <link rel="stylesheet" href="/styles/swiper.css">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <title>online-base.uz</title>
@@ -25,7 +26,6 @@
         </nav>
         <div class="teacherInfo">
         </div>
-        <div id="field"></div>
     </div>
     <div class="profile-container">
         <div class="profile">
@@ -85,21 +85,25 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
+                // <a href=${i.el.img} download><button><i class="fa-solid fa-download"></i></button></a>    
                 document.getElementsByClassName("teacherInfo")[0].innerHTML =
                     arr.map(i => {
                         return `
-                    <img id="labelImg" src=${i.el.img}>
-                    <a href=${i.el.img} download><button><i class="fa-solid fa-download"></i></button></a>
+                    <div class="profile_field">
+                        <img id="labelImg" src=${i.el.img}>
+                        <div class="profile_info">
+                    <h2>Профиль</h2>
+                    <p>ID: ${i.el.id}</p>
                     <p>Ф.И.О: ${i.el.name}</p>
                     <p>Класс: ${i.el.class_num} ${i.el.class_letter}</p>
                     <p>Логин: ${i.ex.login}</p>
                     <p>Пароль: ${i.ex.password}</p>
-                    <a href=/user:${userID}/class:${classID}/stuff-profile/edit><button type="submit">Изменить</button></a>
+                    <div class="button_line"><a href=/user:${userID}/class:${classID}/stuff-profile/edit><button id="change_button" type="submit">Изменить</button></a><button id="removeClass">Удалить</button></div>
+                        </div>
+                    </div>
                     `
                     })
             })
-        document.getElementById("field").innerHTML =
-            `<div><button id="removeClass">Удалить</button></div>`
         document.getElementById("removeClass").addEventListener("click", () => {
             fetch("/remove/class", {
                 method: 'POST',

@@ -1,12 +1,13 @@
 body,
 html {
-    margin: 0;
-    padding: 0;
+    height: 100%;
+}
+
+.teacherInfo {
+    height: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
 }
 
 .form-field {
@@ -16,17 +17,38 @@ html {
 
 #labelImg {
     width: 400px;
-    height: 500px;
 }
 
 form {
     width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     padding: 50px;
     border-left: #000 solid 1px;
     background-color: #354251;
+}
+
+p {
+    color: #fff;
+}
+
+.line_input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inputVis {
+    width: 200px;
+    height: 30px;
+}
+
+.check_line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
 }
 
 input,
@@ -44,12 +66,6 @@ select option:nth-child(1) {
 
 option {
     color: #000;
-}
-
-#img {
-    display: none;
-    width: 0;
-    height: 0;
 }
 
 input,

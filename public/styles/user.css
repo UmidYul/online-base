@@ -5,6 +5,7 @@
 
 .container {
     z-index: 99;
+    height: 100%;
 }
 
 #class_num_option {
