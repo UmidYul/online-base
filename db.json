@@ -1,8 +1,8 @@
 {
   "logins": [
     {
-      "login": "umid",
-      "password": "gnusmas201414",
+      "login": "admin",
+      "password": "qwerty2023",
       "id": "1696509479100"
     },
     {
@@ -371,7 +371,7 @@
       "info": {
         "id": "1696509479100",
         "img": "/images/stuff/1696509479100.webp",
-        "name": "Timurov R.B.",
+        "name": "Мухиддинов Р.Б",
         "role": "admin",
         "students": []
       }

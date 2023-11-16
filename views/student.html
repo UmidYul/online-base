@@ -50,6 +50,7 @@
         const classId = window.location.href.slice(-35, -22)
         const userId = window.location.href.slice(-55, -42)
         const studentId = window.location.href.slice(-13)
+        console.log(studentId);
         const res = fetch("/id", {
             method: 'POST',
             headers: {

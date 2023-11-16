@@ -1,7 +1,8 @@
 .swiper {
-    margin-top: 100px;
+    margin-top: 60px;
     width: auto;
     height: 55vh;
+    overflow-y: auto;
 }
 
 .swiper-pagination-bullet {

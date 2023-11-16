@@ -229,9 +229,9 @@
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
                         if (arr[0].el.role == "admin") {
-                            return `<div><a id="admin-link" href="/user:${id}/add-class"><button>Добавить Класс</button></a></div>`
+                            return `<div><a id="admin-link" href="/user:${id}/add-class"><button class="button-31" role="button">Добавить Класс</button></a></div>`
                         } if (arr[0].el.role == "teacher") {
-                            return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/class:${id}/add-student"><button>Добавить Ученика</button></a></div>`
+                            return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/class:${id}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>`
                         }
                     }).join("")
             })

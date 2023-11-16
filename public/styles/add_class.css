@@ -1,0 +1,84 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.form-field {
+    border: #000 solid 1px;
+    display: flex;
+}
+
+#labelImg {
+    width: 400px;
+    height: 500px;
+}
+
+form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    border-left: #000 solid 1px;
+    background-color: #064420;
+}
+
+input,
+select {
+    height: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+select,
+select option:nth-child(1) {
+    color: gray;
+}
+
+option {
+    color: #000;
+}
+
+#img {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input,
+select :active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+label {
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+label:hover {
+    cursor: pointer;
+}
+
+button {
+    height: 40px;
+    font-size: 16px;
+    width: 150px;
+    border-radius: 10px;
+}

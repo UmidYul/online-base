@@ -121,8 +121,8 @@
                     })
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
-                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button>Добавить Ученика</button></a></div>
-                                <div><button id="removeClass">Удалить</button></div>
+                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>
+                                <div><button id="removeClass" class="button-31" role="button">Удалить</button></div>
                         `
                     }).join("")
                 document.getElementById("removeClass").addEventListener("click", () => {
@@ -153,7 +153,7 @@
                 document.getElementById("class_num_h1").innerText = arr[0].el.class_num + " " + arr[0].el.class_letter
                 document.getElementsByClassName('searching')[0].innerHTML =
                     arr.map(i => {
-                        return `<input placeholder="Поиск по Ф.И.О." type="text">`
+                        return `<input placeholder="Поиск по Ф.И.О" type="text">`
                     })
                 document.getElementById("tbody").innerHTML =
                     arr[0].el.students.map(x => {
