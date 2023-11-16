@@ -294,6 +294,76 @@
       "id": "1700064423337",
       "login": "mamajonova_roza256520",
       "password": "7WYWU2rL"
+    },
+    {
+      "id": "1700114372578",
+      "login": "shokirova_dilorom760712",
+      "password": "sKSl9bSw"
+    },
+    {
+      "id": "1700114594674",
+      "login": "numonova_nargiza824837",
+      "password": "wvai3ASq"
+    },
+    {
+      "id": "1700114667974",
+      "login": "askarova_sevara180384",
+      "password": "aw2TdZdZ"
+    },
+    {
+      "id": "1700114777585",
+      "login": "mamajonova_roza162741",
+      "password": "xkpih0Ql"
+    },
+    {
+      "id": "1700114939865",
+      "login": "djumasheva_durdona1125",
+      "password": "0q49SGfF"
+    },
+    {
+      "id": "1700115048098",
+      "login": "omonova_zamira143558",
+      "password": "K4Hz6IjN"
+    },
+    {
+      "id": "1700115331587",
+      "login": "muxuddinova_sevara250836",
+      "password": "rSt1cmyD"
+    },
+    {
+      "id": "1700115436410",
+      "login": "nishanova_moxira895561",
+      "password": "IlRI0iZJ"
+    },
+    {
+      "id": "1700115486617",
+      "login": "qodirova_nigora140316",
+      "password": "UCr5yALF"
+    },
+    {
+      "id": "1700115592432",
+      "login": "dolidze_natela911219",
+      "password": "A3N8pS0O"
+    },
+    {
+      "id": "1700115715177",
+      "login": "akramova_zemfira964723",
+      "password": "varHT5Ip"
+    },
+    {
+      "id": "1700115831682",
+      "login": "sayfudinova_dilafruz958640",
+      "password": "n0XqxgDQ"
+    },
+    {
+      "id": "1700115921629",
+      "login": "andryaneva_elena670413",
+      "password": "I9bbfiGT"
+    },
+    {
+      "id": "1700116023488",
+      "login": "yunusova_muqaddam314236",
+      "password": "41h2NIWV"
     }
   ],
   "users": [
@@ -551,7 +621,7 @@
     {
       "info": {
         "id": "1700058988458",
-        "name": "Тан",
+        "name": "Таникулова Е.В",
         "class_num": "4",
         "class_letter": "Г",
         "img": "/images/stuff/1700058988458.webp",
@@ -584,7 +654,7 @@
     {
       "info": {
         "id": "1700059387171",
-        "name": "Э",
+        "name": "Эрагашева З.Ю",
         "class_num": "4",
         "class_letter": "Ж",
         "img": "/images/stuff/1700059387171.webp",
@@ -606,7 +676,7 @@
     {
       "info": {
         "id": "1700059561658",
-        "name": "Назарова Х.О",
+        "name": "Назаров Х.О",
         "class_num": "5",
         "class_letter": "А",
         "img": "/images/stuff/1700059561658.webp",
@@ -940,6 +1010,160 @@
         "class_num": "8",
         "class_letter": "Л",
         "img": "/images/stuff/1700064423337.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700114372578",
+        "name": "Шокирова Д.Р",
+        "class_num": "5",
+        "class_letter": "Б",
+        "img": "/images/stuff/1700114372578.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700114594674",
+        "name": "Нумонова Н.И",
+        "class_num": "5",
+        "class_letter": "В",
+        "img": "/images/stuff/1700114594674.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700114667974",
+        "name": "Аскарова С.А",
+        "class_num": "5",
+        "class_letter": "Г",
+        "img": "/images/stuff/1700114667974.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700114777585",
+        "name": "Мамажонова Р.Н",
+        "class_num": "5",
+        "class_letter": "Д",
+        "img": "/images/stuff/1700114777585.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700114939865",
+        "name": "Джумашева Д.С",
+        "class_num": "5",
+        "class_letter": "Е",
+        "img": "/images/stuff/1700114939865.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115048098",
+        "name": "Омонова З",
+        "class_num": "5",
+        "class_letter": "Ж",
+        "img": "/images/stuff/1700115048098.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115331587",
+        "name": "Мухиддинова С.З",
+        "class_num": "5",
+        "class_letter": "З",
+        "img": "/images/stuff/1700115331587.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115436410",
+        "name": "Нишанова М.М",
+        "class_num": "6",
+        "class_letter": "А",
+        "img": "/images/stuff/1700115436410.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115486617",
+        "name": "Кадирова Н.Р",
+        "class_num": "6",
+        "class_letter": "Б",
+        "img": "/images/stuff/1700115486617.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115592432",
+        "name": "Долидзе Н.А",
+        "class_num": "6",
+        "class_letter": "В",
+        "img": "/images/stuff/1700115592432.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115715177",
+        "name": "Акрамова З.Р",
+        "class_num": "6",
+        "class_letter": "Г",
+        "img": "/images/stuff/1700115715177.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115831682",
+        "name": "Сайфутдинова Д.Ш",
+        "class_num": "7",
+        "class_letter": "А",
+        "img": "/images/stuff/1700115831682.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700115921629",
+        "name": "Андриянова Е.Г",
+        "class_num": "7",
+        "class_letter": "Б",
+        "img": "/images/stuff/1700115921629.webp",
+        "role": "teacher",
+        "students": []
+      }
+    },
+    {
+      "info": {
+        "id": "1700116023488",
+        "name": "Юнусова М.У",
+        "class_num": "7",
+        "class_letter": "В",
+        "img": "/images/stuff/1700116023488.webp",
         "role": "teacher",
         "students": []
       }
