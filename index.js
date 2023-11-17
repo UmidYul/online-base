@@ -13,7 +13,7 @@ import { userInfo } from 'node:os'
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const file = join(__dirname, 'd.json')
+const file = join(__dirname, 'db.json')
 const adapter = new JSONFile(file)
 const defaultData = { logins: [], users: [] }
 const db = new Low(adapter, defaultData)
@@ -192,23 +192,31 @@ app.post("/login-api", async function (req, res) {
     if (user) {
         if (user.password === pass) {
             req.session.authenticated = true;
-          users.forEach(e => {
-            for (let i = 0; i < e.info.length; i++) {
-                const el = e.info[i].info;
-                if (el.id == user.id) {
-                    var date= new Date();
-                    var year = +date.getUTCFullYear();
-                    let yearMonth= year + "_09_" + Number(year + 1) + "_05"
-                    if (e.period!=yearMonth) {
-                    //    users.push(users[-1])
-                    //    db.write()
-                    console.log(users[-1])
-                    users.findIndex(user => user.period == users[-1].period);
+            let responseSent = false
+            users.forEach(e => {
+                for (let i = 0; i < e.info.length; i++) {
+                    const el = e.info[i].info;
+                    if (el.id == user.id) {
+                        var date = new Date();
+                        var year = +date.getUTCFullYear();
+                        let yearMonth = year + "_09_" + Number(year + 1) + "_05"
+                        if (users[users.length - 1].period != yearMonth) {
+                            if (!responseSent) {
+                                let e = users[users.length - 1]
+                                users.push({ period: yearMonth, info: e.info })
+                                db.write()
+                                res.redirect(`/period:${yearMonth}/user:${el.id}`)
+                                responseSent = true;
+                            }
+                        } else {
+                            if (!responseSent) {
+                                res.redirect(`/period:${yearMonth}/user:${el.id}`)
+                                responseSent = true;
+                            }
+                        }
                     }
-                    res.redirect(`/period:${yearMonth}/user:${el.id}`)
                 }
-            }
-          });
+            });
         } else {
             res.redirect("/")
         }
@@ -220,15 +228,19 @@ app.post("/id", async function (req, res) {
     const { data } = req.body
     await db.read()
     const { users } = db.data
+    let responseSent = false
     users.forEach(e => {
         for (let i = 0; i < e.info.length; i++) {
             const el = e.info[i].info;
             if (el.id == data) {
                 req.session.userId = el.id
-                res.send(JSON.stringify({ el, users }))
+                if (!responseSent) {
+                    res.send(JSON.stringify({ el, users }))
+                    responseSent = true;
+                }
             }
         }
-      });
+    });
 })
 app.post("/classid", async function (req, res) {
     const { data } = req.body
@@ -242,7 +254,7 @@ app.post("/classid", async function (req, res) {
                 res.send(JSON.stringify({ el, ex }))
             }
         }
-      });
+    });
 })
 app.post("/studentid", async function (req, res) {
     const { sid, cid } = req.body
@@ -261,7 +273,7 @@ app.post("/studentid", async function (req, res) {
                 }
             }
         }
-      });
+    });
 })
 app.post("/remove/student", async function (req, res) {
     const { uid, sid, cid } = req.body
@@ -275,26 +287,26 @@ app.post("/remove/student", async function (req, res) {
                     const x = el.students[z];
                     if (x.id == sid) {
                         let responseSent = false;
-                            if (e.info[i].info.students && Array.isArray(e.info[i].info.students)) {
-                                const index = e.info[i].info.students.findIndex(user => user.id == sid);
-                                e.info[i].info.students.splice(index, 1);
-                                db.write();
-                                if (!responseSent) {
-                                    res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}` }));
-                                    responseSent = true;
-                                }
-                            } else {
-                                if (!responseSent) {
-                                    res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}/student:${sid}` }));
-                                    responseSent = true;
-                                }
+                        if (e.info[i].info.students && Array.isArray(e.info[i].info.students)) {
+                            const index = e.info[i].info.students.findIndex(user => user.id == sid);
+                            e.info[i].info.students.splice(index, 1);
+                            db.write();
+                            if (!responseSent) {
+                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}` }));
+                                responseSent = true;
                             }
+                        } else {
+                            if (!responseSent) {
+                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}/student:${sid}` }));
+                                responseSent = true;
+                            }
+                        }
                         fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
                     }
                 }
             }
         }
-      });
+    });
 })
 
 app.post("/remove/class", async function (req, res) {
@@ -318,7 +330,7 @@ app.post("/remove/class", async function (req, res) {
                 fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
             }
         }
-      });
+    });
 })
 app.post("/editClass", async function (req, res) {
     await db.read()
@@ -340,7 +352,7 @@ app.post("/editClass", async function (req, res) {
                 fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
                 fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
                 db.write()
-                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`) 
+                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
             });
         } else {
             users.forEach(e => {
@@ -353,7 +365,7 @@ app.post("/editClass", async function (req, res) {
                 e.info[usersIndex].info.class_num = fields.num[0]
                 e.info[usersIndex].info.class_letter = fields.letter[0]
                 db.write()
-                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`) 
+                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
             });
         }
     });
@@ -398,7 +410,7 @@ app.post("/editStudent", async function (req, res) {
                 db.write()
                 res.redirect(`/user:${req.session.userId}`)
             });
-           
+
         } else {
             users.forEach(e => {
                 const userIndex = e.info.findIndex(user => user.info.id == fields.cid);

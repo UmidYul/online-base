@@ -85,11 +85,12 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
+                const z = arr[0].users.reverse()
                 for (let i = 0; i < arr[0].users.length; i++) {
-                    const e = arr[0].users[i];
+                    const e = z[i];
                     const option = document.createElement("option")
                     option.value = e.period
-                    option.innerText = e.period
+                    option.innerText = e.period.slice(0, 4) + "/" + e.period.slice(-7, -3)
                     document.querySelector("#period_option").appendChild(option)
                 }
                 document.getElementsByClassName('profile')[0].innerHTML =
@@ -119,7 +120,7 @@
             `
                         }
                     })
-                    
+
                 if (arr[0].el.role == "admin") {
                     document.getElementById("thead").innerHTML =
 
@@ -132,53 +133,53 @@
                                 `
                     document.getElementById("class_num_option").style.display = "block"
                     let arr2 = []
-                    arr[0].users.forEach(e => {
-                        e.info.map(i => {
-                            if (i.info.role == "teacher") {
-                                arr2.push(i)
-                            }
-                        })
-                        const uniqueArr4 = Array.from(new Set(arr2));
-                        let num_arr3 = []
-                        for (let i = 0; i < uniqueArr4.length; i++) {
-                            if (uniqueArr4[i].info.class_num == 1) {
-                                num_arr3.push(uniqueArr4[i])
-                            }
+                    console.log(window.location.href.slice(-34, -19));
+                    const index = arr[0].users.findIndex(user => user.period == window.location.href.slice(-34, -19));
+                    arr[0].users[index].info.map(i => {
+                        if (i.info.role == "teacher") {
+                            arr2.push(i)
                         }
-                        document.getElementById("tbody").innerHTML =
-                            num_arr3.map(x => {
-                                return `
+                    })
+                    const uniqueArr4 = Array.from(new Set(arr2));
+                    let num_arr3 = []
+                    for (let i = 0; i < uniqueArr4.length; i++) {
+                        if (uniqueArr4[i].info.class_num == 1) {
+                            num_arr3.push(uniqueArr4[i])
+                        }
+                    }
+                    document.getElementById("tbody").innerHTML =
+                        num_arr3.map(x => {
+                            return `
                                         <tr>
                                             <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                             <td>${x.info.students.length}</td>
                                             <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                         </tr>
                             `
-                            }).join(" ")
-                        setTimeout(() => {
-                            document.getElementById("class_num_option").addEventListener("change", () => {
-                                const uniqueArr2 = Array.from(new Set(arr2));
-                                let num_arr = []
-                                let value = document.getElementById("class_num_option").value
-                                for (let i = 0; i < uniqueArr2.length; i++) {
-                                    if (uniqueArr2[i].info.class_num == value) {
-                                        num_arr.push(uniqueArr2[i])
-                                    }
+                        }).join(" ")
+                    setTimeout(() => {
+                        document.getElementById("class_num_option").addEventListener("change", () => {
+                            const uniqueArr2 = Array.from(new Set(arr2));
+                            let num_arr = []
+                            let value = document.getElementById("class_num_option").value
+                            for (let i = 0; i < uniqueArr2.length; i++) {
+                                if (uniqueArr2[i].info.class_num == value) {
+                                    num_arr.push(uniqueArr2[i])
                                 }
-                                document.getElementById("tbody").innerHTML =
-                                    num_arr.map(x => {
-                                        return `
+                            }
+                            document.getElementById("tbody").innerHTML =
+                                num_arr.map(x => {
+                                    return `
                                             <tr>
                                                 <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                                 <td>${x.info.students.length}</td>
                                                 <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                             </tr>
                                 `
-                                    }).join(" ")
-                            })
-                        }, 500);
+                                }).join(" ")
+                        })
+                    }, 500);
 
-                    });
                 } else {
                     document.getElementById("thead").innerHTML =
                         `
@@ -209,7 +210,7 @@
                         if (arr[0].el.role != "admin") {
                             return `<input placeholder="Поиск по Ф.И.О." type="text">`
                         }
-                        
+
                     })
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
