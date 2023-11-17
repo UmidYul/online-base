@@ -8,7 +8,6 @@ import session from 'express-session';
 import path from "path"
 import formidable from 'formidable'
 import fs from "fs"
-import { userInfo } from 'node:os'
 
 const app = express()
 const PORT = 3000
