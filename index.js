@@ -34,8 +34,33 @@ const authMiddleware = (req, res, next) => {
         res.redirect('/');
     }
 };
-
-app.get('/', function (req, res) {
+async function listener() {
+    await db.read()
+    const { users } = db.data
+    var date = new Date();
+    var year = +date.getUTCFullYear();
+    let yearMonth = year + "_09_" + Number(year + 1) + "_05"
+    if (users[users.length - 1].period != yearMonth) {
+        let e = users[users.length - 1]
+        users.push({ period: yearMonth, info: e.info })
+        db.write()
+        const per = users.findIndex(user => user.period == yearMonth)
+        users[per].info.forEach(el => {
+            if (el.info.role == "teacher") {
+                const arr = users[1].info.findIndex(user => user == el)
+                users[per].info[arr].info.class_num += 1
+                db.write()
+            }
+        });
+    }
+    return yearMonth
+}
+setInterval(() => {
+    listener()
+}, 1000);
+app.get('/', async function (req, res) {
+    listener()
+    req.session.period = await listener()
     if (req.session.authenticated == true) {
         res.redirect(`/user:${req.session.userId}`)
     } else {
@@ -73,63 +98,66 @@ app.post('/add-student', async function (req, res) {
     await db.read()
     const { users } = db.data
     const form1 = formidable({ multiples: false });
-    for (let i = 0; i < users.length; i++) {
-        const el = users[i].info;
-        if (el.id == req.session.userId) {
-            form1.parse(req, (err, fields, files) => {
-                if (files.img) {
-                    const oldPath = files.img[0].filepath;
-                    const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
-                    fs.rename(oldPath, newPath, (error) => {
-                        if (error) {
-                            res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                            return;
-                        }
-                    });
-                    x(fields, `/images/student/${id}.webp`)
-                } else {
-                    x(fields, "/images/error/error.webp")
-                }
-            });
-            function x(log, img) {
-                el.students.push({
-                    id: id,
-                    img: img,
-                    student_name: log.student_name[0],
-                    student_birth_date: log.student_birth_date[0],
-                    student_accept_date: log.student_accept_date[0],
-                    serial_number: log.student_serial_number[0],
-                    student_tel: log.student_tel[0],
-                    student_adress: log.student_adress[0],
-                    student_mahalla: log.student_mahalla[0],
-                    family_status: log.family_status[0],
-                    student_attraction: log.student_attraction[0],
-                    student_health_status: log.student_health_status[0],
-                    mother: {
-                        mother_name: log.mother_name[0],
-                        mother_serial_number: log.mother_serial_number[0],
-                        mother_birth_date: log.mother_birth_date[0],
-                        mother_adress: log.mother_adress[0],
-                        mother_mahalla: log.mother_mahalla[0],
-                        mother_tel: log.mother_tel[0],
-                        mother_workplace: log.mother_workplace[0]
-                    },
-                    father: {
-                        father_name: log.father_name[0],
-                        father_serial_number: log.father_serial_number[0],
-                        father_birth_date: log.father_birth_date[0],
-                        father_adress: log.father_adress[0],
-                        father_mahalla: log.father_mahalla[0],
-                        father_tel: log.father_tel[0],
-                        father_workplace: log.father_workplace[0]
+    users.forEach(e => {
+        for (let i = 0; i < e.info.length; i++) {
+            const el = e.info[i]
+            if (el.info.id == req.session.classId) {
+                form1.parse(req, (err, fields, files) => {
+                    if (files.img) {
+                        const oldPath = files.img[0].filepath;
+                        const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
+                        fs.rename(oldPath, newPath, (error) => {
+                            if (error) {
+                                res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                                return;
+                            }
+                        });
+                        x(fields, `/images/student/${id}.webp`)
+                    } else {
+                        x(fields, "/images/error/error.webp")
                     }
-                })
-                db.write()
-                res.redirect(`/user:${el.id}`)
-            }
+                });
+                function x(log, img) {
+                    el.info.students.push({
+                        id: id,
+                        img: img,
+                        student_name: log.student_name[0],
+                        student_birth_date: log.student_birth_date[0],
+                        student_accept_date: log.student_accept_date[0],
+                        serial_number: log.student_serial_number[0],
+                        student_tel: log.student_tel[0],
+                        student_adress: log.student_adress[0],
+                        student_mahalla: log.student_mahalla[0],
+                        family_status: log.family_status[0],
+                        student_attraction: log.student_attraction[0],
+                        student_health_status: log.student_health_status[0],
+                        mother: {
+                            mother_name: log.mother_name[0],
+                            mother_serial_number: log.mother_serial_number[0],
+                            mother_birth_date: log.mother_birth_date[0],
+                            mother_adress: log.mother_adress[0],
+                            mother_mahalla: log.mother_mahalla[0],
+                            mother_tel: log.mother_tel[0],
+                            mother_workplace: log.mother_workplace[0]
+                        },
+                        father: {
+                            father_name: log.father_name[0],
+                            father_serial_number: log.father_serial_number[0],
+                            father_birth_date: log.father_birth_date[0],
+                            father_adress: log.father_adress[0],
+                            father_mahalla: log.father_mahalla[0],
+                            father_tel: log.father_tel[0],
+                            father_workplace: log.father_workplace[0]
+                        }
+                    })
+                    db.write()
+                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
+                }
 
+            }
         }
-    }
+    });
+
 })
 app.post('/logout', function (req, res) {
     const { data } = req.body
@@ -170,7 +198,7 @@ app.post('/add-class', async function (req, res) {
             info: {
                 id: id,
                 name: log.name[0],
-                class_num: log.class_num[0],
+                class_num: Number(log.class_num[0]),
                 class_letter: log.letter[0],
                 img: img,
                 // subject: log.subject[0],
@@ -196,22 +224,9 @@ app.post("/login-api", async function (req, res) {
                 for (let i = 0; i < e.info.length; i++) {
                     const el = e.info[i].info;
                     if (el.id == user.id) {
-                        var date = new Date();
-                        var year = +date.getUTCFullYear();
-                        let yearMonth = year + "_09_" + Number(year + 1) + "_05"
-                        if (users[users.length - 1].period != yearMonth) {
-                            if (!responseSent) {
-                                let e = users[users.length - 1]
-                                users.push({ period: yearMonth, info: e.info })
-                                db.write()
-                                res.redirect(`/period:${yearMonth}/user:${el.id}`)
-                                responseSent = true;
-                            }
-                        } else {
-                            if (!responseSent) {
-                                res.redirect(`/period:${yearMonth}/user:${el.id}`)
-                                responseSent = true;
-                            }
+                        if (!responseSent) {
+                            res.redirect(`/period:${req.session.period}/user:${el.id}`)
+                            responseSent = true;
                         }
                     }
                 }
@@ -228,18 +243,18 @@ app.post("/id", async function (req, res) {
     await db.read()
     const { users } = db.data
     let responseSent = false
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i].info;
-            if (el.id == data) {
-                req.session.userId = el.id
-                if (!responseSent) {
-                    res.send(JSON.stringify({ el, users }))
-                    responseSent = true;
-                }
+    for (let i = 0; i < users[users.length - 1].info.length; i++) {
+        const el = users[users.length - 1].info[i].info;
+        if (el.id == data) {
+            console.log(el.id);
+            req.session.userId = el.id
+            console.log(req.session.userId);
+            if (!responseSent) {
+                res.send(JSON.stringify({ el, users }))
+                responseSent = true;
             }
         }
-    });
+    }
 })
 app.post("/classid", async function (req, res) {
     const { data } = req.body
@@ -250,6 +265,7 @@ app.post("/classid", async function (req, res) {
             const el = e.info[i].info;
             const ex = logins[i];
             if (el.id == data & ex.id == data) {
+                req.session.classId = el.id
                 res.send(JSON.stringify({ el, ex }))
             }
         }
@@ -344,7 +360,7 @@ app.post("/editClass", async function (req, res) {
                 logins[loginsIndex].password = fields.pass[0]
                 e.info[usersIndex].info.name = fields.name[0]
                 // users[usersIndex].info.subject = fields.subject[0]
-                e.info[usersIndex].info.class_num = fields.num[0]
+                e.info[usersIndex].info.class_num = Number(fields.num[0])
                 e.info[usersIndex].info.class_letter = fields.letter[0]
                 const oldPath = files.img[0].filepath;
                 const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
@@ -361,7 +377,7 @@ app.post("/editClass", async function (req, res) {
                 logins[loginsIndex].password = fields.pass[0]
                 e.info[usersIndex].info.name = fields.name[0]
                 // users[usersIndex].info.subject = fields.subject[0]
-                e.info[usersIndex].info.class_num = fields.num[0]
+                e.info[usersIndex].info.class_num = Number(fields.num[0])
                 e.info[usersIndex].info.class_letter = fields.letter[0]
                 db.write()
                 res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
@@ -444,4 +460,6 @@ app.post("/editStudent", async function (req, res) {
         }
     });
 })
-app.listen(PORT, console.log(`http://localhost:${PORT}`))
+app.listen(PORT, async (res, req) => {
+    console.log(`http://localhost:${PORT}`)
+})

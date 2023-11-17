@@ -67,6 +67,7 @@
     window.onload = function () {
         const classId = window.location.href.slice(-13)
         const userId = window.location.href.slice(-33, -20)
+        const period = window.location.href.slice(-54, -39)
         const res = fetch("/id", {
             method: 'POST',
             headers: {
@@ -159,7 +160,7 @@
                     arr[0].el.students.map(x => {
                         return `
                                                 <tr>
-                                                <td><a href=/user:${userId}/class:${classId}/student:${x.id}>${x.student_name}</a></td>
+                                                <td><a href=/period:${period}/user:${userId}/class:${classId}/student:${x.id}>${x.student_name}</a></td>
                                                 <td>${x.student_tel}</td>
                                                 <td>${x.student_adress}</td>
                                                 <td>${x.student_mahalla}</td>

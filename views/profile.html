@@ -46,7 +46,6 @@
     window.onload = function () {
         const userID = window.location.href.slice(-47, -34)
         const classID = window.location.href.slice(-27, -14)
-        console.log(classID == 1700059887658);
         const response = fetch("/id", {
             method: 'POST',
             headers: {
@@ -104,19 +103,19 @@
                     `
                     })
             })
-        document.getElementById("removeClass").addEventListener("click", () => {
-            fetch("/remove/class", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ cid: classID, uid: userID })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    window.location.replace(data.url)
-                })
-        })
+        // document.getElementById("removeClass").addEventListener("click", () => {
+        //     fetch("/remove/class", {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ cid: classID, uid: userID })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             window.location.replace(data.url)
+        //         })
+        // })
 
     }
 

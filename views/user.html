@@ -73,6 +73,8 @@
     }
 
     window.onload = function () {
+        const period = window.location.href.slice(-34, -19)
+        console.log(period);
         const id = window.location.href.slice(-13)
         const response = fetch("/id", {
             method: 'POST',
@@ -151,7 +153,7 @@
                         num_arr3.map(x => {
                             return `
                                         <tr>
-                                            <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
+                                            <td><a href=/period:${period}/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                             <td>${x.info.students.length}</td>
                                             <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                         </tr>
@@ -171,7 +173,7 @@
                                 num_arr.map(x => {
                                     return `
                                             <tr>
-                                                <td><a href=/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
+                                                <td><a href=/period:${period}/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                                 <td>${x.info.students.length}</td>
                                                 <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                             </tr>
@@ -195,7 +197,7 @@
                         arr[0].el.students.map(x => {
                             return `
                                                 <tr>
-                                                <td><a href=/user:${id}/class:${id}/student:${x.id}>${x.student_name}</a></td>
+                                                <td><a href=/period:${period}/user:${id}/class:${id}/student:${x.id}>${x.student_name}</a></td>
                                                 <td>${x.student_tel}</td>
                                                 <td>${x.student_mahalla}</td>
                                                 <td>${x.student_adress}</td>
