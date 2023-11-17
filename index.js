@@ -246,9 +246,7 @@ app.post("/id", async function (req, res) {
     for (let i = 0; i < users[users.length - 1].info.length; i++) {
         const el = users[users.length - 1].info[i].info;
         if (el.id == data) {
-            console.log(el.id);
             req.session.userId = el.id
-            console.log(req.session.userId);
             if (!responseSent) {
                 res.send(JSON.stringify({ el, users }))
                 responseSent = true;
@@ -282,7 +280,6 @@ app.post("/studentid", async function (req, res) {
                 for (let z = 0; z < el.students.length; z++) {
                     const x = el.students[z];
                     if (x.id == sid) {
-                        console.log(x);
                         res.send(JSON.stringify({ x }))
                     }
                 }
