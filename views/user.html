@@ -23,6 +23,8 @@
             </div>
             <img id="profile-img">
         </nav>
+        <select id="period_option">
+        </select>
         <select id="class_num_option">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -83,6 +85,13 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
+                for (let i = 0; i < arr[0].users.length; i++) {
+                    const e = arr[0].users[i];
+                    const option = document.createElement("option")
+                    option.value = e.period
+                    option.innerText = e.period
+                    document.querySelector("#period_option").appendChild(option)
+                }
                 document.getElementsByClassName('profile')[0].innerHTML =
                     arr.map(i => {
                         if (arr[0].el.role == "admin") {
@@ -105,21 +114,12 @@
             <div class="col info_2">
                 <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
                 <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
-                <p><span>Предмет: </span>${arr[0].el.subject}</p>
             </div>
             <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
             `
                         }
                     })
-                document.getElementsByClassName('searching')[0].innerHTML =
-                    arr.map(i => {
-                        if (arr[0].el.role == "admin") {
-                            return `<input placeholder="Поиск по классу" type="text">`
-                        }
-                        else {
-                            return `<input placeholder="Поиск по Ф.И.О." type="text">`
-                        }
-                    })
+                    
                 if (arr[0].el.role == "admin") {
                     document.getElementById("thead").innerHTML =
 
@@ -133,7 +133,7 @@
                     document.getElementById("class_num_option").style.display = "block"
                     let arr2 = []
                     arr[0].users.forEach(e => {
-                        arr[0].users.map(i => {
+                        e.info.map(i => {
                             if (i.info.role == "teacher") {
                                 arr2.push(i)
                             }
@@ -201,30 +201,15 @@
                                                 </tr>
                                     `
                         }).join(" ")
-                    // arr[0].users.forEach(e => {
-                    //     document.getElementById("tbody" + e.info.class_num).innerHTML =
-                    //         arr[0].users.map(i => {
-                    //             console.log(i.info.students.length);
-                    //             return `
-                    //                 <tr>
-                    //                     <td>${i.info.class_num + " " + i.info.class_letter}</td>
-                    //                     <td>${i.info.students}</td>
-                    //                     <td>${i.info.name}</td>
-                    //                 </tr>
-                    //     `
-                    //         }).join(" ")
-                    // })
                 }
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img
                 document.getElementsByClassName('searching')[0].innerHTML =
                     arr.map(i => {
-                        if (arr[0].el.role == "admin") {
-                            return `<input placeholder="Поиск по классу" type="text">`
-                        }
-                        else {
+                        if (arr[0].el.role != "admin") {
                             return `<input placeholder="Поиск по Ф.И.О." type="text">`
                         }
+                        
                     })
                 document.getElementById("field").innerHTML =
                     arr.map(i => {
