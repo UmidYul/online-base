@@ -56,7 +56,7 @@
         <div id="field"></div>
     </div>
     <div class="profile-container">
-        <div class="profile">
+        <div class="profile-div">
 
         </div>
     </div>
@@ -74,7 +74,6 @@
 
     window.onload = function () {
         const period = window.location.href.slice(-34, -19)
-        console.log(period);
         const id = window.location.href.slice(-13)
         const response = fetch("/id", {
             method: 'POST',
@@ -95,30 +94,34 @@
                     option.innerText = e.period.slice(0, 4) + "/" + e.period.slice(-7, -3)
                     document.querySelector("#period_option").appendChild(option)
                 }
-                document.getElementsByClassName('profile')[0].innerHTML =
+                document.getElementsByClassName('profile-div')[0].innerHTML =
                     arr.map(i => {
                         if (arr[0].el.role == "admin") {
-                            return `<i class="exit-btn fa-solid fa-xmark"></i>
-            <div class="col info_1">
+                            return `
+            <i class="exit-btn fa-solid fa-xmark"></i>
+            <div class="profile">
                 <img id="img-top">
-                <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                <p><span>ID: </span>${arr[0].el.id}</p>
+                <div>
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                    <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
+                </div>    
             </div>
-            <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
             `
                         }
                         else {
-                            return `<i class="exit-btn fa-solid fa-xmark"></i>
-            <div class="col info_1">
+                            return `
+                            <i class="exit-btn fa-solid fa-xmark"></i>
+            <div class="profile">
                 <img id="img-top">
-                <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                <p><span>ID: </span>${arr[0].el.id}</p>
+                <div>
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
+                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
+                    <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
+                </div>    
             </div>
-            <div class="col info_2">
-                <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
-                <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
-            </div>
-            <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
             `
                         }
                     })
@@ -135,7 +138,6 @@
                                 `
                     document.getElementById("class_num_option").style.display = "block"
                     let arr2 = []
-                    console.log(window.location.href.slice(-34, -19));
                     const index = arr[0].users.findIndex(user => user.period == window.location.href.slice(-34, -19));
                     arr[0].users[index].info.map(i => {
                         if (i.info.role == "teacher") {
@@ -155,7 +157,7 @@
                                         <tr>
                                             <td><a href=/period:${period}/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                             <td>${x.info.students.length}</td>
-                                            <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
+                                            <td><a href=/period:${period}/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                         </tr>
                             `
                         }).join(" ")
@@ -214,28 +216,38 @@
                         }
 
                     })
-                document.getElementById("field").innerHTML =
-                    arr.map(i => {
-                        if (arr[0].el.role == "admin") {
-                            return `<div><a id="admin-link" href="/user:${id}/add-class"><button class="button-31" role="button">Добавить Класс</button></a></div>`
-                        } if (arr[0].el.role == "teacher") {
-                            return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/class:${id}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>`
-                        }
-                    }).join("")
+                const date_res = fetch("/date", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: "200" })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("field").innerHTML =
+                            arr.map(i => {
+                                if (arr[0].el.role == "admin" & period == data.date) {
+                                    return `<div><a id="admin-link" href="/user:${id}/add-class"><button class="button-31" role="button">Добавить Класс</button></a></div>`
+                                } if (arr[0].el.role == "teacher" & period == data.date) {
+                                    return `<div><a class="teacher-link" id="teacher-link" href="/user:${id}/class:${id}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>`
+                                }
+                            }).join("")
+                    })
+
             })
     }
-    setTimeout(() => {
-        let profile = document.getElementsByClassName('profile-container')[0];
-        let profile_img = document.getElementById('profile-img');
-        let exit_btn = document.getElementsByClassName('exit-btn')[0];
 
-        exit_btn.addEventListener('click', () => {
-            profile.classList.remove('__visible')
-        })
-        profile_img.addEventListener('click', () => {
-            profile.classList.add('__visible')
-        })
-    }, 1000);
+    //     let profile = document.getElementsByClassName('profile-container')[0];
+    //     let profile_img = document.getElementById('profile-img');
+    //     let exit_btn = document.getElementsByClassName('exit-btn')[0];
+
+    //     exit_btn.addEventListener('click', () => {
+    //         profile.classList.remove('__visible')
+    //     })
+    //     profile_img.addEventListener('click', () => {
+    //         profile.classList.add('__visible')
+    //     })
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

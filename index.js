@@ -26,7 +26,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+app.post("/date", (req, res) => {
+    res.send({ date: req.session.period })
+})
 const authMiddleware = (req, res, next) => {
     if (req.session.authenticated) {
         next();
@@ -47,9 +49,15 @@ async function listener() {
         const per = users.findIndex(user => user.period == yearMonth)
         users[per].info.forEach(el => {
             if (el.info.role == "teacher") {
-                const arr = users[1].info.findIndex(user => user == el)
-                users[per].info[arr].info.class_num += 1
+                const arr = users[per].info.findIndex(user => user == el)
+                let num = Number(users[per].info[arr].info.class_num) + 1
+                users[per].info[arr].info.class_num = num
                 db.write()
+                if (users[per].info[arr].info.class_num == 12) {
+                    const last = users[per].info.findIndex(user => user == users[per].info[arr])
+                    users[per].info.splice(last, 1)
+                    db.write()
+                }
             }
         });
     }
@@ -57,7 +65,7 @@ async function listener() {
 }
 setInterval(() => {
     listener()
-}, 1000);
+}, 86400000);
 app.get('/', async function (req, res) {
     listener()
     req.session.period = await listener()
@@ -85,7 +93,7 @@ app.get('/user:id/class:id/add-student', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/add_student.html")
 })
 
-app.get('/user:id/class:id/stuff-profile', authMiddleware, function (req, res) {
+app.get('/period:date/user:id/class:id/stuff-profile', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/profile.html")
 })
 
@@ -207,7 +215,7 @@ app.post('/add-class', async function (req, res) {
             }
         })
         db.write()
-        res.redirect(`/user:${req.session.userId}`)
+        res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
     }
 })
 

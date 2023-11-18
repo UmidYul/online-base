@@ -44,6 +44,7 @@
     }
 
     window.onload = function () {
+        const period = window.location.href.slice(-68, -53)
         const userID = window.location.href.slice(-47, -34)
         const classID = window.location.href.slice(-27, -14)
         const response = fetch("/id", {
@@ -97,12 +98,26 @@
                     <p>Класс: ${i.el.class_num} ${i.el.class_letter}</p>
                     <p>Логин: ${i.ex.login}</p>
                     <p>Пароль: ${i.ex.password}</p>
-                    <div class="button_line"><a href=/user:${userID}/class:${classID}/stuff-profile/edit><button id="change_button" type="submit">Изменить</button></a></div>
+                    <div class="button_line"></div>
                         </div>
                     </div>
                     `
                     })
+                const date_res = fetch("/date", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: "200" })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.date == period) {
+                            document.getElementsByClassName("button_line")[0].innerHTML = `<a href=/user:${userID}/class:${classID}/stuff-profile/edit><button id="change_button" type="submit">Изменить</button></a>`
+                        }
+                    })
             })
+
         // document.getElementById("removeClass").addEventListener("click", () => {
         //     fetch("/remove/class", {
         //         method: 'POST',

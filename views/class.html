@@ -68,6 +68,7 @@
         const classId = window.location.href.slice(-13)
         const userId = window.location.href.slice(-33, -20)
         const period = window.location.href.slice(-54, -39)
+        console.log(period);
         const res = fetch("/id", {
             method: 'POST',
             headers: {
@@ -120,12 +121,24 @@
                             return `<input placeholder="Поиск по Ф.И.О." type="text">`
                         }
                     })
-                document.getElementById("field").innerHTML =
-                    arr.map(i => {
-                        return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>
+                const date_res = fetch("/date", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: "200" })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.date == period) {
+                            document.getElementById("field").innerHTML =
+                                arr.map(i => {
+                                    return `<div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/add-student"><button class="button-31" role="button">Добавить Ученика</button></a></div>
                                 <div><button id="removeClass" class="button-31" role="button">Удалить Класс</button></div>
                         `
-                    }).join("")
+                                }).join("")
+                        }
+                    })
                 document.getElementById("removeClass").addEventListener("click", () => {
                     fetch("/remove/class", {
                         method: 'POST',
