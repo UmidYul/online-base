@@ -8,11 +8,12 @@ import session from 'express-session';
 import path from "path"
 import formidable from 'formidable'
 import fs from "fs"
+import moment from "moment";
 
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const file = join(__dirname, 'd.json')
+const file = join(__dirname, 'db.json')
 const adapter = new JSONFile(file)
 const defaultData = { logins: [], users: [] }
 const db = new Low(adapter, defaultData)
@@ -20,7 +21,6 @@ const db = new Low(adapter, defaultData)
 app.use(express.static(__dirname + "/public/"))
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }))
-
 app.use(session({
     secret: 'secret-key',
     resave: false,
@@ -38,7 +38,9 @@ async function listener() {
     await db.read()
     const { users } = db.data
     var date = new Date();
-    var year = +date.getUTCFullYear();
+    const now = moment();
+    // var year = +date.getUTCFullYear();
+    let year = +now.format('YYYY')
     let yearMonth = year + "_09_" + Number(year + 1) + "_05"
     if (users[users.length - 1].period != yearMonth) {
         const lastUser = users[users.length - 1];
@@ -486,9 +488,9 @@ app.post("/editStudent", async function (req, res) {
         }
     });
 })
-app.listen(PORT, async (res, req) => {
+app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`)
     setInterval(() => {
         listener()
-    }, 86400000);
+    }, 1000 * 60 * 60 * 24);
 })

@@ -295,3 +295,12 @@ select {
     font-weight: bolder;
     font-style: normal;
 }
+
+.nav_link:hover {
+    cursor: pointer;
+}
+
+.nav_link {
+    user-select: none;
+
+}

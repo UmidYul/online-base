@@ -18,7 +18,7 @@
     <div class="container">
         <nav>
             <div>
-                <h1>online-base.uz</h1>
+                <h1 class="nav_link">online-base.uz</h1>
                 <span class="searching"></span>
             </div>
             <img id="profile-img">
@@ -74,7 +74,9 @@
         })
         window.location.href = "/"
     }
-
+    document.getElementsByClassName("nav_link")[0].addEventListener("click", () => {
+        window.location.href = "/"
+    })
     window.onload = function () {
         document.getElementsByClassName('prev')[0].textContent = "<"
         document.getElementsByClassName('next')[0].textContent = ">"
@@ -97,6 +99,7 @@
                     const e = z[i];
                     ar.push(e.period)
                 }
+                console.log(ar);
                 let num = ar.findIndex(date => date == period)
                 document.getElementsByClassName('date')[0].innerText = ar[num].slice(0, 4) + "/" + ar[num].slice(-7, -3)
                 if (num == 0) {

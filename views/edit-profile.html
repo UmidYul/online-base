@@ -19,7 +19,7 @@
     <div class="container">
         <nav>
             <div>
-                <h1>online-base.uz</h1>
+                <h1 class="nav_link">online-base.uz</h1>
                 <span class="searching"></span>
             </div>
             <img id="profile-img">
@@ -42,7 +42,9 @@
         })
         window.location.href = "/"
     }
-
+    document.getElementsByClassName("nav_link")[0].addEventListener("click", () => {
+        window.location.href = "/"
+    })
     window.onload = function () {
         const userID = window.location.href.slice(-52, -39)
         const classID = window.location.href.slice(-32, -19)
