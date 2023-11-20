@@ -92,16 +92,16 @@
                     arr.map(i => {
                         return `
                     <div class="profile_field">
+                        <img id="labelImg" src=${i.el.img}>
                         <div class="profile_info">
                             <h2>Профиль</h2>
-                            <p>ID: ${i.el.id}</p>
-                            <p>Ф.И.О: ${i.el.name}</p>
-                            <p>Класс: ${i.el.class_num} ${i.el.class_letter}</p>
-                            <p>Логин: ${i.ex.login}</p>
-                            <p>Пароль: ${i.ex.password}</p>
+                            <p>ID: <span>${i.el.id}</span></p>
+                            <p>Ф.И.О: <span>${i.el.name}</span></p>
+                            <p>Класс: <span>${i.el.class_num} ${i.el.class_letter}</span></p>
+                            <p>Логин: <span>${i.ex.login}</span></p>
+                            <p>Пароль: <span>${i.ex.password}</span></p>
                             <div class="button_line"></div>
                         </div>
-                        <img id="labelImg" src=${i.el.img}>
                     </div>
                     `
                     })
@@ -133,7 +133,6 @@
         //             window.location.replace(data.url)
         //         })
         // })
-
     }
 
     setTimeout(() => {

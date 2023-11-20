@@ -218,7 +218,12 @@ app.post('/add-class', async function (req, res) {
             }
         })
         db.write()
-        res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
+        if (!req.session.period) {
+            console.log(users[users.length - 1].period);
+            res.redirect(`/period:${users[users.length - 1].period}/user:${req.session.userId}`)
+        } else {
+            res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
+        }
     }
 })
 

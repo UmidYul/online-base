@@ -5,41 +5,54 @@ html {
 
 .teacherInfo {
     background-color: #fff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile_field {
-    height: min-content;
+    height: 55%;
     margin: auto;
     background-color: #fff;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     display: flex;
-    justify-content: space-between;
 }
 
 #labelImg {
-    width: 400px;
+    height: 100%;
+    width: 450px;
+}
+
+p span {
+    font-size: 20px
 }
 
 .profile_info {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     white-space: nowrap;
     background-color: #354251;
     color: #fff;
     font-size: 25px;
     font-weight: 600;
     padding: 0 10px;
-    width: 400px;
+    width: 450px;
 }
 
-#removeClass,
 #change_button {
     height: 40px;
     font-size: 16px;
     width: 150px;
     border-radius: 10px;
+    border: none;
+    transition: 0.5s;
+}
+
+#change_button:hover {
+    cursor: pointer;
 }
