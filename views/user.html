@@ -100,7 +100,6 @@
                     const e = z[i];
                     ar.push(e.period)
                 }
-                console.log(ar);
                 let num = ar.findIndex(date => date == period)
                 document.getElementsByClassName('date')[0].innerText = ar[num].slice(0, 4) + "/" + ar[num].slice(-7, -3)
                 if (num == 0) {

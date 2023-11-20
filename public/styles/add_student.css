@@ -38,86 +38,42 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #354251;
+    margin-top: 50px;
 }
 
-form img {
+form label {
     border: 1px solid black;
-    width: 34%;
+    width: 30%;
+}
+
+form label img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
 form .student_inputs {
-    border: 1px solid black;
-    width: 33%;
+    width: 30%;
     padding: 30px 10px;
+    background-color: #354251;
+    padding-left: 20px;
+    height: 65vh;
+    border: 1px solid black;
+    border-left: none;
 }
 
 form h1 {
+    margin-bottom: 30px;
     color: #fff;
 }
 
 form .student_inputs input {
-    margin: 10px 0;
     height: 30px;
-}
-
-form .parents {
-    border: 1px solid black;
-    width: 33%;
-    padding: 30px 10px;
-}
-
-textarea {
-    resize: none;
-}
-
-/* 
-.student-form-field {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-h1 {
-    color: #fff;
-}
-
-#labelImg {
-    width: 33%;
-    border-bottom: #000 solid 1px;
-    border-top: 1px solid #000;
-    border-left: 1px solid #000;
-}
-
-.center_field {
-    display: flex;
-    width: 80%;
-    height: 80%;
-}
-
-form {
-    border: 1px solid #000;
-    width: 66%;
-    display: flex;
-}
-
-.student_inputs,
-.parents {
-    width: 50%;
-}
-
-.student_inputs,
-.mother_inputs,
-.father_inputs {
-    background-color: #354251;
-    display: flex;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
 }
 
 .mother_inputs,
@@ -125,65 +81,112 @@ form {
     height: 50%;
 }
 
-textarea {
+form .student_inputs textarea {
     resize: none;
-    width: 90%;
-    padding: 5px;
+    border: none;
+    outline: none;
+    padding: 10px;
     border-radius: 10px;
-    font-size: 17px;
+    margin-bottom: 20px;
+    display: block;
+    width: 70%;
 }
 
-input,
-select {
-    width: 90%;
-    height: 25px;
-    padding: 5px;
+form .student_inputs select {
+    border: none;
+    outline: none;
+    padding: 10px;
     border-radius: 10px;
-    font-size: 17px;
 }
 
-select,
-select option:nth-child(1) {
-    color: gray;
+form .parents {
+    width: 30%;
+    padding: 30px 10px;
+    background-color: #354251;
+    padding-left: 20px;
+    height: 65vh;
+    border: 1px solid black;
+    border-left: none;
 }
 
-option {
-    color: #000;
+form .father_inputs {
+    border-top: 1px solid #fff;
+    padding: 30px 0;
 }
 
-#img {
-    display: none;
-    width: 0;
-    height: 0;
-}
-
-input,
-select :active,
-:hover,
-:focus {
-    outline: 0;
-    outline-offset: 0;
-}
-
-label {
-    border-radius: 10px;
-    width: 200px;
+form .parents input {
     height: 30px;
-    background-color: white;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
 }
 
-label:hover {
+form button {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100px;
     cursor: pointer;
 }
 
-button {
-    height: 40px;
-    font-size: 16px;
-    width: 150px;
-    border-radius: 10px;
-} */
+@media screen and (max-width: 1180px) {
+    form .student_inputs {
+        padding: 20px 10px;
+    }
+
+    form .parents {
+        padding: 20px 10px;
+    }
+
+    form .father_inputs {
+        padding-top: 15px;
+    }
+
+    form h1 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    form input {
+        margin: 5px 0;
+        width: 150px;
+    }
+
+    form textarea {
+        margin: 5px 0;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    form {
+        flex-wrap: wrap !important;
+    }
+
+    form .student_inputs {
+        width: 50%;
+        border: none;
+    }
+
+    label {
+        width: 50%;
+        border: none !important;
+    }
+
+    form .parents {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        border: none !important;
+        height: 100%;
+    }
+
+    form .parents .father_inputs {
+        padding: 0;
+        border-top: none !important;
+        border-left: 1px solid #fff;
+        padding-left: 10px;
+    }
+}

@@ -23,14 +23,15 @@
             </div>
             <img id="profile-img">
         </nav>
+
         <div class="studentInfo">
         </div>
-        <div id="field"></div>
-    </div>
-    <div class="profile-container">
-        <div class="profile">
+        <div class="profile-container">
+            <div class="profile">
+            </div>
         </div>
     </div>
+
 </body>
 <script>
     function logout() {
@@ -106,16 +107,14 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                console.log(arr);
                 document.getElementsByClassName("studentInfo")[0].innerHTML =
                     `
                         <form action="/editStudent" method="post" enctype="multipart/form-data">
-                            <input type="text" name="cid" value=${classId} style="opacity: 0; width:0; height:0;">
+                        <input type="text" name="cid" value=${classId} style="opacity: 0; width:0; height:0;">
                         <input type="text" name="sid" value=${studentId} style="opacity: 0; width:0; height:0;">
+                        <div class="imgField"><img id="labelImg" src=${arr[0].x.img}></div>
                         <h1>Ученик</h1>
-                        <img id="labelImg" src=${arr[0].x.img}>
-                        <div class="inputVis"></div>
-                        <input type="checkbox" class="vis"><p>Изменить фото!</p>
+                        <input type="checkbox" class="vis"><p class="vis_p">Изменить фото!</p>
                         <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
                         <input name="student_birth_date" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
                         <input name="student_accept_date" value="${arr[0].x.student_accept_date}" placeholder="${arr[0].x.student_accept_date}">
@@ -149,38 +148,41 @@
                         <button type="submit">Сохранить</button>
                         </form>
                 `
-            })
-        setTimeout(() => {
-            let profile = document.getElementsByClassName('profile-container')[0];
-            let profile_img = document.getElementById('profile-img');
-            let exit_btn = document.getElementsByClassName('exit-btn')[0];
+                setTimeout(() => {
+                    let profile = document.getElementsByClassName('profile-container')[0];
+                    let profile_img = document.getElementById('profile-img');
+                    let exit_btn = document.getElementsByClassName('exit-btn')[0];
 
-            exit_btn.addEventListener('click', () => {
-                profile.classList.remove('__visible')
+                    exit_btn.addEventListener('click', () => {
+                        profile.classList.remove('__visible')
+                    })
+                    profile_img.addEventListener('click', () => {
+                        profile.classList.add('__visible')
+                    })
+                    document.querySelector(".vis").addEventListener("change", (e) => {
+                        if (e.target.checked == true) {
+                            document.querySelector(".vis_p").textContent = "Отключить изменение фото!"
+                            document.querySelector(".imgField").innerHTML = `
+                    <label for="editimg"> <img id="labelImg" src=${arr[0].x.img}>
+        </label>
+        <input name="img" id="editimg" class="img" type="file" style="display:none;" accept="image/webp">
+                    `
+                            document.querySelector("#editimg").addEventListener("change", function () {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    document.querySelector("#labelImg").src = e.target.result
+                                }
+                                reader.readAsDataURL(this.files[0]);
+                                const formData = new FormData();
+                                formData.append('image', this.files[0]);
+                            })
+                        } if (e.target.checked == false) {
+                            document.querySelector(".vis_p").textContent = "Изменить фото!"
+                            document.querySelector("#labelImg").src = arr[0].x.img
+                        }
+                    })
+                }, 500);
             })
-            profile_img.addEventListener('click', () => {
-                profile.classList.add('__visible')
-            })
-            // document.querySelector(".vis").addEventListener("change", (e) => {
-            //     if (e.target.checked == true) {
-            //         document.querySelector(".vis").placeholder = "Отключить изменение фото!"
-            //         document.querySelector(".inputVis").innerHTML = `<input name="img" id="editimg" class="img" type="file" accept="image/webp">`
-            //         document.querySelector("#editimg").addEventListener("change", function () {
-            //             const reader = new FileReader();
-            //             reader.onload = function (e) {
-            //                 document.querySelector("#labelImg").src = e.target.result
-            //             }
-            //             reader.readAsDataURL(this.files[0]);
-            //             const formData = new FormData();
-            //             formData.append('image', this.files[0]);
-            //         })
-            //     } if (e.target.checked == false) {
-            //         document.querySelector(".vis").placeholder = "Изменить фото!"
-            //         document.getElementById("editimg").remove()
-            //     }
-            // })
-        }, 500);
-
     }
 </script>
 

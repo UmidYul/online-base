@@ -22,7 +22,8 @@
         </nav>
         <div class="form-container">
             <div class="form-field">
-                <img id="labelImg" src="/images/error/choose.webp">
+                <label for="img"><img id="labelImg" src="/images/error/choose.webp">
+                </label>
                 <form class="add-form" action="/add-class" method="post" enctype="multipart/form-data">
                     <input type="text" placeholder="Логин" name="log" required>
                     <input type="pasword" placeholder="Пароль" name="pass" required>
@@ -74,7 +75,6 @@
                         <option value="ДНВП">ДНВП</option>
                     </select> -->
                     <input type="text" placeholder="Ф.И.О" name="name" required>
-                    <label for="img"><i class="fa-solid fa-image"></i> Выберите Изображение</label>
                     <input style="visibility: hidden;" name="img" id="img" type="file" accept="image/webp" name="img"
                         required>
                     <button class="save_btn">Сохранить</button>
@@ -142,17 +142,14 @@
             document.querySelector("#" + e.target.id).style.color = "#000"
         } if (value == "Выберите класс") {
             document.querySelector("#" + e.target.id).style.color = "gray"
-            console.log(document.querySelector("#" + e.target.id).style.color);
         }
     })
     document.querySelectorAll("select")[1].addEventListener("change", (e) => {
         let value = e.target.value
         if (value != "Выберите букву") {
-            console.log("#" + e.target.id);
             document.querySelector("#" + e.target.id).style.color = "#000"
         } if (value == "Выберите букву") {
             document.querySelector("#" + e.target.id).style.color = "gray"
-            console.log(document.querySelector("#" + e.target.id).style.color);
         }
     })
     document.querySelector("#img").addEventListener("change", function () {

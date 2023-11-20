@@ -102,8 +102,8 @@ select :active,
 
 label {
     border-radius: 10px;
-    width: 250px;
-    height: 40px;
+    width: 400px;
+    height: 500px;
     padding: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;

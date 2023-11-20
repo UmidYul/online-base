@@ -313,6 +313,7 @@ app.post("/remove/student", async function (req, res) {
     await db.read()
     const { users } = db.data
     const index = users.findIndex(user => user.period == period);
+    let responseSent = false;
     users[index].info.forEach(e => {
         for (let i = 0; i < users[index].info.length; i++) {
             const el = e.info;
@@ -320,7 +321,6 @@ app.post("/remove/student", async function (req, res) {
                 for (let z = 0; z < el.students.length; z++) {
                     const x = el.students[z];
                     if (x.id == sid) {
-                        let responseSent = false;
                         if (e.info.students && Array.isArray(e.info.students)) {
                             const index = e.info.students.findIndex(user => user.id == sid);
                             e.info.students.splice(index, 1);
@@ -378,16 +378,16 @@ app.post("/editClass", async function (req, res) {
                 const loginsIndex = logins.findIndex(login => login.id == fields.cid);
                 // logins[loginsIndex].login = fields.login[0]
                 logins[loginsIndex].password = fields.pass[0]
-                e.info[usersIndex].info.name = fields.name[0]
+                users[users.length - 1].info[usersIndex].info.name = fields.name[0]
                 // users[usersIndex].info.subject = fields.subject[0]
-                e.info[usersIndex].info.class_num = Number(fields.num[0])
-                e.info[usersIndex].info.class_letter = fields.letter[0]
+                users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
+                users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
                 const oldPath = files.img[0].filepath;
                 const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
-                fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
-                fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
-                db.write()
                 if (!responseSent) {
+                    fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
+                    fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+                    db.write()
                     res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
                     responseSent = true;
                 }
@@ -415,6 +415,7 @@ app.post("/editStudent", async function (req, res) {
     await db.read()
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
+    let responseSent = false
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             users[users.length - 1].info.forEach(e => {
@@ -444,12 +445,15 @@ app.post("/editStudent", async function (req, res) {
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
-                const oldPath = files.img[0].filepath;
-                const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
-                fs.unlink(__dirname + `/public/images/student/${fields.sid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
-                fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
-                db.write()
-                res.redirect(`/user:${req.session.userId}`)
+                if (!responseSent) {
+                    const oldPath = files.img[0].filepath;
+                    const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
+                    fs.unlink(__dirname + `/public/images/student/${fields.sid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
+                    fs.rename(oldPath, newPath, (error) => { if (error) console.log(error) });
+                    db.write()
+                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
+                    responseSent = true;
+                }
             });
 
         } else {
@@ -481,7 +485,10 @@ app.post("/editStudent", async function (req, res) {
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
                 db.write()
-                res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
+                if (!responseSent) {
+                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
+                    responseSent = true;
+                }
             });
         }
     });
