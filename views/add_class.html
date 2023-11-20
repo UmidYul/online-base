@@ -7,83 +7,135 @@
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/styles/add_class.css">
+    <link rel="stylesheet" href="/styles/user.css">
     <title>online-base.uz</title>
 </head>
 
-<body class="/add-class">
+<body>
     <div class="container">
         <nav>
             <div>
-                <h1 class="=" nav_link>online-base.uz</h1>
+                <h1 class="nav_link">online-base.uz</h1>
                 <span class="searching"></span>
             </div>
             <img id="profile-img">
         </nav>
-        <div class="studentInfo">
+        <div class="form-container">
+            <div class="form-field">
+                <img id="labelImg" src="/images/error/choose.webp">
+                <form class="add-form" action="/add-class" method="post" enctype="multipart/form-data">
+                    <input type="text" placeholder="Логин" name="log" required>
+                    <input type="pasword" placeholder="Пароль" name="pass" required>
+                    <select id="class" name="class_num" required>
+                        <option value="Выберите класс">Выберите класс</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                    <select id="letter" name="letter" required>
+                        <option value="Выберите букву">Выберите букву</option>
+                        <option value="А">А</option>
+                        <option value="Б">Б</option>
+                        <option value="В">В</option>
+                        <option value="Г">Г</option>
+                        <option value="Д">Д</option>
+                        <option value="Е">Е</option>
+                        <option value="Ж">Ж</option>
+                        <option value="З">З</option>
+                        <option value="И">И</option>
+                        <option value="К">К</option>
+                        <option value="Л">Л</option>
+                        <option value="М">М</option>
+                    </select>
+                    <!-- <select name="subject" required>
+                        <option value="Литература">Литература</option>
+                        <option value="Матеметика">Матеметика</option>
+                        <option value="Химия">Химия</option>
+                        <option value="Биология">Биология</option>
+                        <option value="География">География</option>
+                        <option value="Физра">Физра</option>
+                        <option value="Экономика">Экономика</option>
+                        <option value="Музыка">Музыка</option>
+                        <option value="Труд">Труд</option>
+                        <option value="История">История</option>
+                        <option value="Информатика">Информатика</option>
+                        <option value="ИЗО">ИЗО</option>
+                        <option value="Физика">Физика</option>
+                        <option value="Английский">Английский</option>
+                        <option value="Право">Право</option>
+                        <option value="ДНВП">ДНВП</option>
+                    </select> -->
+                    <input type="text" placeholder="Ф.И.О" name="name" required>
+                    <label for="img"><i class="fa-solid fa-image"></i> Выберите Изображение</label>
+                    <input style="visibility: hidden;" name="img" id="img" type="file" accept="image/webp" name="img"
+                        required>
+                    <button class="save_btn">Сохранить</button>
+                </form>
+            </div>
+            <div class="profile-container">
+                <div class="profile">
 
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-field">
-        <img id="labelImg" src="/images/error/choose.webp">
-        <form class="add-form" action="/add-class" method="post" enctype="multipart/form-data">
-            <input type="text" placeholder="Логин" name="log" required>
-            <input type="pasword" placeholder="Пароль" name="pass" required>
-            <select id="class" name="class_num" required>
-                <option value="Выберите класс">Выберите класс</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-            </select>
-            <select id="letter" name="letter" required>
-                <option value="Выберите букву">Выберите букву</option>
-                <option value="А">А</option>
-                <option value="Б">Б</option>
-                <option value="В">В</option>
-                <option value="Г">Г</option>
-                <option value="Д">Д</option>
-                <option value="Е">Е</option>
-                <option value="Ж">Ж</option>
-                <option value="З">З</option>
-                <option value="И">И</option>
-                <option value="К">К</option>
-                <option value="Л">Л</option>
-                <option value="М">М</option>
-            </select>
-            <!-- <select name="subject" required>
-                <option value="Литература">Литература</option>
-                <option value="Матеметика">Матеметика</option>
-                <option value="Химия">Химия</option>
-                <option value="Биология">Биология</option>
-                <option value="География">География</option>
-                <option value="Физра">Физра</option>
-                <option value="Экономика">Экономика</option>
-                <option value="Музыка">Музыка</option>
-                <option value="Труд">Труд</option>
-                <option value="История">История</option>
-                <option value="Информатика">Информатика</option>
-                <option value="ИЗО">ИЗО</option>
-                <option value="Физика">Физика</option>
-                <option value="Английский">Английский</option>
-                <option value="Право">Право</option>
-                <option value="ДНВП">ДНВП</option>
-    
-            </select> -->
-            <input type="text" placeholder="Ф.И.О" name="name" required>
-            <label for="img"><i class="fa-solid fa-image"></i> Выберите Изображение</label>
-            <input style="visibility: hidden;" name="img" id="img" type="file" accept="image/webp" name="img" required>
-            <button class="save_btn">Сохранить</button>
-        </form>
-    </div>
+
 </body>
 <script>
+    document.getElementsByClassName("nav_link")[0].addEventListener("click", () => {
+        window.location.href = "/"
+    })
+    const id = window.location.href.slice(-23, -10)
+    const response = fetch("/id", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: id })
+    })
+        .then(response => response.json())
+        .then(data => {
+            let arr = []
+            arr.push(data)
+            document.getElementsByClassName('profile')[0].innerHTML =
+                arr.map(i => {
+                    if (arr[0].el.role == "admin") {
+                        return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                    }
+                    else {
+                        return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col info_2">
+                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
+                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
+                    <p><span>Предмет: </span>${arr[0].el.subject}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                    }
+                })
+            document.getElementById("profile-img").src = arr[0].el.img
+            document.getElementById("img-top").src = arr[0].el.img
+        })
     document.querySelectorAll("select")[0].addEventListener("change", (e) => {
         let value = e.target.value
         if (value != "Выберите класс") {
@@ -112,6 +164,28 @@
         const formData = new FormData();
         formData.append('image', this.files[0]);
     })
+    function logout() {
+        fetch("/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: false })
+        })
+        window.location.href = "/"
+    }
+    setTimeout(() => {
+        let profile = document.getElementsByClassName('profile-container')[0];
+        let profile_img = document.getElementById('profile-img');
+        let exit_btn = document.getElementsByClassName('exit-btn')[0];
+
+        exit_btn.addEventListener('click', () => {
+            profile.classList.remove('__visible')
+        })
+        profile_img.addEventListener('click', () => {
+            profile.classList.add('__visible')
+        })
+    }, 1000);
 </script>
 
 </html>

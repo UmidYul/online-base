@@ -113,15 +113,6 @@
 
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img
-                document.getElementsByClassName('searching')[0].innerHTML =
-                    arr.map(i => {
-                        if (arr[0].el.role == "admin") {
-                            return `<input placeholder="Поиск по классу" type="text">`
-                        }
-                        else {
-                            return `<input placeholder="Поиск по Ф.И.О." type="text">`
-                        }
-                    })
                 const date_res = fetch("/date", {
                     method: 'POST',
                     headers: {

@@ -34,6 +34,44 @@ nav img {
     cursor: pointer;
 }
 
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #354251;
+}
+
+form img {
+    border: 1px solid black;
+    width: 34%;
+}
+
+form .student_inputs {
+    border: 1px solid black;
+    width: 33%;
+    padding: 30px 10px;
+}
+
+form h1 {
+    color: #fff;
+}
+
+form .student_inputs input {
+    margin: 10px 0;
+    height: 30px;
+}
+
+form .parents {
+    border: 1px solid black;
+    width: 33%;
+    padding: 30px 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* 
 .student-form-field {
     height: 100%;
     width: 100%;
@@ -42,13 +80,21 @@ nav img {
     justify-content: center;
 }
 
+h1 {
+    color: #fff;
+}
+
 #labelImg {
     width: 33%;
+    border-bottom: #000 solid 1px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
 }
 
 .center_field {
     display: flex;
     width: 80%;
+    height: 80%;
 }
 
 form {
@@ -66,9 +112,12 @@ form {
 .mother_inputs,
 .father_inputs {
     background-color: #354251;
-    border: 1px solid #000;
     display: flex;
     flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .mother_inputs,
@@ -78,4 +127,63 @@ form {
 
 textarea {
     resize: none;
+    width: 90%;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 17px;
 }
+
+input,
+select {
+    width: 90%;
+    height: 25px;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+select,
+select option:nth-child(1) {
+    color: gray;
+}
+
+option {
+    color: #000;
+}
+
+#img {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+input,
+select :active,
+:hover,
+:focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+label {
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+label:hover {
+    cursor: pointer;
+}
+
+button {
+    height: 40px;
+    font-size: 16px;
+    width: 150px;
+    border-radius: 10px;
+} */

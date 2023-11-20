@@ -31,7 +31,7 @@ const authMiddleware = (req, res, next) => {
     if (req.session.authenticated) {
         next();
     } else {
-        res.redirect('/');
+        res.redirect('/')
     }
 };
 async function listener() {
@@ -132,7 +132,7 @@ app.post('/add-student', async function (req, res) {
                         img: img,
                         student_name: log.student_name[0],
                         student_birth_date: log.student_birth_date[0],
-                        student_accept_date: log.student_accept_date[0],
+                        // student_accept_date: log.student_accept_date[0],
                         serial_number: log.student_serial_number[0],
                         student_tel: log.student_tel[0],
                         student_adress: log.student_adress[0],
@@ -422,7 +422,7 @@ app.post("/editStudent", async function (req, res) {
                 const studentsIndex = users[users.length - 1].info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
-                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+                // users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
@@ -458,7 +458,7 @@ app.post("/editStudent", async function (req, res) {
                 const studentsIndex = e.info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
-                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+                // users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]

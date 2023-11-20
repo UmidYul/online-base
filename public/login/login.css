@@ -1,44 +1,19 @@
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
-@font-face {
-    font-family: Poppins-Regular;
-    src: url('../fonts/poppins/Poppins-Regular.ttf');
-}
-
-@font-face {
-    font-family: Poppins-Bold;
-    src: url('../fonts/poppins/Poppins-Bold.ttf');
-}
-
-@font-face {
-    font-family: Poppins-Medium;
-    src: url('../fonts/poppins/Poppins-Medium.ttf');
-}
-
-@font-face {
-    font-family: Montserrat-Bold;
-    src: url('../fonts/montserrat/Montserrat-Bold.ttf');
-}
-
-/*//////////////////////////////////////////////////////////////////
-  [ RESTYLE TAG ]*/
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace !important;
 }
 
 body,
 html {
     height: 100%;
-    font-family: Poppins-Regular, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-    font-family: Poppins-Regular;
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -69,7 +44,6 @@ h6 {
 }
 
 p {
-    font-family: Poppins-Regular;
     font-size: 14px;
     line-height: 1.7;
     color: #666666;
@@ -216,6 +190,7 @@ iframe {
     justify-content: center;
     align-items: center;
     padding: 15px;
+    background-color: #354251;
 }
 
 .wrap-login100 {
@@ -223,15 +198,14 @@ iframe {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 177px 130px 33px 95px;
+    justify-content: space-evenly;
+    padding: 100px 50px;
 }
 
 /*------------------------------------------------------------------
@@ -253,11 +227,11 @@ iframe {
 
 .login100-form-title {
     font-family: Poppins-Bold;
-    font-size: 24px;
-    color: #333333;
+    font-size: 36px;
+    color: #354251;
     line-height: 1.2;
     text-align: center;
-
+    font-weight: 600;
     width: 100%;
     display: block;
     padding-bottom: 54px;
@@ -404,7 +378,7 @@ iframe {
 
 @media (max-width: 992px) {
     .wrap-login100 {
-        padding: 177px 90px 33px 85px;
+        padding: 50px;
     }
 
     .login100-pic {

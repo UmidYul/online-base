@@ -27,6 +27,10 @@ nav h1 {
     font-size: 30px;
 }
 
+.searching {
+    display: inline-block;
+}
+
 nav .searching input {
     margin-left: 40px;
     border: none;
@@ -231,7 +235,7 @@ table tr:hover td {
     cursor: default;
 }
 
-select {
+#class_num_option {
     margin-top: 50px;
     margin-left: 100px;
     width: 47px;

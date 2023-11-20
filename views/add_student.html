@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/styles/user.css">
     <link rel="stylesheet" href="/styles/add_student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>online-base.uz</title>
 </head>
 
@@ -19,24 +20,20 @@
             </div>
             <img id="profile-img">
         </nav>
-        <!-- <div class="studentInfo">
-
-        </div> -->
         <div class="student-form-field">
             <div class="center_field">
-                <img id="labelImg" src="/images/error/choose.webp">
                 <form action="/add-student" method="post" enctype="multipart/form-data">
+                    <img id="labelImg" src="/images/error/choose.webp">
                     <div class="student_inputs">
-                        <h1>Ученик</h1>
-                        <input type="file" id="img" name="img" accept="image/webp" required>
+                        <h1>Ученик:</h1>
                         <input type="text" placeholder="Ф.И.О" name="student_name" required>
                         <input type="date" name="student_birth_date" required>
-                        <input type="date" name="student_accept_date" required>
+                        <!-- <input type="date" name="student_accept_date" required> -->
                         <input type="text" placeholder="Серия документа" name="student_serial_number" required>
                         <input type="tel" placeholder="+998(90)000-00-00" name="student_tel" required>
                         <input type="text" placeholder="Адресс" name="student_adress" required>
                         <input type="text" placeholder="Махалла" name="student_mahalla" required>
-                        <select name="family_status" required>
+                        <select id="family_status" name="family_status" required>
                             <option value="none">Состояние семьи</option>
                             <option value="Малообеспеченная">Малообеспеченная</option>
                             <option value="Социально опасное положение">Социально опасное положение</option>
@@ -52,6 +49,8 @@
                             rows="5" required></textarea>
                         <textarea name="student_health_status" placeholder="Состояние здоровья (группа, диагноз)"
                             cols="30" rows="5" required></textarea>
+                        <label for="img"><i class="fa-solid fa-image"></i> Выберите Изображение</label>
+                        <input type="file" id="img" style="display: none;" name="img" accept="image/webp" required>
                     </div>
                     <div class="parents">
                         <div class="mother_inputs">
@@ -79,8 +78,12 @@
                 </form>
             </div>
         </div>
-    </div>
+        <div class="profile-container">
+            <div class="profile">
 
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     document.getElementsByClassName("nav_link")[0].addEventListener("click", () => {
@@ -95,7 +98,7 @@
         const formData = new FormData();
         formData.append('image', this.files[0]);
     })
-    const id = window.location.href.slice(-25, -12)
+    const id = window.location.href.slice(-45, -32)
     const response = fetch("/id", {
         method: 'POST',
         headers: {
@@ -103,6 +106,71 @@
         },
         body: JSON.stringify({ data: id })
     })
+        .then(response => response.json())
+        .then(data => {
+            let arr = []
+            arr.push(data)
+            document.getElementsByClassName('profile')[0].innerHTML =
+                arr.map(i => {
+                    if (arr[0].el.role == "admin") {
+                        return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                    }
+                    else {
+                        return `<i class="exit-btn fa-solid fa-xmark"></i>
+                <div class="col info_1">
+                    <img id="img-top">
+                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
+                    <p><span>ID: </span>${arr[0].el.id}</p>
+                </div>
+                <div class="col info_2">
+                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
+                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
+                    <p><span>Предмет: </span>${arr[0].el.subject}</p>
+                </div>
+                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
+                `
+                    }
+                })
+            document.getElementById("profile-img").src = arr[0].el.img
+            document.getElementById("img-top").src = arr[0].el.img
+        })
+    document.querySelectorAll("select")[0].addEventListener("change", (e) => {
+        let value = e.target.value
+        if (value != "Выберите класс") {
+            document.querySelector("#" + e.target.id).style.color = "#000"
+        } if (value == "none") {
+            document.querySelector("#" + e.target.id).style.color = "gray"
+        }
+    })
+    function logout() {
+        fetch("/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: false })
+        })
+        window.location.href = "/"
+    }
+    setTimeout(() => {
+        let profile = document.getElementsByClassName('profile-container')[0];
+        let profile_img = document.getElementById('profile-img');
+        let exit_btn = document.getElementsByClassName('exit-btn')[0];
+
+        exit_btn.addEventListener('click', () => {
+            profile.classList.remove('__visible')
+        })
+        profile_img.addEventListener('click', () => {
+            profile.classList.add('__visible')
+        })
+    }, 1000);
 </script>
 
 </html>
