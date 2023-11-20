@@ -17,17 +17,19 @@
 <body>
     <div class="container">
         <nav>
-            <div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 100px;">
                 <h1 class="nav_link">online-base.uz</h1>
-                <span class="searching"></span>
+                <span class="searching">
+                    <div class="pagination">
+                        <button class="prev"></button>
+                        <p class="date"></p>
+                        <button class="next"></button>
+                    </div>
+                </span>
             </div>
             <img id="profile-img">
         </nav>
-        <div class="pagination">
-            <button class="prev"></button>
-            <p class="date"></p>
-            <button class="next"></button>
-        </div>
+
         <select id="class_num_option">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -54,7 +56,6 @@
                     </table>
                 </div>
             </div>
-            <div class="swiper-pagination"></div>
         </div>
         <div id="field"></div>
     </div>
@@ -105,7 +106,7 @@
                 if (num == 0) {
                     document.getElementsByClassName('next')[0].style.display = "none"
                 } if (num > 0) {
-                    document.getElementsByClassName('next')[0].style.display = "block"
+                    document.getElementsByClassName('next')[0].style.display = "flex"
                 }
                 if (num == ar.findIndex(date => date == ar.at(-1))) {
                     document.getElementsByClassName('prev')[0].style.display = "none"
@@ -231,13 +232,6 @@
                 }
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img
-                document.getElementsByClassName('searching')[0].innerHTML =
-                    arr.map(i => {
-                        if (arr[0].el.role != "admin") {
-                            return `<input placeholder="Поиск по Ф.И.О." type="text">`
-                        }
-
-                    })
                 const date_res = fetch("/date", {
                     method: 'POST',
                     headers: {

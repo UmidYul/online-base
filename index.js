@@ -37,9 +37,7 @@ const authMiddleware = (req, res, next) => {
 async function listener() {
     await db.read()
     const { users } = db.data
-    var date = new Date();
     const now = moment();
-    // var year = +date.getUTCFullYear();
     let year = +now.format('YYYY')
     let yearMonth = year + "_09_" + Number(year + 1) + "_05"
     if (users[users.length - 1].period != yearMonth) {

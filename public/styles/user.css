@@ -11,10 +11,6 @@
     height: 100%;
 }
 
-#class_num_option {
-    display: none;
-}
-
 nav {
     height: auto;
     border-bottom: 2px solid black;
@@ -22,6 +18,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: #354251;
+    color: #fff;
 }
 
 nav h1 {
@@ -61,6 +59,10 @@ nav img {
     border-radius: 100%;
     border: 1px solid black;
     cursor: pointer;
+}
+
+#class_num_option {
+    display: none;
 }
 
 .profile-container {
@@ -287,6 +289,8 @@ select {
 
 .pagination {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
 }
 
@@ -296,11 +300,36 @@ select {
     font-style: normal;
 }
 
+.next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    border: none;
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    border: none;
+    font-weight: 900;
+    font-size: 25px;
+}
+
 .nav_link:hover {
     cursor: pointer;
 }
 
 .nav_link {
     user-select: none;
-
 }
