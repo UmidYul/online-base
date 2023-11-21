@@ -24,7 +24,7 @@
             <div class="center_field">
                 <form action="/add-student" method="post" enctype="multipart/form-data">
                     <label for="img">
-                        <img id="labelImg" src="/images/error/choose.webp">
+                        <img id="labelImg" src="/images/label/ava.png">
                     </label>
                     <div class="student_inputs">
                         <h1>Ученик:</h1>
@@ -70,7 +70,8 @@
                         <div class="father_inputs">
                             <h1>Отец:</h1>
                             <input type="text" placeholder="Ф.И.О" name="father_name" required>
-                            <input type="text" placeholder="Серия паспорта" name="father_serial_number" required>
+                            <input type="text" id="doc2" placeholder="Серия паспорта" name="father_serial_number"
+                                required>
                             <input type="text" minlength="10" placeholder="Дата Рождения" id="date3"
                                 name="father_birth_date" required>
                             <input type="text" placeholder="Адрес" name="father_adress" required>
@@ -148,7 +149,7 @@
                         <div class="father_inputs">
                             <h1>Отец:</h1>
                             <input type="text" placeholder="Ф.И.О" name="father_name" required>
-                            <input type="text" placeholder="Серия паспорта" name="father_serial_number" required>
+                            <input type="text" id="doc2" placeholder="Серия паспорта" name="father_serial_number" required>
                             <input type="text" placeholder="Дата Рождения" id="date3" name="father_birth_date" required>
                             <input type="text" placeholder="Адрес" name="father_adress" required>
                             <input type="text" placeholder="Махалла" name="father_mahalla" required>
@@ -163,20 +164,59 @@
     var customInput = document.getElementById("doc1");
 
     customInput.addEventListener("input", function (event) {
-        var inputValue = event.target.value.toUpperCase();
-        console.log(inputValue); // Преобразуем введенные символы в верхний регистр
-        if (inputValue.length >= 2) {
-            inputValue = inputValue.slice(0, 2) + " "
-        }
-        if (inputValue.length >= 10) {
-            inputValue = inputValue.slice(10)
-        }
-        if (inputValue.length > 10) {
-            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 17 символов
-        }
-        event.target.value = inputValue
-    });
+        var inputValue = event.target.value;
 
+        // Удаляем все символы, кроме букв и цифр
+        inputValue = inputValue.replace(/[^A-Za-z0-9]/g, '');
+
+        // Ограничиваем ввод до 9 символов (2 буквы и 7 цифр)
+        if (inputValue.length > 9) {
+            inputValue = inputValue.slice(0, 9);
+        }
+        if (inputValue.length == 1) {
+            inputValue = inputValue.slice(0, 2).replace(/[^A-Za-z]/g, ''); + ' ' + inputValue.slice(2);
+        }
+        // Разделяем ввод на две буквы и семь цифр с пробелом
+        if (inputValue.length >= 2) {
+            inputValue = inputValue.slice(0, 2) + ' ' + inputValue.slice(2);
+        }
+
+        // Если уже введено две буквы, удаляем все последующие буквы
+        if (inputValue.length >= 3) {
+            console.log(inputValue)
+            inputValue = inputValue.slice(0, 3) + inputValue.slice(3).replace(/[A-Za-z]/g, '');
+        }
+
+        event.target.value = inputValue.toUpperCase();
+    });
+    var customInput = document.getElementById("doc2");
+
+    customInput.addEventListener("input", function (event) {
+        var inputValue = event.target.value;
+
+        // Удаляем все символы, кроме букв и цифр
+        inputValue = inputValue.replace(/[^A-Za-z0-9]/g, '');
+
+        // Ограничиваем ввод до 9 символов (2 буквы и 7 цифр)
+        if (inputValue.length > 9) {
+            inputValue = inputValue.slice(0, 9);
+        }
+        if (inputValue.length == 1) {
+            inputValue = inputValue.slice(0, 2).replace(/[^A-Za-z]/g, ''); + ' ' + inputValue.slice(2);
+        }
+        // Разделяем ввод на две буквы и семь цифр с пробелом
+        if (inputValue.length >= 2) {
+            inputValue = inputValue.slice(0, 2) + ' ' + inputValue.slice(2);
+        }
+
+        // Если уже введено две буквы, удаляем все последующие буквы
+        if (inputValue.length >= 3) {
+            console.log(inputValue)
+            inputValue = inputValue.slice(0, 3) + inputValue.slice(3).replace(/[A-Za-z]/g, '');
+        }
+
+        event.target.value = inputValue.toUpperCase();
+    });
     var phoneInput1 = document.getElementById("tel1");
     phoneInput1.addEventListener("input", function (event) {
         var inputValue = event.target.value.replace(/\D/g, '');
@@ -192,8 +232,8 @@
         if (inputValue.length >= 14) {
             inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
         }
-        if (inputValue.length > 19) {
-            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        if (inputValue.length > 18) {
+            inputValue = inputValue.slice(0, 18); // Ограничиваем ввод до 17 символов
         }
         event.target.value = inputValue;
     });
@@ -213,8 +253,8 @@
         if (inputValue.length >= 14) {
             inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
         }
-        if (inputValue.length > 19) {
-            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        if (inputValue.length > 18) {
+            inputValue = inputValue.slice(0, 18); // Ограничиваем ввод до 17 символов
         }
         event.target.value = inputValue;
     });
@@ -233,8 +273,8 @@
         if (inputValue.length >= 14) {
             inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
         }
-        if (inputValue.length > 19) {
-            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        if (inputValue.length > 18) {
+            inputValue = inputValue.slice(0, 18); // Ограничиваем ввод до 17 символов
         }
         event.target.value = inputValue;
     });

@@ -389,37 +389,6 @@
             "role": "teacher",
             "students": [
               {
-                "id": "1700541250116",
-                "img": "/images/student/1700541250116.webp",
-                "student_name": "dsadad",
-                "student_birth_date": "21/3",
-                "serial_number": "1",
-                "student_tel": "asd",
-                "student_adress": "dasdas",
-                "student_mahalla": "dasd",
-                "family_status": "Малообеспеченная",
-                "student_attraction": "asd",
-                "student_health_status": "asd",
-                "mother": {
-                  "mother_name": "saddasd",
-                  "mother_serial_number": "dasd",
-                  "mother_birth_date": "21/12/1212",
-                  "mother_adress": "dsasdasa",
-                  "mother_mahalla": "asdasd",
-                  "mother_tel": "asdasda",
-                  "mother_workplace": "adasd"
-                },
-                "father": {
-                  "father_name": "saddasd",
-                  "father_serial_number": "dasd",
-                  "father_birth_date": "21/12/1212",
-                  "father_adress": "dsasdasa",
-                  "father_mahalla": "asdasd",
-                  "father_tel": "asdasda",
-                  "father_workplace": "adasd"
-                }
-              },
-              {
                 "id": "1700541518251",
                 "img": "/images/student/1700541518251.webp",
                 "student_name": "64564",
