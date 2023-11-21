@@ -162,30 +162,32 @@ form button {
 
 @media screen and (max-width: 1100px) {
     form {
-        flex-wrap: wrap !important;
+        flex-wrap: wrap;
     }
 
     form .student_inputs {
-        width: 50%;
         border: none;
+        width: 40%;
     }
 
     label {
-        width: 50%;
         border: none !important;
+        width: 40% !important;
     }
+
 
     form .parents {
         width: 80%;
         display: flex;
         justify-content: center;
-        border: none !important;
+        border: none;
+        border-top: 1px solid white;
         height: 100%;
     }
 
     form .parents .father_inputs {
         padding: 0;
-        border-top: none !important;
+        border-top: none;
         border-left: 1px solid #fff;
         padding-left: 10px;
     }

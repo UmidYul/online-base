@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -79,10 +79,11 @@
                 </form>
             </div>
         </div>
-        <div class="profile-container">
-            <div class="profile">
 
-            </div>
+    </div>
+    <div class="profile-container">
+        <div class="profile-div">
+
         </div>
     </div>
 </body>
@@ -115,32 +116,34 @@
         .then(data => {
             let arr = []
             arr.push(data)
-            document.getElementsByClassName('profile')[0].innerHTML =
+            document.getElementsByClassName('profile-div')[0].innerHTML =
                 arr.map(i => {
                     if (arr[0].el.role == "admin") {
-                        return `<i class="exit-btn fa-solid fa-xmark"></i>
-                <div class="col info_1">
-                    <img id="img-top">
-                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                    <p><span>ID: </span>${arr[0].el.id}</p>
-                </div>
-                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
-                `
+                        return `
+            <i class="exit-btn fa-solid fa-xmark"></i>
+            <div class="profile">
+                <div>
+                    <p class="profile_name">${arr[0].el.name}</p>
+                    <p>ID: ${arr[0].el.id}</p>
+                    <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
+                </div>   
+                <img id="img-top">    
+            </div>
+            `
                     }
                     else {
-                        return `<i class="exit-btn fa-solid fa-xmark"></i>
-                <div class="col info_1">
-                    <img id="img-top">
-                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                    <p><span>ID: </span>${arr[0].el.id}</p>
-                </div>
-                <div class="col info_2">
-                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
-                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
-                    <p><span>Предмет: </span>${arr[0].el.subject}</p>
-                </div>
-                <div class="col_btn"> <button onclick="logout()">Выйти</button></div>
-                `
+                        return `
+            <i class="exit-btn fa-solid fa-xmark"></i>
+            <div class="profile">
+                <div>
+                    <p class="profile_name">${arr[0].el.name}</p>
+                    <p>ID: ${arr[0].el.id}</p>
+                    <p>Класс:  ${arr[0].el.class_num} ${arr[0].el.class_letter}</p>
+                    <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
+                </div>   
+                <img id="img-top">    
+            </div>
+            `
                     }
                 })
             document.getElementById("profile-img").src = arr[0].el.img
