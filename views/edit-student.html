@@ -118,8 +118,7 @@
                         <h1>Ученик</h1>
                         <input type="checkbox" class="vis"><p class="vis_p">Изменить фото!</p>
                         <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
-                        <input name="student_birth_date" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
-                        <input name="student_accept_date" value="${arr[0].x.student_accept_date}" placeholder="${arr[0].x.student_accept_date}">
+                        <input name="student_birth_date" minlength="10" id="date1" placeholder="Дата Рождения" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
                         <input name="serial_number" value="${arr[0].x.serial_number}" placeholder="${arr[0].x.serial_number}">
                         <input name="student_tel" value="${arr[0].x.student_tel}" placeholder="${arr[0].x.student_tel}">
                         <input name="student_adress" value="${arr[0].x.student_adress}" placeholder="${arr[0].x.student_adress}">
@@ -131,7 +130,7 @@
                         <hr>
                         <h1>Мать:</h1>
                         <input name="mother_name" value="${arr[0].x.mother.mother_name}" placeholder="${arr[0].x.mother.mother_name}">
-                        <input name="mother_birth_date" value="${arr[0].x.mother.mother_birth_date}" placeholder="${arr[0].x.mother.mother_birth_date}">
+                        <input name="mother_birth_date" minlength="10" id="date2" placeholder="Дата Рождения" value="${arr[0].x.mother.mother_birth_date}" placeholder="${arr[0].x.mother.mother_birth_date}">
                         <input name="mother_serial_number" value="${arr[0].x.mother.mother_serial_number}" placeholder="${arr[0].x.mother.mother_serial_number}">
                         <input name="mother_tel" value="${arr[0].x.mother.mother_tel}" placeholder="${arr[0].x.mother.mother_tel}">
                         <input name="mother_adress" value="${arr[0].x.mother.mother_adress}" placeholder="${arr[0].x.mother.mother_adress}">
@@ -141,16 +140,67 @@
                         <hr>
                         <h1>Отец:</h1>
                         <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
-                        <input name="father_birth_date" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
+                        <input name="father_birth_date" minlength="10" id="date3" placeholder="Дата Рождения" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
                         <input name="father_serial_number" value="${arr[0].x.father.father_serial_number}" placeholder="${arr[0].x.father.father_serial_number}">
                         <input name="father_tel" value="${arr[0].x.father.father_tel}" placeholder="${arr[0].x.father.father_tel}">
                         <input name="father_adress" value="${arr[0].x.father.father_adress}" placeholder="${arr[0].x.father.father_adress}">
                         <input name="father_mahalla" value="${arr[0].x.father.father_mahalla}" placeholder="${arr[0].x.father.father_mahalla}">
                         <input name="father_workplace" value="${arr[0].x.father.father_workplace}" placeholder="${arr[0].x.father.father_workplace}">
-                        <button type="submit">Сохранить</button>
+                        <button class="uniqueBtn"  style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
                         </form>
                 `
                 setTimeout(() => {
+                    var dateInput1 = document.getElementById("date1"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+                    dateInput1.addEventListener("input", function (event) {
+                        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+
+                        if (inputValue.length > 2 && inputValue.length < 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+                        } else if (inputValue.length >= 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+                        }
+
+                        if (inputValue.length > 10) {
+                            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+                        }
+
+                        event.target.value = inputValue;
+                    });
+                    var dateInput2 = document.getElementById("date2"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+                    dateInput2.addEventListener("input", function (event) {
+                        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+
+                        if (inputValue.length > 2 && inputValue.length < 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+                        } else if (inputValue.length >= 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+                        }
+
+                        if (inputValue.length > 10) {
+                            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+                        }
+
+                        event.target.value = inputValue;
+                    });
+                    var dateInput3 = document.getElementById("date3"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+                    dateInput3.addEventListener("input", function (event) {
+                        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+
+                        if (inputValue.length > 2 && inputValue.length < 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+                        } else if (inputValue.length >= 5) {
+                            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+                        }
+
+                        if (inputValue.length > 10) {
+                            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+                        }
+
+                        event.target.value = inputValue;
+                    });
                     let profile = document.getElementsByClassName('profile-container')[0];
                     let profile_img = document.getElementById('profile-img');
                     let exit_btn = document.getElementsByClassName('exit-btn')[0];
@@ -183,6 +233,7 @@
                             document.querySelector("#labelImg").src = arr[0].x.img
                         }
                     })
+
                 }, 500);
             })
     }

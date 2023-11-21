@@ -46,13 +46,5 @@ html {
 
 #change_button {
     height: 40px;
-    font-size: 16px;
-    width: 150px;
-    border-radius: 10px;
-    border: none;
-    transition: 0.5s;
-}
-
-#change_button:hover {
-    cursor: pointer;
+    width: 190px;
 }

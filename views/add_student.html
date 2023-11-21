@@ -29,10 +29,11 @@
                     <div class="student_inputs">
                         <h1>Ученик:</h1>
                         <input type="text" placeholder="Ф.И.О." name="student_name" required>
-                        <input type="date" name="student_birth_date" required>
-                        <!-- <input type="date" name="student_accept_date" required> -->
+                        <input type="text" maxlength="10" id="date1" placeholder="Дата Рождения"
+                            name="student_birth_date" required>
                         <input type="text" placeholder="Серия документа" name="student_serial_number" required>
-                        <input type="tel" placeholder="+998(90)000-00-00" name="student_tel" required>
+                        <input type="text" maxlength="19" id="tel1" placeholder="+998 (90)000-00-00" name="student_tel"
+                            required>
                         <input type="text" placeholder="Адрес" name="student_adress" required>
                         <input type="text" placeholder="Махалла" name="student_mahalla" required>
                         <textarea name="student_attraction"
@@ -57,23 +58,27 @@
                         <div class="mother_inputs">
                             <h1>Мать:</h1>
                             <input type="text" placeholder="Ф.И.О." name="mother_name" required>
-                            <input type="text" placeholder="Серия паспорта" name="mother_serial_number" required>
-                            <input type="date" name="mother_birth_date" required>
+                            <input type="text" id="doc1" placeholder="Серия паспорта" name="mother_serial_number"
+                                required>
+                            <input type="text" minlength="10" placeholder="Дата Рождения" id="date2"
+                                name="mother_birth_date" required>
                             <input type="text" placeholder="Адрес" name="mother_adress" required>
                             <input type="text" placeholder="Махалла" name="mother_mahalla" required>
-                            <input type="tel" placeholder="+998(90)000-00-00" name="mother_tel" required>
+                            <input type="text" id="tel2" placeholder="+998 (90)000-00-00" name="mother_tel" required>
                             <input type="text" placeholder="Место работы" name="mother_workplace" required>
                         </div>
                         <div class="father_inputs">
                             <h1>Отец:</h1>
                             <input type="text" placeholder="Ф.И.О" name="father_name" required>
                             <input type="text" placeholder="Серия паспорта" name="father_serial_number" required>
-                            <input type="date" name="father_birth_date" required>
+                            <input type="text" minlength="10" placeholder="Дата Рождения" id="date3"
+                                name="father_birth_date" required>
                             <input type="text" placeholder="Адрес" name="father_adress" required>
                             <input type="text" placeholder="Махалла" name="father_mahalla" required>
-                            <input type="tel" placeholder="+998(90)000-00-00" name="father_tel" required>
+                            <input type="text" id="tel3" placeholder="+998 (90)000-00-00" name="father_tel" required>
                             <input type="text" placeholder="Место работы" name="father_workplace" required>
-                            <button type="submit">Добавить</button>
+                            <button class="uniqueBtn" style="padding: 0 !important; width: 170px; height: 40px;"
+                                type="submit">Добавить</button>
                         </div>
                     </div>
                 </form>
@@ -88,6 +93,240 @@
     </div>
 </body>
 <script>
+    const screenWidth = window.screen.width;
+    let f = document.querySelector('form');
+
+    if (screenWidth <= 900) {
+        console.log(screenWidth);
+        f.innerHTML = `
+                    <div class="student_inputs">
+                        <h1>Ученик:</h1>
+                        <div class="row-1">
+                            <label for="img">
+                                <img id="labelImg" src="/images/error/choose.webp">
+                            </label>
+                            <div>
+                                <input type="text" placeholder="Ф.И.О." name="student_name" required>
+                                <input type="text" id="date1" placeholder="Дата Рождения" name="student_birth_date" required>
+                                <input type="text" placeholder="Серия документа" name="student_serial_number" required>
+                                <input type="text" id="tel1" placeholder="+998 (90)000-00-00" name="student_tel" required>
+                                <input type="text" placeholder="Адрес" name="student_adress" required>
+                                <input type="text" placeholder="Махалла" name="student_mahalla" required>
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <textarea name="student_attraction"
+                            placeholder="Увлечения ребёнка(Интересы,Изучаемые языки,Посещяемые кружки)" cols="30"
+                            rows="5" required></textarea>
+                            <textarea name="student_health_status" placeholder="Состояние здоровья (группа, диагноз)"
+                            cols="30" rows="5" required></textarea>
+                            <select id="family_status" name="family_status" required>
+                                <option value="none">Состояние семьи</option>
+                                <option value="Малообеспеченная">Малообеспеченная</option>
+                                <option value="Социально-опасное положение">Социально-опасное положение</option>
+                                <option value="Полная">Полная</option>
+                                <option value="Не полная">Не полная</option>
+                                <option value="Многодетная (3 и более детей)">Многодетная (3 и более детей)</option>
+                                <option value="мать вдова">Мать вдова</option>
+                                <option value="отец вдовец">Отец вдовец</option>
+                                <option value="сирота (воспитанник семейного детского дома)">Сирота</option>
+                            </select>
+                        </div>
+                        <input type="file" id="img" style="display: none;" name="img" accept="image/webp" required>
+                    </div>
+                    <div class="parents">
+                        <div class="mother_inputs">
+                            <h1>Мать:</h1>
+                            <input type="text" placeholder="Ф.И.О." name="mother_name" required>
+                            <input type="text" id="doc1" placeholder="Серия паспорта" name="mother_serial_number" required>
+                            <input type="text" placeholder="Дата Рождения" id="date2" name="mother_birth_date" required>
+                            <input type="text" placeholder="Адрес" name="mother_adress" required>
+                            <input type="text" placeholder="Махалла" name="mother_mahalla" required>
+                            <input type="text" id="tel2" placeholder="+998 (90)000-00-00" name="mother_tel" required>
+                            <input type="text" placeholder="Место работы" name="mother_workplace" required>
+                        </div>
+                        <div class="father_inputs">
+                            <h1>Отец:</h1>
+                            <input type="text" placeholder="Ф.И.О" name="father_name" required>
+                            <input type="text" placeholder="Серия паспорта" name="father_serial_number" required>
+                            <input type="text" placeholder="Дата Рождения" id="date3" name="father_birth_date" required>
+                            <input type="text" placeholder="Адрес" name="father_adress" required>
+                            <input type="text" placeholder="Махалла" name="father_mahalla" required>
+                            <input type="text" id="tel3" placeholder="+998 (90)000-00-00" name="father_tel" required>
+                            <input type="text" placeholder="Место работы" name="father_workplace" required>
+                            <button class="uniqueBtn" style="padding: 0 !important; width: 170px; height: 40px;"
+                                type="submit">Добавить</button>
+                        </div>
+                    </div>
+         `
+    }
+    var customInput = document.getElementById("doc1");
+
+    customInput.addEventListener("input", function (event) {
+        var inputValue = event.target.value.toUpperCase();
+        console.log(inputValue); // Преобразуем введенные символы в верхний регистр
+        if (inputValue.length >= 2) {
+            inputValue = inputValue.slice(0, 2) + " "
+        }
+        if (inputValue.length >= 10) {
+            inputValue = inputValue.slice(10)
+        }
+        if (inputValue.length > 10) {
+            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 17 символов
+        }
+        event.target.value = inputValue
+    });
+
+    var phoneInput1 = document.getElementById("tel1");
+    phoneInput1.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, '');
+        if (inputValue.length >= 3) {
+            inputValue = '+' + inputValue.slice(0, 3) + ' (' + inputValue.slice(3);
+        }
+        if (inputValue.length >= 8) {
+            inputValue = inputValue.slice(0, 8) + ")" + inputValue.slice(8)
+        }
+        if (inputValue.length >= 10) {
+            inputValue = inputValue.slice(0, 12) + "-" + inputValue.slice(12, 18)
+        }
+        if (inputValue.length >= 14) {
+            inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
+        }
+        if (inputValue.length > 19) {
+            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        }
+        event.target.value = inputValue;
+    });
+
+    var phoneInput2 = document.getElementById("tel2");
+    phoneInput2.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, '');
+        if (inputValue.length >= 3) {
+            inputValue = '+' + inputValue.slice(0, 3) + ' (' + inputValue.slice(3);
+        }
+        if (inputValue.length >= 8) {
+            inputValue = inputValue.slice(0, 8) + ")" + inputValue.slice(8)
+        }
+        if (inputValue.length >= 10) {
+            inputValue = inputValue.slice(0, 12) + "-" + inputValue.slice(12, 18)
+        }
+        if (inputValue.length >= 14) {
+            inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
+        }
+        if (inputValue.length > 19) {
+            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        }
+        event.target.value = inputValue;
+    });
+    var phoneInput3 = document.getElementById("tel3");
+    phoneInput3.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, '');
+        if (inputValue.length >= 3) {
+            inputValue = '+' + inputValue.slice(0, 3) + ' (' + inputValue.slice(3);
+        }
+        if (inputValue.length >= 8) {
+            inputValue = inputValue.slice(0, 8) + ")" + inputValue.slice(8)
+        }
+        if (inputValue.length >= 10) {
+            inputValue = inputValue.slice(0, 12) + "-" + inputValue.slice(12, 18)
+        }
+        if (inputValue.length >= 14) {
+            inputValue = inputValue.slice(0, 15) + '-' + inputValue.slice(15, 18)
+        }
+        if (inputValue.length > 19) {
+            inputValue = inputValue.slice(0, 19); // Ограничиваем ввод до 17 символов
+        }
+        event.target.value = inputValue;
+    });
+    var dateInput1 = document.getElementById("date1"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+    dateInput1.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+        }
+
+        if (inputValue.length > 10) {
+            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+        }
+
+        event.target.value = inputValue;
+
+        // Проверка корректности даты
+        var day = parseInt(inputValue.slice(0, 2), 10);
+        var month = parseInt(inputValue.slice(3, 5), 10);
+        var year = parseInt(inputValue.slice(4, 8), 10);
+
+        var maxDaysInMonth = 31
+
+        if (day < 1 || day > maxDaysInMonth) {
+            dateInput1.value = inputValue.slice(-1);
+        }
+        if (month < 1 || month > 12) {
+            dateInput1.value = inputValue.slice(0, 4);
+        }
+    });
+    var dateInput2 = document.getElementById("date2"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+    dateInput2.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+        }
+
+        if (inputValue.length > 10) {
+            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+        }
+
+        event.target.value = inputValue;
+
+        // Проверка корректности даты
+        var day = parseInt(inputValue.slice(0, 2), 10);
+        var month = parseInt(inputValue.slice(3, 5), 10);
+        var year = parseInt(inputValue.slice(4, 8), 10);
+        var maxDaysInMonth = 31
+
+        if (day < 1 || day > maxDaysInMonth) {
+            dateInput2.value = inputValue.slice(-1);
+        }
+        if (month < 1 || month > 12) {
+            dateInput2.value = inputValue.slice(0, 4);
+        }
+    });
+    var dateInput3 = document.getElementById("date3"); // Замените "yourInputId" на реальный ID вашего input-элемента
+
+    dateInput3.addEventListener("input", function (event) {
+        var inputValue = event.target.value.replace(/\D/g, ''); // Удаляем все нечисловые символы
+        if (inputValue.length > 2 && inputValue.length < 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
+        } else if (inputValue.length >= 5) {
+            inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2, 4) + '/' + inputValue.slice(4, 8);
+        }
+
+        if (inputValue.length > 10) {
+            inputValue = inputValue.slice(0, 10); // Ограничиваем ввод до 8 символов
+        }
+
+        event.target.value = inputValue;
+
+        // Проверка корректности даты
+        var day = parseInt(inputValue.slice(0, 2), 10);
+        var month = parseInt(inputValue.slice(3, 5), 10);
+        var year = parseInt(inputValue.slice(4, 8), 10);
+        var maxDaysInMonth = 31
+
+        if (day < 1 || day > maxDaysInMonth) {
+            dateInput3.value = inputValue.slice(-1);
+        }
+        if (month < 1 || month > 12) {
+            dateInput3.value = inputValue.slice(0, 4);
+        }
+    });
     document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"
     document.getElementsByClassName("student_inputs")[0].addEventListener("input", () => {
         document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"

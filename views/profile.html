@@ -133,7 +133,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.date == period) {
-                            document.getElementsByClassName("button_line")[0].innerHTML = `<a href=/period:${period}/user:${userID}/class:${classID}/stuff-profile/edit><button id="change_button" type="submit">Изменить</button></a>`
+                            document.getElementsByClassName("button_line")[0].innerHTML = `<a href=/period:${period}/user:${userID}/class:${classID}/stuff-profile/edit><button id="change_button" class="uniqueBtn" type="submit">Изменить</button></a>`
                         }
                     })
             })
