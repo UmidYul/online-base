@@ -159,9 +159,8 @@ app.post('/add-student', async function (req, res) {
                             father_workplace: log.father_workplace[0]
                         }
                     })
-
-                    db.write()
                     if (!responseSent) {
+                        db.write()
                         res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${req.session.classId}`)
                         responseSent = true;
                     }
@@ -219,7 +218,6 @@ app.post('/add-class', async function (req, res) {
         })
         db.write()
         if (!req.session.period) {
-            console.log(users[users.length - 1].period);
             res.redirect(`/period:${users[users.length - 1].period}/user:${req.session.userId}`)
         } else {
             res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
@@ -327,20 +325,21 @@ app.post("/remove/student", async function (req, res) {
                     const x = el.students[z];
                     if (x.id == sid) {
                         if (e.info.students && Array.isArray(e.info.students)) {
-                            const index = e.info.students.findIndex(user => user.id == sid);
-                            e.info.students.splice(index, 1);
-                            db.write();
                             if (!responseSent) {
+                                const index = e.info.students.findIndex(user => user.id == sid);
+                                e.info.students.splice(index, 1);
+                                db.write();
+                                fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
                                 res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}` }));
                                 responseSent = true;
                             }
                         } else {
                             if (!responseSent) {
+                                fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
                                 res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}/student:${sid}` }));
                                 responseSent = true;
                             }
                         }
-                        fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
                     }
                 }
             }
@@ -357,16 +356,17 @@ app.post("/remove/class", async function (req, res) {
         for (let i = 0; i < users[users.length - 1].info.length; i++) {
             const el = e.info;
             if (el.id == cid) {
-                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
-                const loginsIndex = logins.findIndex(login => login.id == cid);
-                users[users.length - 1].info.splice(usersIndex, 1)
-                logins.splice(loginsIndex, 1)
-                db.write()
                 if (!responseSent) {
+                    const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
+                    const loginsIndex = logins.findIndex(login => login.id == cid);
+                    console.log(users[users.length - 1].info[usersIndex]);
+                    users[users.length - 1].info.splice(usersIndex, 1)
+                    logins.splice(loginsIndex, 1)
+                    db.write()
+                    fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
                     res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}` }));
                     responseSent = true;
                 }
-                fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
             }
         }
     });

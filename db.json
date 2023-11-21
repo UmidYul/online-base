@@ -383,43 +383,11 @@
           "info": {
             "id": "1700034821774",
             "name": "Маматалиева Н.Б",
-            "class_num": 1,
+            "class_num": "1",
             "class_letter": "А",
             "img": "/images/stuff/1700034821774.webp",
             "role": "teacher",
-            "students": [
-              {
-                "id": "1700541518251",
-                "img": "/images/student/1700541518251.webp",
-                "student_name": "64564",
-                "student_birth_date": "64",
-                "serial_number": "yui",
-                "student_tel": "7y",
-                "student_adress": "645645",
-                "student_mahalla": "64564",
-                "family_status": "Малообеспеченная",
-                "student_attraction": "45645",
-                "student_health_status": "6546456",
-                "mother": {
-                  "mother_name": "456456",
-                  "mother_serial_number": "456456456",
-                  "mother_birth_date": "64/56",
-                  "mother_adress": "4564",
-                  "mother_mahalla": "45645",
-                  "mother_tel": "6456",
-                  "mother_workplace": "45645"
-                },
-                "father": {
-                  "father_name": "54645",
-                  "father_serial_number": "65464",
-                  "father_birth_date": "45/64/56",
-                  "father_adress": "6456",
-                  "father_mahalla": "6456456",
-                  "father_tel": "464564564",
-                  "father_workplace": "54645"
-                }
-              }
-            ]
+            "students": []
           }
         },
         {
@@ -767,7 +735,7 @@
           "info": {
             "id": "1700060665201",
             "name": "Исмаилова Г.А",
-            "class_num": 11,
+            "class_num": "11",
             "class_letter": "З",
             "img": "/images/stuff/1700060665201.webp",
             "role": "teacher",
