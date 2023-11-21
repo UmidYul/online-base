@@ -366,7 +366,6 @@ app.post("/remove/class", async function (req, res) {
                 if (!responseSent) {
                     const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
                     const loginsIndex = logins.findIndex(login => login.id == cid);
-                    console.log(users[users.length - 1].info[usersIndex]);
                     users[users.length - 1].info.splice(usersIndex, 1)
                     logins.splice(loginsIndex, 1)
                     db.write()
