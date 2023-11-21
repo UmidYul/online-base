@@ -184,19 +184,26 @@ app.post('/add-class', async function (req, res) {
     await db.read()
     const { logins, users } = db.data
     const id = Date.now().toString()
+    let saved = false
     form.parse(req, (err, fields, files) => {
         if (files.img) {
-            const oldPath = files.img[0].filepath;
-            const newPath = path.join(__dirname, '/public/images/stuff/', `${id}.webp`);
-            fs.rename(oldPath, newPath, (error) => {
-                if (error) {
-                    res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                    return;
-                }
-            });
-            f(fields, "/images/stuff/" + `${id}.webp`)
+            if (!saved) {
+                const oldPath = files.img[0].filepath;
+                const newPath = path.join(__dirname, '/public/images/stuff/', `${id}.webp`);
+                fs.rename(oldPath, newPath, (error) => {
+                    if (error) {
+                        res.status(500).json({ error: 'Ошибка при сохранении файла' });
+                        return;
+                    }
+                });
+                f(fields, "/images/stuff/" + `${id}.webp`)
+                saved = true
+            }
         } else {
-            f(fields, "/images/error/error.webp")
+            if (!saved) {
+                f(fields, "/images/error/error.webp")
+                saved = true
+            }
         }
     });
     function f(log, img) {
