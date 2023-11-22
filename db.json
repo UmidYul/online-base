@@ -383,11 +383,44 @@
           "info": {
             "id": "1700034821774",
             "name": "Маматалиева Н.Б",
-            "class_num": "1",
+            "class_num": 1,
             "class_letter": "А",
             "img": "/images/stuff/1700034821774.webp",
             "role": "teacher",
-            "students": []
+            "students": [
+              {
+                "id": "1731937667145",
+                "img": "/images/student/1731937667145.webp",
+                "student_name": "asdasdasd",
+                "student_birth_date": "231312-03-12",
+                "student_accept_date": "275760-02-01",
+                "serial_number": "3123",
+                "student_tel": "12312",
+                "student_adress": "3123",
+                "student_mahalla": "21321",
+                "family_status": "none",
+                "student_attraction": "1231232131",
+                "student_health_status": "dsad",
+                "mother": {
+                  "mother_name": "232131",
+                  "mother_serial_number": "23123123",
+                  "mother_birth_date": "0123-03-12",
+                  "mother_adress": "123213",
+                  "mother_mahalla": "131",
+                  "mother_tel": "31",
+                  "mother_workplace": "313123213"
+                },
+                "father": {
+                  "father_name": "232131",
+                  "father_serial_number": "23123123",
+                  "father_birth_date": "0123-03-12",
+                  "father_adress": "123213",
+                  "father_mahalla": "131",
+                  "father_tel": "31",
+                  "father_workplace": "313123213"
+                }
+              }
+            ]
           }
         },
         {

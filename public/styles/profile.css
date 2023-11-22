@@ -25,10 +25,6 @@ html {
     width: 450px;
 }
 
-.profileName span {
-    font-size: 20px
-}
-
 .profile_info {
     height: 100%;
     display: flex;
@@ -44,7 +40,87 @@ html {
     width: 450px;
 }
 
+.profileName span {
+    font-size: 20px
+}
+
+
 #change_button {
     height: 40px;
     width: 190px;
+}
+
+@media screen and (max-width: 1000px) {
+    #labelImg {
+        width: 400px;
+    }
+
+    .profile_info {
+        width: 400px;
+    }
+
+    .profile_info h2 {
+        font-size: 30px;
+    }
+
+    .profile_field .profileName {
+        font-size: 20px;
+    }
+
+    .profile_field .profileName span {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    #labelImg {
+        width: 350px;
+    }
+
+    .profile_info {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .profile_field {
+        height: 50%;
+    }
+
+    #labelImg {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .profile_info {
+        width: 300px;
+    }
+
+    .profile_info h2 {
+        font-size: 24px;
+    }
+
+    .profile_field .profileName {
+        font-size: 18px;
+    }
+
+    .profile_field .profileName span {
+        font-size: 15px;
+    }
+
+    .profile_field .profileName:nth-child(5) span {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 625px) {
+    .profile_info {
+        gap: 20px;
+        width: 250px;
+    }
+
+    .profile_info #change_button {
+        width: 150px;
+    }
 }

@@ -22,6 +22,13 @@ nav {
     color: #fff;
 }
 
+.nav-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
 nav h1 {
     display: inline-block;
     font-size: 30px;
@@ -356,4 +363,121 @@ table tr:hover td {
 
 .nav_link {
     user-select: none;
+}
+
+
+footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.topDiv {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.bottomDiv {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topDiv {
+    background: #f0f0f0;
+}
+
+.bottomDiv {
+    background-color: #354251;
+    color: #fff;
+}
+
+.bottomDiv p a {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.topDiv div {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+}
+
+.topDiv div a {
+    color: #000;
+    font-size: 20px;
+}
+
+.topDiv div:hover {
+    border-radius: 100%;
+    background-color: #e2e1e1;
+}
+
+@media screen and (max-width: 900px) {
+    .nav_link {
+        font-size: 24px;
+    }
+
+    .profile img,
+    .profile div {
+        width: 300px;
+    }
+
+}
+
+@media screen and (max-width: 660px) {
+    .nav-div {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .nav_link {
+        font-size: 20px;
+    }
+
+    nav .date {
+        font-size: 14px;
+    }
+
+    .profile div p {
+        font-size: 20px;
+    }
+
+    .profile img,
+    .profile div {
+        width: 225px;
+    }
+
+    .profile div button {
+        width: 150px !important;
+        height: 40px !important;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .nav-div {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .nav_link {
+        font-size: 18px;
+    }
+
+    nav .date {
+        font-size: 12px;
+        margin-right: 10px;
+    }
 }

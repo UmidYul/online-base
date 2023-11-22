@@ -369,9 +369,11 @@ app.post("/remove/class", async function (req, res) {
                     users[users.length - 1].info.splice(usersIndex, 1)
                     logins.splice(loginsIndex, 1)
                     db.write()
-                    fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
-                    res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}` }));
-                    responseSent = true;
+                    if (!responseSent) {
+                        fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
+                        res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}` }));
+                        responseSent = true;
+                    }
                 }
             }
         }
@@ -382,23 +384,25 @@ app.post("/editClass", async function (req, res) {
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
     let responseSent = false
+    let saved = false
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             users[users.length - 1].info.forEach(e => {
                 const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
                 const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-                // logins[loginsIndex].login = fields.login[0]
                 logins[loginsIndex].password = fields.pass[0]
                 users[users.length - 1].info[usersIndex].info.name = fields.name[0]
-                // users[usersIndex].info.subject = fields.subject[0]
                 users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
                 users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
                 const oldPath = files.img[0].filepath;
                 const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
-                if (!responseSent) {
+                if (!saved) {
                     fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
                     fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
                     db.write()
+                    saved = true
+                }
+                if (!responseSent & saved == true) {
                     res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
                     responseSent = true;
                 }
@@ -407,10 +411,8 @@ app.post("/editClass", async function (req, res) {
             users[users.length - 1].info.forEach(e => {
                 const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
                 const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-                // logins[loginsIndex].login = fields.login[0]
                 logins[loginsIndex].password = fields.pass[0]
                 users[users.length - 1].info[usersIndex].info.name = fields.name[0]
-                // users[usersIndex].info.subject = fields.subject[0]
                 users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
                 users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
                 db.write()
@@ -427,6 +429,7 @@ app.post("/editStudent", async function (req, res) {
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
     let responseSent = false
+    let saved = false
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             users[users.length - 1].info.forEach(e => {
@@ -434,7 +437,6 @@ app.post("/editStudent", async function (req, res) {
                 const studentsIndex = users[users.length - 1].info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
-                // users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
@@ -456,12 +458,15 @@ app.post("/editStudent", async function (req, res) {
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
-                if (!responseSent) {
-                    const oldPath = files.img[0].filepath;
-                    const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
+                const oldPath = files.img[0].filepath;
+                const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
+                if (!saved) {
                     fs.unlink(__dirname + `/public/images/student/${fields.sid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
                     fs.rename(oldPath, newPath, (error) => { if (error) console.log(error) });
                     db.write()
+                    saved = true
+                }
+                if (!responseSent & saved == true) {
                     res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
                     responseSent = true;
                 }

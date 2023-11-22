@@ -31,6 +31,21 @@
         <div class="profile-div">
         </div>
     </div>
+    <footer>
+        <div class="topDiv">
+            <div> <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a></div>
+            <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                    class="media_link"><i class="fa-brands fa-instagram"></i></a></div>
+            <div> <a href="https://t.me/webxperts_uz" class="media_link"><i class="fa-solid fa-bullhorn"></i></a>
+            </div>
+        </div>
+        <div class="bottomDiv">
+            <p class="copy"><i class="fa-regular fa-copyright"></i> 2023 Copyright: <a
+                    href="https://www.webxperts.uz">www.webxperts.uz</a></p>
+        </div>
+    </footer>
 </body>
 <script>function logout() {
         fetch("/logout", {
@@ -110,7 +125,6 @@
                     arr.map(i => {
                         return `
                     <div class="form-field">
-                        <div class="imgEdit"><img id="labelImg" src=${i.el.img}></div>
                     <form action="/editClass" method="post" class="teacherInfoForm" enctype="multipart/form-data">
                     </form>
                     </div>
@@ -119,17 +133,26 @@
                 document.getElementsByClassName("teacherInfoForm")[0].innerHTML =
                     arr.map(i => {
                         return `
-                    <input type="text" name="cid" value=${classID} style="opacity: 0; width:0; height:0;">
-                    <p>Имя:</p>
-                    <input name="name" class="name" type="text" value="${i.el.name}" placeholder='${i.el.name}'>
-                    <p>Класс:</p>
-                    <input name="num" class="num" type="text" value="${i.el.class_num}" placeholder='${i.el.class_num}'>
-                    <p>Буква:</p>
-                    <input name="letter" class="letter" type="text" value=${i.el.class_letter} placeholder='${i.el.class_letter}'>
-                    <p>Пароль:</p>
-                    <input name="pass" class="letter" type="text" value=${i.ex.password} placeholder='${i.ex.password}'>
-                    <div class="line_input"><div class="inputVis"></div><div class="check_line"><input type="checkbox" class="vis"><p class="vis_text">Изменить фото!</p></div></div>
-                    <button class="uniqueBtn" style="height: 40px; type="submit">Сохранить</button>
+                        <div class="imgEdit">
+                            <img id="labelImg" src=${i.el.img}>
+                        </div>
+                        <div class="line_input">
+                            <div class="inputVis"></div>
+                            <div class="check_line">
+                                <input type="checkbox" class="vis">
+                                <p class="vis_text">Изменить фото!</p>
+                            </div>
+                        </div>
+                        <input type="text" name="cid" value=${classID} style="opacity: 0; width:0; height:0;">
+                        <p>Имя:</p>
+                        <input name="name" class="name" type="text" value="${i.el.name}" placeholder='${i.el.name}'>
+                        <p>Класс:</p>
+                        <input name="num" class="num" type="text" value="${i.el.class_num}" placeholder='${i.el.class_num}'>
+                        <p>Буква:</p>
+                        <input name="letter" class="letter" type="text" value=${i.el.class_letter} placeholder='${i.el.class_letter}'>
+                        <p>Пароль:</p>
+                        <input name="pass" class="letter" type="text" value=${i.ex.password} placeholder='${i.ex.password}'>
+                        <button class="uniqueBtn" style="height: 40px;" type=" submit">Сохранить</button>                                                                                                                   
                     `
                     })
 
@@ -145,7 +168,6 @@
                     })
                     document.querySelector(".vis").addEventListener("change", (e) => {
                         if (e.target.checked == true) {
-                            console.log(document.querySelector(".imgEdit"));
                             document.querySelector(".imgEdit").innerHTML = `
                 <label for="editimg" id="editimg_label"><img id="labelImg" src=${arr[0].el.img}></label>
                 <input name="img" style="display:none;" id="editimg" class="img" type="file" accept="image/webp">
@@ -168,9 +190,7 @@
 
                 }, 1000);
             })
-
     }
-
 </script>
 
 </html>
