@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/styles/user.css">
-    <link rel="stylesheet" href="/styles/swiper.css">
+    <link rel="stylesheet" href="/styles/edit_student.css">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <title>online-base.uz</title>
 </head>
@@ -23,18 +23,23 @@
             </div>
             <img id="profile-img">
         </nav>
+        <div class="student-form-field">
+            <div class="center_field">
 
-        <div class="studentInfo">
+            </div>
         </div>
 
     </div>
     <div class="profile-container">
         <div class="profile-div">
+
         </div>
     </div>
     <footer>
         <div class="topDiv">
-            <div> <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a></div>
+            <div>
+                <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a>
+            </div>
             <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i class="fa-solid fa-envelope"></i></a>
             </div>
             <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
@@ -63,6 +68,7 @@
         window.location.href = "/"
     })
     window.onload = function () {
+
         const classId = window.location.href.slice(-40, -27)
         const userId = window.location.href.slice(-60, -47)
         const period = window.location.href.slice(-81, -66)
@@ -124,26 +130,37 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                document.getElementsByClassName("studentInfo")[0].innerHTML =
+                document.getElementsByClassName("center_field")[0].innerHTML =
                     `
-                        <form action="/editStudent" method="post" enctype="multipart/form-data">
+                    <form action="/editStudent" method="post" enctype="multipart/form-data">
+                        <label class="imgField" for="editimg" style="background-image:url(${arr[0].x.img}); width:400px; height:500px;"></label>
+                    <div class="student_inputs">
                         <input type="text" name="cid" value=${classId} style="opacity: 0; width:0; height:0;">
                         <input type="text" name="sid" value=${studentId} style="opacity: 0; width:0; height:0;">
-                        <div class="imgField"><img id="labelImg" src=${arr[0].x.img}></div>
                         <h1>Ученик</h1>
-                        <input type="checkbox" class="vis"><p class="vis_p">Изменить фото!</p>
                         <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
                         <input name="student_birth_date" minlength="10" id="date1" placeholder="Дата Рождения" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
                         <input name="serial_number" value="${arr[0].x.serial_number}" placeholder="${arr[0].x.serial_number}">
                         <input name="student_tel" value="${arr[0].x.student_tel}" placeholder="${arr[0].x.student_tel}">
                         <input name="student_adress" value="${arr[0].x.student_adress}" placeholder="${arr[0].x.student_adress}">
                         <input name="student_mahalla" value="${arr[0].x.student_mahalla}" placeholder="${arr[0].x.student_mahalla}">
-                        <input name="family_status" value="${arr[0].x.family_status}" placeholder="${arr[0].x.family_status}">
+                        <select id="family_status" name="family_status" required>
+                            <option value="none">Состояние семьи</option>
+                            <option value="Малообеспеченная">Малообеспеченная</option>
+                            <option value="Социально-опасное положение">Социально-опасное положение</option>
+                            <option value="Полная">Полная</option>
+                            <option value="Не полная">Не полная</option>
+                            <option value="Многодетная (3 и более детей)">Многодетная (3 и более детей)</option>
+                            <option value="мать вдова">Мать вдова</option>
+                            <option value="отец вдовец">Отец вдовец</option>
+                            <option value="сирота (воспитанник семейного детского дома)">Сирота</option>
+                        </select>
                         <textarea name="student_attraction" placeholder="${arr[0].x.student_attraction}" cols="30" rows="10">${arr[0].x.student_attraction}</textarea>
                         <textarea name="student_health_status" placeholder="${arr[0].x.student_health_status}" cols="30" rows="10">${arr[0].x.student_health_status}</textarea>
-
-                        <hr>
-                        <h1>Мать:</h1>
+                        </div>
+                    <div class="parents">
+                        <div class="mother_inputs">
+                            <h1>Мать:</h1>
                         <input name="mother_name" value="${arr[0].x.mother.mother_name}" placeholder="${arr[0].x.mother.mother_name}">
                         <input name="mother_birth_date" minlength="10" id="date2" placeholder="Дата Рождения" value="${arr[0].x.mother.mother_birth_date}" placeholder="${arr[0].x.mother.mother_birth_date}">
                         <input name="mother_serial_number" value="${arr[0].x.mother.mother_serial_number}" placeholder="${arr[0].x.mother.mother_serial_number}">
@@ -151,19 +168,24 @@
                         <input name="mother_adress" value="${arr[0].x.mother.mother_adress}" placeholder="${arr[0].x.mother.mother_adress}">
                         <input name="mother_mahalla" value="${arr[0].x.mother.mother_mahalla}" placeholder="${arr[0].x.mother.mother_mahalla}">
                         <input name="mother_workplace" value="${arr[0].x.mother.mother_workplace}" placeholder="${arr[0].x.mother.mother_workplace}">
-
-                        <hr>
-                        <h1>Отец:</h1>
-                        <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
+                        </div>
+                        <div class="father_inputs">
+                            <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
                         <input name="father_birth_date" minlength="10" id="date3" placeholder="Дата Рождения" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
                         <input name="father_serial_number" value="${arr[0].x.father.father_serial_number}" placeholder="${arr[0].x.father.father_serial_number}">
                         <input name="father_tel" value="${arr[0].x.father.father_tel}" placeholder="${arr[0].x.father.father_tel}">
                         <input name="father_adress" value="${arr[0].x.father.father_adress}" placeholder="${arr[0].x.father.father_adress}">
                         <input name="father_mahalla" value="${arr[0].x.father.father_mahalla}" placeholder="${arr[0].x.father.father_mahalla}">
                         <input name="father_workplace" value="${arr[0].x.father.father_workplace}" placeholder="${arr[0].x.father.father_workplace}">
-                        <button class="uniqueBtn"  style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
+                                <button class="uniqueBtn"  style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
+                        </div>
+                    </div>
                         </form>
                 `
+                document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"
+                document.getElementsByClassName("student_inputs")[0].addEventListener("input", () => {
+                    document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"
+                })
                 setTimeout(() => {
                     var dateInput1 = document.getElementById("date1"); // Замените "yourInputId" на реальный ID вашего input-элемента
 
@@ -226,30 +248,26 @@
                     profile_img.addEventListener('click', () => {
                         profile.classList.add('__visible')
                     })
-                    document.querySelector(".vis").addEventListener("change", (e) => {
-                        if (e.target.checked == true) {
-                            document.querySelector(".vis_p").textContent = "Отключить изменение фото!"
-                            document.querySelector(".imgField").innerHTML = `
-                    <label for="editimg"> <img id="labelImg" src=${arr[0].x.img}>
-        </label>
-        <input name="img" id="editimg" class="img" type="file" style="display:none;" accept="image/webp">
-                    `
-                            document.querySelector("#editimg").addEventListener("change", function () {
-                                const reader = new FileReader();
-                                reader.onload = function (e) {
-                                    document.querySelector("#labelImg").src = e.target.result
-                                }
-                                reader.readAsDataURL(this.files[0]);
-                                const formData = new FormData();
-                                formData.append('image', this.files[0]);
-                            })
-                        } if (e.target.checked == false) {
-                            document.querySelector(".vis_p").textContent = "Изменить фото!"
-                            document.querySelector("#labelImg").src = arr[0].x.img
-                        }
+                    document.querySelector(".imgField").addEventListener("mouseenter", (e) => {
+                        console.log(200);
+                        document.querySelector(".imgField").zIndex = "-1"
+                        document.querySelector(".imgField").innerHTML = `
+                        <input name="img" id="editimg" class="img" type="file" style="z-index:1 !important; width:100% !important; height:100% !important;" accept="image/webp">
+                                    `
+                        document.querySelector("#editimg").addEventListener("change", function () {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                document.querySelector(".imgField").style.backgroundImage = `url(${e.target.result})`
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                            const formData = new FormData();
+                            formData.append('image', this.files[0]);
+                        })
                     })
-
-                }, 500);
+                    document.querySelector(".imgField").addEventListener("mouseleave", (e) => {
+                        document.querySelector("#editimg").remove()
+                    })
+                }, 100);
             })
     }
 </script>

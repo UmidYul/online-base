@@ -116,10 +116,12 @@ label {
     align-items: center;
     justify-content: center;
     gap: 4px;
+    cursor: pointer;
 }
 
-label:hover {
-    cursor: pointer;
+.imgField {
+    width: 400px;
+    height: 500px;
 }
 
 button {
