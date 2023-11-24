@@ -391,32 +391,32 @@
               {
                 "id": "1731937667145",
                 "img": "/images/student/1731937667145.webp",
-                "student_name": "asdasdasd",
-                "student_birth_date": "231312-03-12",
-                "serial_number": "3123",
-                "student_tel": "12312",
-                "student_adress": "3123",
-                "student_mahalla": "21321",
-                "family_status": "timur",
-                "student_attraction": "1231232131",
-                "student_health_status": "dsad",
+                "student_name": "asd",
+                "student_birth_date": "17/08/2007",
+                "serial_number": "AA 4324190",
+                "student_tel": "+998905329686",
+                "student_adress": "Sharof Rashidov 11/1 61",
+                "student_mahalla": "Kimyogar",
+                "family_status": "сирота (воспитанник семейного детского дома)",
+                "student_attraction": "English, playing video games on pc. A little bit more than my dick can suck your bitches around the world around the world bitches sucks my dicks between two cocks",
+                "student_health_status": "Very Good",
                 "mother": {
-                  "mother_name": "232131",
-                  "mother_serial_number": "23123123",
-                  "mother_birth_date": "0123-03-12",
-                  "mother_adress": "123213",
-                  "mother_mahalla": "131",
-                  "mother_tel": "31",
-                  "mother_workplace": "313123213"
+                  "mother_name": "Mamatalieva Sarvinox Ikromovna",
+                  "mother_serial_number": "AA 3425782",
+                  "mother_birth_date": "17/08/1996",
+                  "mother_adress": "Sharof Rashidov 11/1 61",
+                  "mother_mahalla": "Kimyogar",
+                  "mother_tel": "998905329686",
+                  "mother_workplace": "Margilanskaya 19"
                 },
                 "father": {
-                  "father_name": "232131",
-                  "father_serial_number": "23123123",
-                  "father_birth_date": "0123-03-12",
-                  "father_adress": "123213",
-                  "father_mahalla": "131",
-                  "father_tel": "31",
-                  "father_workplace": "313123213"
+                  "father_name": "Mamatalieva Sarvinox Ikromovna",
+                  "father_serial_number": "AA 3425782",
+                  "father_birth_date": "17/08/1996",
+                  "father_adress": "Sharof Rashidov 11/1 61",
+                  "father_mahalla": "Kimyogar",
+                  "father_tel": "998905329686",
+                  "father_workplace": "Margilanskaya 19"
                 }
               }
             ]

@@ -6,6 +6,11 @@ html {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    color: #fff;
+}
+
+.exit-btn {
+    color: #354251 !important;
 }
 
 .container {
@@ -20,20 +25,26 @@ html {
     height: 90%;
 }
 
+.student-field p span {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.student-field p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
 .student-field {
     display: flex;
-    border: 1px solid #000;
-    width: 80%;
+    background-color: #354251;
+    width: 95%;
+    height: min-content;
 }
 
 .g {
     width: 100%;
-    border: 1px solid #000;
-}
-
-.student-field-student p {
-    font-size: 20px;
-    margin: 10px;
+    /* border: 1px solid #000; */
 }
 
 .student-field-student {
@@ -41,7 +52,24 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: left;
+    border-right: #fff 1px solid;
+    border-left: #fff 1px solid;
+}
+
+.student-field-img ._download button {
+    color: #fff;
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.student-field-img ._download button:hover {
+    color: #354251;
 }
 
 .student-field-mother,
@@ -50,7 +78,6 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: left;
     height: 50%;
 }
 
@@ -61,7 +88,79 @@ html {
     height: 80%;
 }
 
-.student-field-mother p,
-.student-field-father p {
-    font-size: 20px;
+.student-field-img {
+    position: relative;
+}
+
+.student-field-img img {
+    height: 100%;
+    width: 400px;
+}
+
+#button_line {
+    margin-top: 10%;
+}
+
+#button_line div {
+    display: inline;
+}
+
+@media screen and (max-width:1560px) {
+    #button_line button {
+        font-size: 16px;
+        width: 100px !important;
+    }
+
+    .student-field p span {
+        font-size: 16px;
+    }
+
+    .student-field p {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width:1110px) {
+    .student-field p span {
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    .student-field p {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+}
+
+
+@media screen and (max-width:1055px) {
+    .g {
+        padding-top: 5px;
+        justify-content: start;
+    }
+
+    .student-field p span {
+        font-size: 15px;
+    }
+
+    .student-field p {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    #button_line button {
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .g {
+        margin: 0;
+    }
+
+    .student-field-img img {
+        height: 100%;
+        width: 300px;
+    }
 }

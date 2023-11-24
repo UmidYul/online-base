@@ -33,6 +33,7 @@
 
         </div>
     </div>
+
     <footer>
         <div class="topDiv">
             <div> <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a></div>
@@ -130,54 +131,56 @@
                     `
                 <div class="student-field">
                     <div class="student-field-img">
+                        <a class="_download" href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
                         <img src=${arr[0].x.img}>
                     </div>
                     <div class="student-field-student g">
                       <div>
-                        <h1>Ученик</h1>
-                        <a href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
-                        <p>Ф.И.О: ${arr[0].x.student_name}</p>
-                        <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
-                        <p>Серия документа: ${arr[0].x.serial_number}</p>
-                        <p>Номер телефона: ${arr[0].x.student_tel}</p>
-                        <p>Адресс: ${arr[0].x.student_adress}</p>
-                        <p>Махалля: ${arr[0].x.student_mahalla}</p>
-                        <p>Семейное положение: ${arr[0].x.family_status}</p>
-                        <p>Увлечения: ${arr[0].x.student_attraction}</p>
-                        <p>Здоровье: ${arr[0].x.student_health_status}</p>
+                        <p><span>Ученик:</span> ${arr[0].x.student_name}</p>
+                        <p><span>Дата Рождения:</span> ${arr[0].x.student_birth_date}</p>
+                        <p><span>Серия документа:</span> ${arr[0].x.serial_number}</p>
+                        <p><span>Номер телефона:</span> ${arr[0].x.student_tel}</p>
+                        <p><span>Адресс:</span> ${arr[0].x.student_adress}</p>
+                        <p><span>Махалля:</span> ${arr[0].x.student_mahalla}</p>
+                        <p><span>Семейное положение:</span> ${arr[0].x.family_status}</p>
+                        <p><span>Увлечения:</span> ${arr[0].x.student_attraction}</p>
+                        <p><span>Здоровье:</span> ${arr[0].x.student_health_status}</p>
                         <div id="button_line"></div>
                         </div>
                     </div>
                     <div class="student-field-parents g">
                         <div class="student-field-mother g">
                             <div> 
-                        <h1>Мать:</h1>
-                        <p>Ф.И.О: ${arr[0].x.mother.mother_name}</p>
-                        <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
-                        <p>Серия паспорта: ${arr[0].x.mother.mother_serial_number}</p>
-                        <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
-                        <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
-                        <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
-                        <p>Место работы: ${arr[0].x.mother.mother_workplace}</p></div>
+
+                        <p><span>Мать:</span> ${arr[0].x.mother.mother_name}</p>
+                        <p><span>Дата Рождения:</span> ${arr[0].x.mother.mother_birth_date}</p>
+                        <p><span>Серия паспорта:</span> ${arr[0].x.mother.mother_serial_number}</p>
+                        <p><span>Номер телефона:</span> ${arr[0].x.mother.mother_tel}</p>
+                        <p><span>Адресс:</span> ${arr[0].x.mother.mother_adress}</p>
+                        <p><span>Махалля:</span> ${arr[0].x.mother.mother_mahalla}</p>
+                        <p><span>Место работы:</span> ${arr[0].x.mother.mother_workplace}</p></div>
                         </div>  
                         <div class="student-field-father g">
                             <div>
-                        <h1>Отец:</h1>
-                        <p>Ф.И.О: ${arr[0].x.father.father_name}</p>
-                        <p>Дата Рождения: ${arr[0].x.father.father_birth_date}</p>
-                        <p>Серия паспорта: ${arr[0].x.father.father_serial_number}</p>
-                        <p>Номер телефона: ${arr[0].x.father.father_tel}</p>
-                        <p>Адресс: ${arr[0].x.father.father_adress}</p>
-                        <p>Махалля: ${arr[0].x.father.father_mahalla}</p>
-                        <p>Место работы: ${arr[0].x.father.father_workplace}</p></div>
+
+                        <p><span>Отец:</span> ${arr[0].x.father.father_name}</p>
+                        <p><span>Дата Рождения:</span> ${arr[0].x.father.father_birth_date}</p>
+                        <p><span>Серия паспорта:</span> ${arr[0].x.father.father_serial_number}</p>
+                        <p><span>Номер телефона:</span> ${arr[0].x.father.father_tel}</p>
+                        <p><span>Адресс:</span> ${arr[0].x.father.father_adress}</p>
+                        <p><span>Махалля:</span> ${arr[0].x.father.father_mahalla}</p>
+                        <p><span>Место работы:</span> ${arr[0].x.father.father_workplace}</p></div>
                         </div>  
                     </div>    
                 </div>        
                 `
-
+                if (window.screen.width <= 900) {
+                    document.querySelector('.student-field').innerHTML = `
+                    <i> САЙТ НЕ РАБОТАЕТ НА ВАШЕМ УСТРОЙСТВЕ ПОЖАЛУЙСТА ОТКРОЙТЕ САЙТ НА ДРУГОМ УСТРОЙСТВЕ</i>`
+                }
                 document.getElementById("button_line").innerHTML = `
-                <div><a class="teacher-link" id="teacher-link" href="/period:${period}/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
-                <div><button id="remove">Удалить</button></div>
+                <div><a class="teacher-link " id="teacher-link" href="/period:${period}/user:${userId}/class:${classId}/student:${studentId}/edit"><button style="height:40px; width:150px;" class="uniqueBtn">Изменить</button></a></div>
+                <div><button class="uniqueBtn" style="height:40px; width:150px;" id="remove">Удалить</button></div>
                 `
             })
         setTimeout(() => {

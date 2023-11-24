@@ -110,6 +110,10 @@ form h1 {
 /* .student_inputs ._textarea {
     height: 200px !important;
 } */
+#family_status {
+    width: 70%;
+    margin-bottom: 20px;
+}
 
 .student_inputs select {
     border: none;
@@ -247,29 +251,23 @@ form button {
     }
 
     form label {
-        height: auto !important;
-        width: max-content;
         border-radius: 20px;
-    }
-
-    form label img {
-        border-radius: 20px;
-        width: 150px;
-        height: auto !important;
+        height: 300px !important;
+        width: 500px !important;
     }
 
     .student_inputs .row-1 div {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        width: auto;
         gap: 10px;
         justify-content: center;
+        height: 400px;
     }
 
     .student_inputs input {
         display: inline-block;
-        width: 150px;
+        width: 200px;
     }
 
     .parents input {
@@ -314,6 +312,20 @@ form button {
         float: right;
         margin-right: 70px;
     }
+
+
+    .student_inputs input {
+        display: inline-block;
+        width: 180px;
+    }
+
+    .row-1 {
+        height: 300px;
+    }
+
+    .row-1 div {
+        height: 100px !important;
+    }
 }
 
 @media screen and (max-width: 680px) {
@@ -325,6 +337,11 @@ form button {
 
     .parents input {
         width: 200px;
+    }
+
+    .student_inputs input {
+        display: inline-block;
+        width: 150px;
     }
 }
 
@@ -338,7 +355,7 @@ form button {
     }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 577px) {
     .student_inputs input {
         width: 120px;
     }
@@ -346,5 +363,37 @@ form button {
     form textarea,
     form input {
         font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 554px) {
+    .student_inputs input {
+        width: 110px;
+    }
+
+    .student_inputs label {
+        height: 260px !important;
+    }
+
+    form textarea,
+    form input {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 554px) {
+    .parents input {
+        width: 170px;
+    }
+
+    .row-1 {
+        display: flex !important;
+        align-items: center !important;
+        justify-self: center !important;
+
+    }
+
+    .student_inputs input {
+        width: 100px;
     }
 }

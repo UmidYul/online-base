@@ -28,30 +28,31 @@
 
             </div>
         </div>
-
+        <footer>
+            <div class="topDiv">
+                <div>
+                    <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i
+                            class="fa-solid fa-envelope"></i></a>
+                </div>
+                <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                        class="media_link"><i class="fa-brands fa-instagram"></i></a></div>
+                <div> <a href="https://t.me/webxperts_uz" class="media_link"><i class="fa-solid fa-bullhorn"></i></a>
+                </div>
+            </div>
+            <div class="bottomDiv">
+                <p class="copy"><i class="fa-regular fa-copyright"></i> 2023 Copyright: <a
+                        href="https://www.webxperts.uz">www.webxperts.uz</a></p>
+            </div>
+        </footer>
     </div>
     <div class="profile-container">
         <div class="profile-div">
 
         </div>
     </div>
-    <footer>
-        <div class="topDiv">
-            <div>
-                <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a>
-            </div>
-            <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-            <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
-                    class="media_link"><i class="fa-brands fa-instagram"></i></a></div>
-            <div> <a href="https://t.me/webxperts_uz" class="media_link"><i class="fa-solid fa-bullhorn"></i></a>
-            </div>
-        </div>
-        <div class="bottomDiv">
-            <p class="copy"><i class="fa-regular fa-copyright"></i> 2023 Copyright: <a
-                    href="https://www.webxperts.uz">www.webxperts.uz</a></p>
-        </div>
-    </footer>
+
 </body>
 <script>
     function logout() {
@@ -135,8 +136,8 @@
                     <form action="/editStudent" method="post" enctype="multipart/form-data">
                         <label class="imgField" for="editimg" style="background-image:url(${arr[0].x.img}); width:400px; height:500px;"></label>
                     <div class="student_inputs">
-                        <input type="text" name="cid" value=${classId} style="opacity: 0; width:0; height:0;">
-                        <input type="text" name="sid" value=${studentId} style="opacity: 0; width:0; height:0;">
+                        <input type="text" name="cid" value=${classId} style="display:none;">
+                        <input type="text" name="sid" value=${studentId} style="display:none;">
                         <h1>Ученик</h1>
                         <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
                         <input name="student_birth_date" minlength="10" id="date1" placeholder="Дата Рождения" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
@@ -145,15 +146,6 @@
                         <input name="student_adress" value="${arr[0].x.student_adress}" placeholder="${arr[0].x.student_adress}">
                         <input name="student_mahalla" value="${arr[0].x.student_mahalla}" placeholder="${arr[0].x.student_mahalla}">
                         <select id="family_status" name="family_status" required>
-                            <option value="none">Состояние семьи</option>
-                            <option value="Малообеспеченная">Малообеспеченная</option>
-                            <option value="Социально-опасное положение">Социально-опасное положение</option>
-                            <option value="Полная">Полная</option>
-                            <option value="Не полная">Не полная</option>
-                            <option value="Многодетная (3 и более детей)">Многодетная (3 и более детей)</option>
-                            <option value="мать вдова">Мать вдова</option>
-                            <option value="отец вдовец">Отец вдовец</option>
-                            <option value="сирота (воспитанник семейного детского дома)">Сирота</option>
                         </select>
                         <textarea name="student_attraction" placeholder="${arr[0].x.student_attraction}" cols="30" rows="10">${arr[0].x.student_attraction}</textarea>
                         <textarea name="student_health_status" placeholder="${arr[0].x.student_health_status}" cols="30" rows="10">${arr[0].x.student_health_status}</textarea>
@@ -170,6 +162,7 @@
                         <input name="mother_workplace" value="${arr[0].x.mother.mother_workplace}" placeholder="${arr[0].x.mother.mother_workplace}">
                         </div>
                         <div class="father_inputs">
+                            <h1>Отец:</h1>
                             <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
                         <input name="father_birth_date" minlength="10" id="date3" placeholder="Дата Рождения" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
                         <input name="father_serial_number" value="${arr[0].x.father.father_serial_number}" placeholder="${arr[0].x.father.father_serial_number}">
@@ -177,15 +170,72 @@
                         <input name="father_adress" value="${arr[0].x.father.father_adress}" placeholder="${arr[0].x.father.father_adress}">
                         <input name="father_mahalla" value="${arr[0].x.father.father_mahalla}" placeholder="${arr[0].x.father.father_mahalla}">
                         <input name="father_workplace" value="${arr[0].x.father.father_workplace}" placeholder="${arr[0].x.father.father_workplace}">
-                                <button class="uniqueBtn"  style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
+                                <button class="uniqueBtn" style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
                         </div>
                     </div>
                         </form>
                 `
+                console.log(window.screen.width);
+                if (window.screen.width < 900) {
+                    document.querySelector("form").innerHTML = `
+                    <div class="student_inputs">
+                        <h1>Ученик:</h1>
+                        <div class="row-1">
+                                <label class="imgField" for="img" style="background-image:url(${arr[0].x.img}); width:400px; height:500px;"></label>
+                            <div>
+                        <input type="text" name="cid" value=${classId} style="display:none;">
+                        <input type="text" name="sid" value=${studentId} style="display:none;">
+                        <input name="student_name" value="${arr[0].x.student_name}" placeholder="${arr[0].x.student_name}">
+                        <input name="student_birth_date" minlength="10" id="date1" placeholder="Дата Рождения" value="${arr[0].x.student_birth_date}" placeholder="${arr[0].x.student_birth_date}">
+                        <input name="serial_number" value="${arr[0].x.serial_number}" placeholder="${arr[0].x.serial_number}">
+                        <input name="student_tel" value="${arr[0].x.student_tel}" placeholder="${arr[0].x.student_tel}">
+                        <input name="student_adress" value="${arr[0].x.student_adress}" placeholder="${arr[0].x.student_adress}">
+                        <input name="student_mahalla" value="${arr[0].x.student_mahalla}" placeholder="${arr[0].x.student_mahalla}">
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <select id="family_status" name="family_status" required>
+                        </select>
+                        <textarea name="student_attraction" placeholder="${arr[0].x.student_attraction}" cols="30" rows="10">${arr[0].x.student_attraction}</textarea>
+                        <textarea name="student_health_status" placeholder="${arr[0].x.student_health_status}" cols="30" rows="10">${arr[0].x.student_health_status}</textarea>
+                        </div>
+                    </div>
+                    <div class="parents">
+                        <div class="mother_inputs">
+                            <h1>Мать:</h1>
+                        <input name="mother_name" value="${arr[0].x.mother.mother_name}" placeholder="${arr[0].x.mother.mother_name}">
+                        <input name="mother_birth_date" minlength="10" id="date2" placeholder="Дата Рождения" value="${arr[0].x.mother.mother_birth_date}" placeholder="${arr[0].x.mother.mother_birth_date}">
+                        <input name="mother_serial_number" value="${arr[0].x.mother.mother_serial_number}" placeholder="${arr[0].x.mother.mother_serial_number}">
+                        <input name="mother_tel" value="${arr[0].x.mother.mother_tel}" placeholder="${arr[0].x.mother.mother_tel}">
+                        <input name="mother_adress" value="${arr[0].x.mother.mother_adress}" placeholder="${arr[0].x.mother.mother_adress}">
+                        <input name="mother_mahalla" value="${arr[0].x.mother.mother_mahalla}" placeholder="${arr[0].x.mother.mother_mahalla}">
+                        <input name="mother_workplace" value="${arr[0].x.mother.mother_workplace}" placeholder="${arr[0].x.mother.mother_workplace}">
+                        </div>
+                        <div class="father_inputs">
+                            <h1>Отец:</h1>
+                            <input name="father_name" value="${arr[0].x.father.father_name}" placeholder="${arr[0].x.father.father_name}">
+                        <input name="father_birth_date" minlength="10" id="date3" placeholder="Дата Рождения" value="${arr[0].x.father.father_birth_date}" placeholder="${arr[0].x.father.father_birth_date}">
+                        <input name="father_serial_number" value="${arr[0].x.father.father_serial_number}" placeholder="${arr[0].x.father.father_serial_number}">
+                        <input name="father_tel" value="${arr[0].x.father.father_tel}" placeholder="${arr[0].x.father.father_tel}">
+                        <input name="father_adress" value="${arr[0].x.father.father_adress}" placeholder="${arr[0].x.father.father_adress}">
+                        <input name="father_mahalla" value="${arr[0].x.father.father_mahalla}" placeholder="${arr[0].x.father.father_mahalla}">
+                        <input name="father_workplace" value="${arr[0].x.father.father_workplace}" placeholder="${arr[0].x.father.father_workplace}">
+                                <button class="uniqueBtn" style="padding: 0 !important; width: 170px; height: 40px;" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+         `
+                }
                 document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"
                 document.getElementsByClassName("student_inputs")[0].addEventListener("input", () => {
                     document.querySelector("label").style.height = document.getElementsByClassName("student_inputs")[0].clientHeight + "px"
                 })
+                let array1 = ["Малообеспеченная", "Социально-опасное положение", "Полная", "Не полная", "Многодетная (3 и более детей)", "мать вдова", "отец вдовец", "сирота (воспитанник семейного детского дома)"]
+                let i = array1.findIndex(el => el == arr[0].x.family_status)
+                let a = array1.splice(i, 1)
+                array1.unshift(a)
+                document.querySelector("#family_status").innerHTML = array1.map(x => `
+                <option value="${x}">${x}</option>
+               `)
                 setTimeout(() => {
                     var dateInput1 = document.getElementById("date1"); // Замените "yourInputId" на реальный ID вашего input-элемента
 
@@ -263,9 +313,6 @@
                             const formData = new FormData();
                             formData.append('image', this.files[0]);
                         })
-                    })
-                    document.querySelector(".imgField").addEventListener("mouseleave", (e) => {
-                        document.querySelector("#editimg").remove()
                     })
                 }, 100);
             })
