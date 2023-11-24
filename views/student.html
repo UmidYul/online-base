@@ -27,6 +27,24 @@
         <div class="studentInfo">
 
         </div>
+
+        <footer>
+            <div class="topDiv">
+                <div> <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i
+                            class="fa-solid fa-envelope"></i></a>
+                </div>
+                <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
+                        class="media_link"><i class="fa-brands fa-instagram"></i></a></div>
+                <div> <a href="https://t.me/webxperts_uz" class="media_link"><i class="fa-solid fa-bullhorn"></i></a>
+                </div>
+            </div>
+            <div class="bottomDiv">
+                <p class="copy"><i class="fa-regular fa-copyright"></i> 2023 Copyright: <a
+                        href="https://www.webxperts.uz">www.webxperts.uz</a></p>
+            </div>
+        </footer>
     </div>
     <div class="profile-container">
         <div class="profile-div">
@@ -34,21 +52,6 @@
         </div>
     </div>
 
-    <footer>
-        <div class="topDiv">
-            <div> <a href="https://t.me/webxperts" class="media_link"><i class="fa-brands fa-telegram"></i></a></div>
-            <div> <a href="mailto:webxperts.uz@gmail.com" class="media_link"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-            <div> <a href="https://instagram.com/webxperts_uz?utm_source=qr&igshid=MzNlNGNkZWQ4Mg=="
-                    class="media_link"><i class="fa-brands fa-instagram"></i></a></div>
-            <div> <a href="https://t.me/webxperts_uz" class="media_link"><i class="fa-solid fa-bullhorn"></i></a>
-            </div>
-        </div>
-        <div class="bottomDiv">
-            <p class="copy"><i class="fa-regular fa-copyright"></i> 2023 Copyright: <a
-                    href="https://www.webxperts.uz">www.webxperts.uz</a></p>
-        </div>
-    </footer>
 </body>
 <script>
     function logout() {
@@ -176,7 +179,44 @@
                 `
                 if (window.screen.width <= 900) {
                     document.querySelector('.student-field').innerHTML = `
-                    <i> САЙТ НЕ РАБОТАЕТ НА ВАШЕМ УСТРОЙСТВЕ ПОЖАЛУЙСТА ОТКРОЙТЕ САЙТ НА ДРУГОМ УСТРОЙСТВЕ</i>`
+                        <div class="_div student-field-img">
+                            <a class="_download" href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
+                            <img src=${arr[0].x.img}>
+                        </div>
+
+                        <div class="_div">
+                            <p><span>Ученик:</span> ${arr[0].x.student_name}</p>
+                            <p><span>Дата Рождения:</span> ${arr[0].x.student_birth_date}</p>
+                            <p><span>Серия документа:</span> ${arr[0].x.serial_number}</p>
+                            <p><span>Номер телефона:</span> ${arr[0].x.student_tel}</p>
+                            <p><span>Адресс:</span> ${arr[0].x.student_adress}</p>
+                            <p><span>Махалля:</span> ${arr[0].x.student_mahalla}</p>
+                            <p><span>Семейное положение:</span> ${arr[0].x.family_status}</p>
+                            <p><span>Увлечения:</span> ${arr[0].x.student_attraction}</p>
+                            <p><span>Здоровье:</span> ${arr[0].x.student_health_status}</p>    
+                        </div>
+
+                        <div class="_div">
+                            <p><span>Мать:</span> ${arr[0].x.mother.mother_name}</p>
+                            <p><span>Дата Рождения:</span> ${arr[0].x.mother.mother_birth_date}</p>
+                            <p><span>Серия паспорта:</span> ${arr[0].x.mother.mother_serial_number}</p>
+                            <p><span>Номер телефона:</span> ${arr[0].x.mother.mother_tel}</p>
+                            <p><span>Адресс:</span> ${arr[0].x.mother.mother_adress}</p>
+                            <p><span>Махалля:</span> ${arr[0].x.mother.mother_mahalla}</p>
+                            <p><span>Место работы:</span> ${arr[0].x.mother.mother_workplace}</p></div>    
+                        </div>
+
+                        <div class="_div">
+                            <p><span>Отец:</span> ${arr[0].x.father.father_name}</p>
+                            <p><span>Дата Рождения:</span> ${arr[0].x.father.father_birth_date}</p>
+                            <p><span>Серия паспорта:</span> ${arr[0].x.father.father_serial_number}</p>
+                            <p><span>Номер телефона:</span> ${arr[0].x.father.father_tel}</p>
+                            <p><span>Адресс:</span> ${arr[0].x.father.father_adress}</p>
+                            <p><span>Махалля:</span> ${arr[0].x.father.father_mahalla}</p>
+                            <p><span>Место работы:</span> ${arr[0].x.father.father_workplace}</p></div> 
+                            <div id="button_line"></div>
+                        </div>
+                    `
                 }
                 document.getElementById("button_line").innerHTML = `
                 <div><a class="teacher-link " id="teacher-link" href="/period:${period}/user:${userId}/class:${classId}/student:${studentId}/edit"><button style="height:40px; width:150px;" class="uniqueBtn">Изменить</button></a></div>

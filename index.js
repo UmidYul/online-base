@@ -474,7 +474,7 @@ app.post("/editStudent", async function (req, res) {
         } else {
             users.forEach(e => {
                 const userIndex = e.info.findIndex(user => user.info.id == fields.cid);
-                const studentsIndex = e.info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
+                const studentsIndex = users[users.length - 1].info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]

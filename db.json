@@ -389,34 +389,34 @@
             "role": "teacher",
             "students": [
               {
-                "id": "1731937667145",
-                "img": "/images/student/1731937667145.webp",
-                "student_name": "asd",
-                "student_birth_date": "17/08/2007",
-                "serial_number": "AA 4324190",
-                "student_tel": "+998905329686",
-                "student_adress": "Sharof Rashidov 11/1 61",
-                "student_mahalla": "Kimyogar",
-                "family_status": "сирота (воспитанник семейного детского дома)",
-                "student_attraction": "English, playing video games on pc. A little bit more than my dick can suck your bitches around the world around the world bitches sucks my dicks between two cocks",
-                "student_health_status": "Very Good",
+                "id": "1700813524721",
+                "img": "/images/student/1700813524721.webp",
+                "student_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
+                "student_birth_date": "27/09/1100",
+                "serial_number": "AS 2313313",
+                "student_tel": "+998 (98)374-37-93",
+                "student_adress": "Ул.Пушкина Дом калатушкина кв902",
+                "student_mahalla": "МЕХРИБОНЛИК",
+                "family_status": "Многодетная (3 и более детей)",
+                "student_attraction": "        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae illo dolore molestiae quia deleniti provident earum, recusandae cupiditate culpa possimus. Minima quam sit aperiam rem nesciunt eaque velit laborum nemo?\r\n",
+                "student_health_status": "FDDFGBDDFD DBDFDFDF GFGGGFD A",
                 "mother": {
-                  "mother_name": "Mamatalieva Sarvinox Ikromovna",
-                  "mother_serial_number": "AA 3425782",
-                  "mother_birth_date": "17/08/1996",
-                  "mother_adress": "Sharof Rashidov 11/1 61",
-                  "mother_mahalla": "Kimyogar",
-                  "mother_tel": "998905329686",
-                  "mother_workplace": "Margilanskaya 19"
+                  "mother_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
+                  "mother_serial_number": "AS 2313313",
+                  "mother_birth_date": "27/09/1100",
+                  "mother_adress": "Ул.Пушкина Дом калатушкина кв902",
+                  "mother_mahalla": "МЕХРИБОНЛИК",
+                  "mother_tel": "+998 (98)374-37-93",
+                  "mother_workplace": "Ул.Пушкина Дом калатушкина кв902"
                 },
                 "father": {
-                  "father_name": "Mamatalieva Sarvinox Ikromovna",
-                  "father_serial_number": "AA 3425782",
-                  "father_birth_date": "17/08/1996",
-                  "father_adress": "Sharof Rashidov 11/1 61",
-                  "father_mahalla": "Kimyogar",
-                  "father_tel": "998905329686",
-                  "father_workplace": "Margilanskaya 19"
+                  "father_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
+                  "father_serial_number": "AS 2313313",
+                  "father_birth_date": "27/09/1100",
+                  "father_adress": "Ул.Пушкина Дом калатушкина кв902",
+                  "father_mahalla": "МЕХРИБОНЛИК",
+                  "father_tel": "+998 (98)374-37-93",
+                  "father_workplace": "Ул.Пушкина Дом калатушкина кв902"
                 }
               }
             ]
