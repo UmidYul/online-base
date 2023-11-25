@@ -4,12 +4,16 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: 'Source Code Pro', monospace !important;
 }
 
 body,
 html {
     height: 100%;
+}
+
+span {
+    font-family: 'Source Code Pro', monospace !important;
+
 }
 
 /*---------------------------------------------*/
@@ -40,6 +44,7 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: 'Source Code Pro', monospace !important;
     margin: 0px;
 }
 
@@ -142,6 +147,7 @@ button {
     outline: none !important;
     border: none;
     background: transparent;
+    font-family: 'Source Code Pro', monospace !important;
 }
 
 button:hover {
