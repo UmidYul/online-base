@@ -3,7 +3,17 @@
     {
       "id": "1696509479100",
       "login": "admin",
-      "password": "qwerty2023"
+      "password": "cPc7HaLb"
+    },
+    {
+      "id": "1234567890123",
+      "login": "admin2",
+      "password": "hYUEJXzF"
+    },
+    {
+      "id": "1234567890124",
+      "login": "Director",
+      "password": "DyxALjMm"
     },
     {
       "id": "1700034821774",
@@ -375,6 +385,24 @@
             "id": "1696509479100",
             "img": "/images/stuff/1696509479100.webp",
             "name": "Мухиддинов Р.Б",
+            "role": "admin",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1234567890123",
+            "img": "/images/stuff/1696509479100.webp",
+            "name": "Шаджалилов Ж.Б",
+            "role": "admin",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1234567890124",
+            "img": "/images/stuff/1696509479100.webp",
+            "name": "Муйидинов У.М",
             "role": "admin",
             "students": []
           }
