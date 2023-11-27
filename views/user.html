@@ -162,20 +162,20 @@
             </div>
             `
                         }
-                        setTimeout(() => {
-                            let profile = document.getElementsByClassName('profile-container')[0];
-                            let profile_img = document.getElementById('profile-img');
-                            let exit_btn = document.getElementsByClassName('exit-btn')[0];
 
-                            exit_btn.addEventListener('click', () => {
-                                profile.classList.remove('__visible')
-                            })
-                            profile_img.addEventListener('click', () => {
-                                profile.classList.add('__visible')
-                            })
-                        }, 500);
                     })
-
+                setTimeout(() => {
+                    let profile = document.getElementsByClassName('profile-container')[0];
+                    let profile_img = document.getElementById('profile-img');
+                    let exit_btn = document.getElementsByClassName('exit-btn')[0];
+                    console.log(profile_img);
+                    exit_btn.addEventListener('click', () => {
+                        profile.classList.remove('__visible')
+                    })
+                    profile_img.addEventListener('click', () => {
+                        profile.classList.add('__visible')
+                    })
+                }, 500);
                 if (arr[0].el.role == "admin") {
                     document.getElementById("thead").innerHTML =
                         `

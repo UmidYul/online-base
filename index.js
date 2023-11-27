@@ -388,45 +388,47 @@ app.post("/editClass", async function (req, res) {
     await db.read()
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
-    let responseSent = false
-    let saved = false
     form.parse(req, (err, fields, files) => {
-        if (files.img) {
-            users[users.length - 1].info.forEach(e => {
-                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
-                const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-                logins[loginsIndex].password = fields.pass[0]
-                users[users.length - 1].info[usersIndex].info.name = fields.name[0]
-                users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
-                users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
-                const oldPath = files.img[0].filepath;
-                const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
-                if (!saved) {
-                    fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
-                    fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+        setTimeout(() => {
+            if (files.img) {
+                let responseSent = false
+                let saved = false
+                users[users.length - 1].info.forEach(e => {
+                    const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
+                    const loginsIndex = logins.findIndex(login => login.id == fields.cid);
+                    logins[loginsIndex].password = fields.pass[0]
+                    users[users.length - 1].info[usersIndex].info.name = fields.name[0]
+                    users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
+                    users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
+                    const oldPath = files.img[0].filepath;
+                    const newPath = path.join(__dirname, '/public/images/stuff/', `${fields.cid}.webp`);
+                    if (!saved) {
+                        fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
+                        fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
+                        db.write()
+                        saved = true
+                    }
+                    if (!responseSent & saved == true) {
+                        res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                        responseSent = true;
+                    }
+                });
+            } else {
+                users[users.length - 1].info.forEach(e => {
+                    const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
+                    const loginsIndex = logins.findIndex(login => login.id == fields.cid);
+                    logins[loginsIndex].password = fields.pass[0]
+                    users[users.length - 1].info[usersIndex].info.name = fields.name[0]
+                    users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
+                    users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
                     db.write()
-                    saved = true
-                }
-                if (!responseSent & saved == true) {
-                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
-                    responseSent = true;
-                }
-            });
-        } else {
-            users[users.length - 1].info.forEach(e => {
-                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
-                const loginsIndex = logins.findIndex(login => login.id == fields.cid);
-                logins[loginsIndex].password = fields.pass[0]
-                users[users.length - 1].info[usersIndex].info.name = fields.name[0]
-                users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
-                users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
-                db.write()
-                if (!responseSent) {
-                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
-                    responseSent = true;
-                }
-            });
-        }
+                    if (!responseSent) {
+                        res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                        responseSent = true;
+                    }
+                });
+            }
+        }, 200);
     });
 })
 app.post("/editStudent", async function (req, res) {
