@@ -115,7 +115,6 @@
     let f = document.querySelector('form');
 
     if (screenWidth <= 900) {
-        console.log(screenWidth);
         f.innerHTML = `
                     <div class="student_inputs">
                         <h1>Ученик:</h1>
@@ -200,7 +199,6 @@
 
         // Если уже введено две буквы, удаляем все последующие буквы
         if (inputValue.length >= 3) {
-            console.log(inputValue)
             inputValue = inputValue.slice(0, 3) + inputValue.slice(3).replace(/[A-Za-z]/g, '');
         }
 
@@ -228,7 +226,6 @@
 
         // Если уже введено две буквы, удаляем все последующие буквы
         if (inputValue.length >= 3) {
-            console.log(inputValue)
             inputValue = inputValue.slice(0, 3) + inputValue.slice(3).replace(/[A-Za-z]/g, '');
         }
 

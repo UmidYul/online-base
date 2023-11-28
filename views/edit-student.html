@@ -175,7 +175,6 @@
                     </div>
                         </form>
                 `
-                console.log(window.screen.width);
                 if (window.screen.width < 901) {
                     document.querySelector("form").innerHTML = `
                     <div class="student_inputs">
@@ -299,7 +298,6 @@
                         profile.classList.add('__visible')
                     })
                     document.querySelector(".imgField").addEventListener("mouseenter", (e) => {
-                        console.log(200);
                         document.querySelector(".imgField").zIndex = "-1"
                         document.querySelector(".imgField").innerHTML = `
                         <input name="img" id="editimg" class="img" type="file" style="z-index:1 !important; width:100% !important; height:100% !important;" accept="image/webp">
