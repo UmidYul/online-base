@@ -11,7 +11,7 @@ import fs from "fs"
 import moment from "moment";
 
 const app = express()
-const PORT = 3000
+const PORT = 5000
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const file = join(__dirname, 'db.json')
 const adapter = new JSONFile(file)
@@ -110,6 +110,7 @@ app.post('/add-student', async function (req, res) {
         for (let i = 0; i < users[index].info.length; i++) {
             const el = e.info
             if (el.id == req.session.classId) {
+                form1.uploadDir = "/home/onlineb5/online-base.uz/tmp"
                 form1.parse(req, (err, fields, files) => {
                     if (files.img) {
                         const oldPath = files.img[0].filepath;
@@ -185,6 +186,7 @@ app.post('/add-class', async function (req, res) {
     const { logins, users } = db.data
     const id = Date.now().toString()
     let saved = false
+    form.uploadDir = "/home/onlineb5/online-base.uz/tmp"
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             if (!saved) {
@@ -196,13 +198,14 @@ app.post('/add-class', async function (req, res) {
                         return;
                     }
                 });
-                f(fields, "/images/stuff/" + `${id}.webp`)
-                saved = true
+                console.log(files.img[0].filepath);
+                // f(fields, "/images/stuff/" + `${id}.webp`)
+                // saved = true
             }
         } else {
             if (!saved) {
-                f(fields, "/images/error/error.webp")
-                saved = true
+                // f(fields, "/images/error/error.webp")
+                // saved = true
             }
         }
     });
@@ -388,6 +391,8 @@ app.post("/editClass", async function (req, res) {
     await db.read()
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
+    form.uploadDir = "/home/onlineb5/online-base.uz/tmp"
+
     form.parse(req, (err, fields, files) => {
         setTimeout(() => {
             if (files.img) {
@@ -437,6 +442,8 @@ app.post("/editStudent", async function (req, res) {
     const form = formidable({ multiples: false });
     let responseSent = false
     let saved = false
+    form.uploadDir = "/home/onlineb5/online-base.uz/tmp"
+
     form.parse(req, (err, fields, files) => {
         if (files.img) {
             users[users.length - 1].info.forEach(e => {
