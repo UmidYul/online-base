@@ -1,52 +1,132 @@
 {
-    "logins": [
+  "logins": [
+    {
+      "id": "1696509479100",
+      "login": "admin",
+      "password": "qwerty2023"
+    },
+    {
+      "id": "1700034821774",
+      "login": "mamatalieva_nargiza901558",
+      "password": "7iQjnERX"
+    }
+  ],
+  "users": [
+    {
+      "period": "2023_09_2024_05",
+      "info": [
         {
+          "info": {
             "id": "1696509479100",
-            "login": "admin",
-            "password": "qwerty2023"
+            "img": "/images/stuff/1696509479100.webp",
+            "name": "Мухиддинов Р.Б",
+            "role": "admin",
+            "students": []
+          }
         },
         {
+          "info": {
             "id": "1700034821774",
-            "login": "mamatalieva_nargiza901558",
-            "password": "7iQjnERX"
-        }
-    ],
-    "users": [
+            "name": "Маматалиева Н.А",
+            "class_num": 2,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
         {
-            "period": "2023_09_2024_05",
-            "info": [
-                {
-                    "info": {
-                        "id": "1696509479100",
-                        "img": "/images/stuff/1696509479100.webp",
-                        "name": "Мухиддинов Р.Б",
-                        "role": "admin",
-                        "students": []
-                    }
-                },
-                {
-                    "info": {
-                        "id": "1700034821774",
-                        "name": "Маматалиева Н.А",
-                        "class_num": 1,
-                        "class_letter": "А",
-                        "img": "/images/stuff/1700034821774.webp",
-                        "role": "teacher",
-                        "students": []
-                    }
-                },
-                {
-                    "info": {
-                        "id": "1700034821775",
-                        "name": "Маматалиева Н.А",
-                        "class_num": 2,
-                        "class_letter": "А",
-                        "img": "/images/stuff/1700034821774.webp",
-                        "role": "teacher",
-                        "students": []
-                    }
-                }
-            ]
+          "info": {
+            "id": "1700034821775",
+            "name": "Маматалиева Н.А",
+            "class_num": 3,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821774",
+            "name": "Маматалиева Н.А",
+            "class_num": 2,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821775",
+            "name": "Маматалиева Н.А",
+            "class_num": 3,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
         }
-    ]
+      ]
+    },
+    {
+      "period": "2024_09_2025_05",
+      "info": [
+        {
+          "info": {
+            "id": "1696509479100",
+            "img": "/images/stuff/1696509479100.webp",
+            "name": "Мухиддинов Р.Б",
+            "role": "admin",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821774",
+            "name": "Маматалиева Н.А",
+            "class_num": 2,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821775",
+            "name": "Маматалиева Н.А",
+            "class_num": 3,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821774",
+            "name": "Маматалиева Н.А",
+            "class_num": 2,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        },
+        {
+          "info": {
+            "id": "1700034821775",
+            "name": "Маматалиева Н.А",
+            "class_num": 3,
+            "class_letter": "А",
+            "img": "/images/stuff/1700034821774.webp",
+            "role": "teacher",
+            "students": []
+          }
+        }
+      ]
+    }
+  ]
 }

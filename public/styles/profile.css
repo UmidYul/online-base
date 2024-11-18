@@ -4,33 +4,36 @@ html {
 }
 
 .teacherInfo {
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #fff;
 }
 
 .profile_field {
+    height: min-content;
+    margin: auto;
+    background-color: #fff;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     display: flex;
-    border: 1px solid #000;
-    width: 900px;
-    height: 60%;
+    justify-content: space-between;
 }
 
 #labelImg {
-    width: 50%;
+    width: 400px;
 }
 
 .profile_info {
-    width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding: 30px;
-    border-left: #000 solid 1px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    white-space: nowrap;
     background-color: #354251;
     color: #fff;
     font-size: 25px;
+    font-weight: 600;
+    padding: 0 10px;
+    width: 400px;
 }
 
 #removeClass,

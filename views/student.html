@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/student.css">
     <link rel="stylesheet" href="/styles/swiper.css">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <title>online-base.uz</title>
@@ -26,7 +27,6 @@
         <div class="studentInfo">
 
         </div>
-        <div id="field"></div>
     </div>
     <div class="profile-container">
         <div class="profile">
@@ -93,10 +93,7 @@
 
                 document.getElementById("profile-img").src = arr[0].el.img
                 document.getElementById("img-top").src = arr[0].el.img
-                document.getElementById("field").innerHTML = `
-                <div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
-                <div><button id="remove">Удалить</button></div>
-                `
+
             })
 
         const response = fetch("/studentid", {
@@ -112,8 +109,13 @@
                 arr.push(data)
                 document.getElementsByClassName("studentInfo")[0].innerHTML =
                     `
-    <h1>Ученик</h1>
+    <div class="student-field">
+        <div class="student-field-img">
             <img src=${arr[0].x.img}>
+        </div>
+        <div class="student-field-student g">
+          <div>
+            <h1>Ученик</h1>
             <a href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
             <p>Ф.И.О: ${arr[0].x.student_name}</p>
             <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
@@ -125,8 +127,12 @@
             <p>Семейное положение: ${arr[0].x.family_status}</p>
             <p>Увлечения: ${arr[0].x.student_attraction}</p>
             <p>Здоровье: ${arr[0].x.student_health_status}</p>
-            
-            <hr>
+            <div id="button_line"></div>
+            </div>
+        </div>
+        <div class="student-field-parents g">
+            <div class="student-field-mother g">
+                <div> 
             <h1>Мать:</h1>
             <p>Ф.И.О: ${arr[0].x.mother.mother_name}</p>
             <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
@@ -134,9 +140,10 @@
             <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
             <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
             <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
-            <p>Место работы: ${arr[0].x.mother.mother_workplace}</p>
-
-            <hr>
+            <p>Место работы: ${arr[0].x.mother.mother_workplace}</p></div>
+            </div>  
+            <div class="student-field-father g">
+                <div>
             <h1>Отец:</h1>
             <p>Ф.И.О: ${arr[0].x.father.father_name}</p>
             <p>Дата Рождения: ${arr[0].x.father.father_birth_date}</p>
@@ -144,8 +151,15 @@
             <p>Номер телефона: ${arr[0].x.father.father_tel}</p>
             <p>Адресс: ${arr[0].x.father.father_adress}</p>
             <p>Махалля: ${arr[0].x.father.father_mahalla}</p>
-            <p>Место работы: ${arr[0].x.father.father_workplace}</p>
+            <p>Место работы: ${arr[0].x.father.father_workplace}</p></div>
+            </div>  
+        </div>    
+    </div>        
     `
+                document.getElementById("button_line").innerHTML = `
+                <div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
+                <div><button id="remove">Удалить</button></div>
+                `
             })
         setTimeout(() => {
             document.getElementById("remove").addEventListener("click", () => {

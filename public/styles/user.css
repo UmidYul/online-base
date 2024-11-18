@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Source Code Pro', monospace;
 }
 
 .container {
@@ -77,19 +80,19 @@ nav img {
 
 .profile-div {
     position: relative;
-    background-color: #FFFFFF;
     height: min-content;
     margin: auto;
-    width: 33%;
-    border-radius: 10px;
+    background-color: #fff;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .profile-div .exit-btn {
     cursor: pointer;
     position: absolute;
     font-size: 24px;
-    top: 0px;
-    right: 0px;
+    top: 10px;
+    right: 10px;
     transition: all 500ms ease;
 }
 
@@ -99,13 +102,45 @@ nav img {
 
 .profile {
     display: flex;
+    justify-content: space-between;
+}
+
+.profile div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 20px;
-    padding: 5px;
+    white-space: nowrap;
+    background-color: #354251;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    padding: 0 10px;
+    width: 400px;
+}
+
+.profile div button {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 20px;
+    width: 200px;
+    border: #fff 1px solid;
+    background-color: #354251;
+    color: #fff;
+    font-weight: 600;
+    transition: all 500ms ease;
+}
+
+.profile div button:hover {
+    background-color: #fff;
+    color: #354251;
 }
 
 .profile img {
-    height: 300px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 400px;
 }
 
 #class_num_h1 {

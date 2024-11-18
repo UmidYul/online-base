@@ -23,8 +23,6 @@
             </div>
             <img id="profile-img">
         </nav>
-        <select id="period_option">
-        </select>
         <select id="class_num_option">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -87,40 +85,39 @@
                 let arr = []
                 arr.push(data)
                 const z = arr[0].users.reverse()
+                let ar = new Array()
                 for (let i = 0; i < arr[0].users.length; i++) {
                     const e = z[i];
-                    const option = document.createElement("option")
-                    option.value = e.period
-                    option.innerText = e.period.slice(0, 4) + "/" + e.period.slice(-7, -3)
-                    document.querySelector("#period_option").appendChild(option)
+                    ar.push(e.period)
                 }
+                console.log(ar);
                 document.getElementsByClassName('profile-div')[0].innerHTML =
                     arr.map(i => {
                         if (arr[0].el.role == "admin") {
                             return `
             <i class="exit-btn fa-solid fa-xmark"></i>
             <div class="profile">
-                <img id="img-top">
                 <div>
-                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                    <p><span>ID: </span>${arr[0].el.id}</p>
+                    <p class="profile_name">${arr[0].el.name}</p>
+                    <p>ID: ${arr[0].el.id}</p>
                     <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
-                </div>    
+                </div>   
+                <img id="img-top">    
             </div>
             `
                         }
                         else {
+                            console.log(arr)
                             return `
-                            <i class="exit-btn fa-solid fa-xmark"></i>
+            <i class="exit-btn fa-solid fa-xmark"></i>
             <div class="profile">
-                <img id="img-top">
                 <div>
-                    <p class="profile_name"><span>Ф.И.О: </span>${arr[0].el.name}</p>
-                    <p><span>ID: </span>${arr[0].el.id}</p>
-                    <p><span>Класс: </span>${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
-                    <p><span>Кол-во: </span>${arr[0].el.students.length}</p>
+                    <p class="profile_name">${arr[0].el.name}</p>
+                    <p>ID: ${arr[0].el.id}</p>
+                    <p>Класс:  ${arr[0].el.class_num} ${arr[0].el.class_letter}</p>
                     <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
-                </div>    
+                </div>   
+                <img id="img-top">    
             </div>
             `
                         }
@@ -177,7 +174,7 @@
                                             <tr>
                                                 <td><a href=/period:${period}/user:${id}/class:${x.info.id}>${x.info.class_num + " " + x.info.class_letter}</a></td>
                                                 <td>${x.info.students.length}</td>
-                                                <td><a href=/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
+                                                <td><a href=/period:${period}/user:${id}/class:${x.info.id}/stuff-profile>${x.info.name}</a></td>
                                             </tr>
                                 `
                                 }).join(" ")
@@ -237,17 +234,18 @@
 
             })
     }
+    setTimeout(() => {
+        let profile = document.getElementsByClassName('profile-container')[0];
+        let profile_img = document.getElementById('profile-img');
+        let exit_btn = document.getElementsByClassName('exit-btn')[0];
 
-    //     let profile = document.getElementsByClassName('profile-container')[0];
-    //     let profile_img = document.getElementById('profile-img');
-    //     let exit_btn = document.getElementsByClassName('exit-btn')[0];
-
-    //     exit_btn.addEventListener('click', () => {
-    //         profile.classList.remove('__visible')
-    //     })
-    //     profile_img.addEventListener('click', () => {
-    //         profile.classList.add('__visible')
-    //     })
+        exit_btn.addEventListener('click', () => {
+            profile.classList.remove('__visible')
+        })
+        profile_img.addEventListener('click', () => {
+            profile.classList.add('__visible')
+        })
+    }, 500);
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

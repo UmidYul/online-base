@@ -1,0 +1,66 @@
+body,
+html {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100% !important;
+}
+
+.studentInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 90%;
+}
+
+.student-field {
+    display: flex;
+    border: 1px solid #000;
+    width: 80%;
+}
+
+.g {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.student-field-student p {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.student-field-student {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.student-field-mother,
+.student-field-father {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    height: 50%;
+}
+
+.student-field-mother div,
+.student-field-father div,
+.student-field-student div:nth-child(1) {
+    width: 80%;
+    height: 80%;
+}
+
+.student-field-mother p,
+.student-field-father p {
+    font-size: 20px;
+}

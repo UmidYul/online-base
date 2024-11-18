@@ -12,7 +12,7 @@ import fs from "fs"
 const app = express()
 const PORT = 3000
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const file = join(__dirname, 'db.json')
+const file = join(__dirname, 'd.json')
 const adapter = new JSONFile(file)
 const defaultData = { logins: [], users: [] }
 const db = new Low(adapter, defaultData)
@@ -46,31 +46,43 @@ async function listener() {
         let e = users[users.length - 1]
         users.push({ period: yearMonth, info: e.info })
         db.write()
+        let obj = []
         const per = users.findIndex(user => user.period == yearMonth)
         users[per].info.forEach(el => {
             if (el.info.role == "teacher") {
                 const arr = users[per].info.findIndex(user => user == el)
                 let num = Number(users[per].info[arr].info.class_num) + 1
-                users[per].info[arr].info.class_num = num
-                db.write()
-                if (users[per].info[arr].info.class_num == 12) {
-                    const last = users[per].info.findIndex(user => user == users[per].info[arr])
-                    users[per].info.splice(last, 1)
-                    db.write()
-                }
+                obj.push(users[per].info[arr])
+                obj[arr - 1].info.class_num = num
+                users[per].info.push(obj[arr - 1])
+                // users[per].info.splice(arr, 1)
+                // let num = Number(users[1].info[arr].info.class_num) + 1
+                // users[1].info[1].info.class_num = num
+                // db.write()
+                // const num2 = users.length - 1
+                // users[1].info.push(users[1].info[arr])
+
+                // if (users[1].info[arr].info.class_num == 12) {
+                //     const last = users[1].info.findIndex(user => user == users[1].info[arr])
+                //     users[1].info.splice(last, 1)
+                //     console.log(users);
+                //     db.write()
+                // }
             }
         });
+        db.write()
     }
     return yearMonth
 }
 setInterval(() => {
     listener()
-}, 86400000);
+}, 1000);
+// 86400000
 app.get('/', async function (req, res) {
     listener()
     req.session.period = await listener()
     if (req.session.authenticated == true) {
-        res.redirect(`/user:${req.session.userId}`)
+        res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
     } else {
         res.sendFile(__dirname + "/views/login.html")
     }
@@ -266,13 +278,17 @@ app.post("/classid", async function (req, res) {
     const { data } = req.body
     await db.read()
     const { users, logins } = db.data
+    let responseSent = false
     users.forEach(e => {
         for (let i = 0; i < e.info.length; i++) {
             const el = e.info[i].info;
             const ex = logins[i];
             if (el.id == data & ex.id == data) {
                 req.session.classId = el.id
-                res.send(JSON.stringify({ el, ex }))
+                if (!responseSent) {
+                    res.send(JSON.stringify({ el, ex }))
+                    responseSent = true;
+                }
             }
         }
     });
@@ -312,12 +328,12 @@ app.post("/remove/student", async function (req, res) {
                             e.info[i].info.students.splice(index, 1);
                             db.write();
                             if (!responseSent) {
-                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}` }));
+                                res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}` }));
                                 responseSent = true;
                             }
                         } else {
                             if (!responseSent) {
-                                res.send(JSON.stringify({ url: `/user:${uid}/class:${cid}/student:${sid}` }));
+                                res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}/student:${sid}` }));
                                 responseSent = true;
                             }
                         }
