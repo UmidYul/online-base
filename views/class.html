@@ -68,7 +68,6 @@
         const classId = window.location.href.slice(-13)
         const userId = window.location.href.slice(-33, -20)
         const period = window.location.href.slice(-54, -39)
-        console.log(period);
         const res = fetch("/id", {
             method: 'POST',
             headers: {
@@ -130,6 +129,7 @@
                 })
                     .then(response => response.json())
                     .then(data => {
+                        console.log(data);
                         if (data.date == period) {
                             document.getElementById("field").innerHTML =
                                 arr.map(i => {
@@ -139,31 +139,21 @@
                                 }).join("")
                         }
                     })
-                document.getElementById("removeClass").addEventListener("click", () => {
-                    fetch("/remove/class", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ cid: classId, uid: userId })
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            window.location.replace(data.url)
-                        })
-                })
+
             })
+
         const response = fetch("/classid", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ data: classId })
+            body: JSON.stringify({ id: classId, period: period })
         })
             .then(response => response.json())
             .then(data => {
                 let arr = []
                 arr.push(data)
+                console.log(arr);
                 document.getElementById("class_num_h1").innerText = "Класс: " + arr[0].el.class_num + " " + arr[0].el.class_letter
                 document.getElementsByClassName('searching')[0].innerHTML =
                     arr.map(i => {
@@ -182,6 +172,20 @@
                     }).join(" ")
             })
         setTimeout(() => {
+            document.getElementById("removeClass").addEventListener("click", () => {
+                console.log("ok");
+                fetch("/remove/class", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cid: classId, uid: userId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        window.location.replace(data.url)
+                    })
+            })
             let profile = document.getElementsByClassName('profile-container')[0];
             let profile_img = document.getElementById('profile-img');
             let exit_btn = document.getElementsByClassName('exit-btn')[0];

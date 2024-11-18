@@ -9,6 +9,11 @@
       "id": "1700034821774",
       "login": "mamatalieva_nargiza901558",
       "password": "7iQjnERX"
+    },
+    {
+      "id": "1731946290112",
+      "login": "1",
+      "password": "1"
     }
   ],
   "users": [
@@ -27,87 +32,79 @@
         {
           "info": {
             "id": "1700034821774",
-            "name": "Маматалиева Н.А",
-            "class_num": 3,
+            "name": "Маматалиева Н.Б",
+            "class_num": "1",
             "class_letter": "А",
             "img": "/images/stuff/1700034821774.webp",
             "role": "teacher",
             "students": []
           }
-        },
+        }
+      ]
+    },
+    {
+      "period": "2024_09_2025_05",
+      "info": [
         {
           "info": {
-            "id": "1700034821775",
-            "name": "Маматалиева Н.А",
-            "class_num": 4,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
-            "role": "teacher",
-            "students": []
-          }
-        },
-        {
-          "info": {
-            "id": "1700034821774",
-            "name": "Маматалиева Н.А",
-            "class_num": 3,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
-            "role": "teacher",
-            "students": []
-          }
-        },
-        {
-          "info": {
-            "id": "1700034821775",
-            "name": "Маматалиева Н.А",
-            "class_num": 4,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
-            "role": "teacher",
-            "students": []
+            "id": "1696509479100",
+            "img": "/images/stuff/1696509479100.webp",
+            "name": "Мухиддинов Р.Б",
+            "role": "admin",
+            "students": [],
+            "class_num": null
           }
         },
         {
           "info": {
             "id": "1700034821774",
-            "name": "Маматалиева Н.А",
-            "class_num": 3,
+            "name": "Маматалиева Н.Б",
+            "class_num": 2,
             "class_letter": "А",
             "img": "/images/stuff/1700034821774.webp",
             "role": "teacher",
-            "students": []
+            "students": [
+              {
+                "id": "1731946051167",
+                "img": "/images/student/1731946051167.webp",
+                "student_name": "1",
+                "student_birth_date": "1",
+                "student_accept_date": "1",
+                "student_tel": "1",
+                "student_adress": "1",
+                "student_mahalla": "1",
+                "family_status": "1",
+                "student_attraction": "1",
+                "student_health_status": "1",
+                "mother": {
+                  "mother_name": "1",
+                  "mother_serial_number": "1",
+                  "mother_birth_date": "11",
+                  "mother_adress": "1",
+                  "mother_mahalla": "1",
+                  "mother_tel": "11",
+                  "mother_workplace": "1"
+                },
+                "father": {
+                  "father_name": "1",
+                  "father_serial_number": "1",
+                  "father_birth_date": "1",
+                  "father_adress": "1",
+                  "father_mahalla": "1",
+                  "father_tel": "1",
+                  "father_workplace": "1"
+                }
+              }
+            ]
           }
         },
         {
           "info": {
-            "id": "1700034821775",
-            "name": "Маматалиева Н.А",
-            "class_num": 4,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
-            "role": "teacher",
-            "students": []
-          }
-        },
-        {
-          "info": {
-            "id": "1700034821774",
-            "name": "Маматалиева Н.А",
-            "class_num": 3,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
-            "role": "teacher",
-            "students": []
-          }
-        },
-        {
-          "info": {
-            "id": "1700034821775",
-            "name": "Маматалиева Н.А",
-            "class_num": 4,
-            "class_letter": "А",
-            "img": "/images/stuff/1700034821774.webp",
+            "id": "1731946290112",
+            "name": "1",
+            "class_num": 1,
+            "class_letter": "B",
+            "img": "/images/stuff/1731946290112.webp",
             "role": "teacher",
             "students": []
           }

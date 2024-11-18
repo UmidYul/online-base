@@ -46,6 +46,7 @@
     window.onload = function () {
         const userID = window.location.href.slice(-52, -39)
         const classID = window.location.href.slice(-32, -19)
+        const period = window.location.href.slice(-73, -58)
         const response = fetch("/id", {
             method: 'POST',
             headers: {
@@ -78,12 +79,13 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ data: classID })
+            body: JSON.stringify({ id: classID, period: period })
         })
             .then(response => response.json())
             .then(data => {
                 let arr = []
                 arr.push(data)
+                console.log(data);
                 document.getElementsByClassName("teacherInfo")[0].innerHTML =
                     arr.map(i => {
                         return `

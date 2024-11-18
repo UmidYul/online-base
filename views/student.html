@@ -50,7 +50,7 @@
         const classId = window.location.href.slice(-35, -22)
         const userId = window.location.href.slice(-55, -42)
         const studentId = window.location.href.slice(-13)
-        console.log(studentId);
+        const period = window.location.href.slice(-76, -61)
         const res = fetch("/id", {
             method: 'POST',
             headers: {
@@ -101,7 +101,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ sid: studentId, cid: classId, uid: userId })
+            body: JSON.stringify({ sid: studentId, cid: classId, uid: userId, period: period })
         })
             .then(response => response.json())
             .then(data => {
@@ -109,55 +109,56 @@
                 arr.push(data)
                 document.getElementsByClassName("studentInfo")[0].innerHTML =
                     `
-    <div class="student-field">
-        <div class="student-field-img">
-            <img src=${arr[0].x.img}>
-        </div>
-        <div class="student-field-student g">
-          <div>
-            <h1>Ученик</h1>
-            <a href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
-            <p>Ф.И.О: ${arr[0].x.student_name}</p>
-            <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
-            <p>Дата принятия в школу: ${arr[0].x.student_accept_date}</p>
-            <p>Серия документа: ${arr[0].x.serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.student_tel}</p>
-            <p>Адресс: ${arr[0].x.student_adress}</p>
-            <p>Махалля: ${arr[0].x.student_mahalla}</p>
-            <p>Семейное положение: ${arr[0].x.family_status}</p>
-            <p>Увлечения: ${arr[0].x.student_attraction}</p>
-            <p>Здоровье: ${arr[0].x.student_health_status}</p>
-            <div id="button_line"></div>
-            </div>
-        </div>
-        <div class="student-field-parents g">
-            <div class="student-field-mother g">
-                <div> 
-            <h1>Мать:</h1>
-            <p>Ф.И.О: ${arr[0].x.mother.mother_name}</p>
-            <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
-            <p>Серия паспорта: ${arr[0].x.mother.mother_serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
-            <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
-            <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
-            <p>Место работы: ${arr[0].x.mother.mother_workplace}</p></div>
-            </div>  
-            <div class="student-field-father g">
-                <div>
-            <h1>Отец:</h1>
-            <p>Ф.И.О: ${arr[0].x.father.father_name}</p>
-            <p>Дата Рождения: ${arr[0].x.father.father_birth_date}</p>
-            <p>Серия паспорта: ${arr[0].x.father.father_serial_number}</p>
-            <p>Номер телефона: ${arr[0].x.father.father_tel}</p>
-            <p>Адресс: ${arr[0].x.father.father_adress}</p>
-            <p>Махалля: ${arr[0].x.father.father_mahalla}</p>
-            <p>Место работы: ${arr[0].x.father.father_workplace}</p></div>
-            </div>  
-        </div>    
-    </div>        
-    `
+                <div class="student-field">
+                    <div class="student-field-img">
+                        <img src=${arr[0].x.img}>
+                    </div>
+                    <div class="student-field-student g">
+                      <div>
+                        <h1>Ученик</h1>
+                        <a href=${arr[0].x.img} download><button><i class="fa-solid fa-download"></i></button></a>
+                        <p>Ф.И.О: ${arr[0].x.student_name}</p>
+                        <p>Дата Рождения: ${arr[0].x.student_birth_date}</p>
+                        <p>Дата принятия в школу: ${arr[0].x.student_accept_date}</p>
+                        <p>Серия документа: ${arr[0].x.serial_number}</p>
+                        <p>Номер телефона: ${arr[0].x.student_tel}</p>
+                        <p>Адресс: ${arr[0].x.student_adress}</p>
+                        <p>Махалля: ${arr[0].x.student_mahalla}</p>
+                        <p>Семейное положение: ${arr[0].x.family_status}</p>
+                        <p>Увлечения: ${arr[0].x.student_attraction}</p>
+                        <p>Здоровье: ${arr[0].x.student_health_status}</p>
+                        <div id="button_line"></div>
+                        </div>
+                    </div>
+                    <div class="student-field-parents g">
+                        <div class="student-field-mother g">
+                            <div> 
+                        <h1>Мать:</h1>
+                        <p>Ф.И.О: ${arr[0].x.mother.mother_name}</p>
+                        <p>Дата Рождения: ${arr[0].x.mother.mother_birth_date}</p>
+                        <p>Серия паспорта: ${arr[0].x.mother.mother_serial_number}</p>
+                        <p>Номер телефона: ${arr[0].x.mother.mother_tel}</p>
+                        <p>Адресс: ${arr[0].x.mother.mother_adress}</p>
+                        <p>Махалля: ${arr[0].x.mother.mother_mahalla}</p>
+                        <p>Место работы: ${arr[0].x.mother.mother_workplace}</p></div>
+                        </div>  
+                        <div class="student-field-father g">
+                            <div>
+                        <h1>Отец:</h1>
+                        <p>Ф.И.О: ${arr[0].x.father.father_name}</p>
+                        <p>Дата Рождения: ${arr[0].x.father.father_birth_date}</p>
+                        <p>Серия паспорта: ${arr[0].x.father.father_serial_number}</p>
+                        <p>Номер телефона: ${arr[0].x.father.father_tel}</p>
+                        <p>Адресс: ${arr[0].x.father.father_adress}</p>
+                        <p>Махалля: ${arr[0].x.father.father_mahalla}</p>
+                        <p>Место работы: ${arr[0].x.father.father_workplace}</p></div>
+                        </div>  
+                    </div>    
+                </div>        
+                `
+
                 document.getElementById("button_line").innerHTML = `
-                <div><a class="teacher-link" id="teacher-link" href="/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
+                <div><a class="teacher-link" id="teacher-link" href="/period:${period}/user:${userId}/class:${classId}/student:${studentId}/edit"><button>Изменить</button></a></div>
                 <div><button id="remove">Удалить</button></div>
                 `
             })
@@ -168,7 +169,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ sid: studentId, cid: classId, uid: userId })
+                    body: JSON.stringify({ sid: studentId, cid: classId, uid: userId, period: period })
                 })
                     .then(response => response.json())
                     .then(data => {

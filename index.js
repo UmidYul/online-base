@@ -26,9 +26,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-app.post("/date", (req, res) => {
-    res.send({ date: req.session.period })
-})
+
 const authMiddleware = (req, res, next) => {
     if (req.session.authenticated) {
         next();
@@ -43,43 +41,24 @@ async function listener() {
     var year = +date.getUTCFullYear();
     let yearMonth = year + "_09_" + Number(year + 1) + "_05"
     if (users[users.length - 1].period != yearMonth) {
-        let e = users[users.length - 1]
-        users.push({ period: yearMonth, info: e.info })
-        db.write()
-        let obj = []
-        const per = users.findIndex(user => user.period == yearMonth)
-        users[per].info.forEach(el => {
-            if (el.info.role == "teacher") {
-                const arr = users[per].info.findIndex(user => user == el)
-                let num = Number(users[per].info[arr].info.class_num) + 1
-                obj.push(users[per].info[arr])
-                obj[arr - 1].info.class_num = num
-                users[per].info.push(obj[arr - 1])
-                // users[per].info.splice(arr, 1)
-                // let num = Number(users[1].info[arr].info.class_num) + 1
-                // users[1].info[1].info.class_num = num
-                // db.write()
-                // const num2 = users.length - 1
-                // users[1].info.push(users[1].info[arr])
-
-                // if (users[1].info[arr].info.class_num == 12) {
-                //     const last = users[1].info.findIndex(user => user == users[1].info[arr])
-                //     users[1].info.splice(last, 1)
-                //     console.log(users);
-                //     db.write()
-                // }
+        const lastUser = users[users.length - 1];
+        const newClassNum = 1;
+        const newInfo = lastUser.info.map(item => ({
+            info: {
+                ...item.info,
+                class_num: Number(item.info.class_num) + newClassNum
             }
-        });
-        db.write()
+        }));
+        const newUser = {
+            period: yearMonth,
+            info: newInfo
+        };
+        users.push(newUser);
+        db.write();
     }
     return yearMonth
 }
-setInterval(() => {
-    listener()
-}, 1000);
-// 86400000
 app.get('/', async function (req, res) {
-    listener()
     req.session.period = await listener()
     if (req.session.authenticated == true) {
         res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
@@ -87,10 +66,16 @@ app.get('/', async function (req, res) {
         res.sendFile(__dirname + "/views/login.html")
     }
 })
+app.post("/date", async (req, res) => {
+    await db.read()
+    const { users } = db.data
+    console.log(users[users.length - 1].period);
+    res.send({ date: users[users.length - 1].period })
+})
 app.get("/period:date/user:id/class:id/student:id", authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/student.html")
 })
-app.get("/user:id/class:id/student:id/edit", authMiddleware, function (req, res) {
+app.get("/period:date/user:id/class:id/student:id/edit", authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/edit-student.html")
 })
 app.get("/period:date/user:id/class:id", authMiddleware, function (req, res) {
@@ -109,7 +94,7 @@ app.get('/period:date/user:id/class:id/stuff-profile', authMiddleware, function 
     res.sendFile(__dirname + "/views/profile.html")
 })
 
-app.get('/user:id/class:id/stuff-profile/edit', authMiddleware, function (req, res) {
+app.get('/period:date/user:id/class:id/stuff-profile/edit', authMiddleware, function (req, res) {
     res.sendFile(__dirname + "/views/edit-profile.html")
 })
 
@@ -118,27 +103,32 @@ app.post('/add-student', async function (req, res) {
     await db.read()
     const { users } = db.data
     const form1 = formidable({ multiples: false });
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i]
-            if (el.info.id == req.session.classId) {
+    let responseSent = false;
+    let saved = false;
+    const index = users.length - 1
+    users[index].info.forEach(e => {
+        for (let i = 0; i < users[index].info.length; i++) {
+            const el = e.info
+            if (el.id == req.session.classId) {
                 form1.parse(req, (err, fields, files) => {
                     if (files.img) {
                         const oldPath = files.img[0].filepath;
                         const newPath = path.join(__dirname, '/public/images/student/', `${id}.webp`);
-                        fs.rename(oldPath, newPath, (error) => {
-                            if (error) {
-                                res.status(500).json({ error: 'Ошибка при сохранении файла' });
-                                return;
-                            }
-                        });
-                        x(fields, `/images/student/${id}.webp`)
+                        if (!saved) {
+                            fs.rename(oldPath, newPath, (error) => {
+                                if (error) {
+                                    console.log(error);
+                                }
+                            });
+                            x(fields, `/images/student/${id}.webp`)
+                            saved = true
+                        }
                     } else {
                         x(fields, "/images/error/error.webp")
                     }
                 });
                 function x(log, img) {
-                    el.info.students.push({
+                    el.students.push({
                         id: id,
                         img: img,
                         student_name: log.student_name[0],
@@ -170,14 +160,17 @@ app.post('/add-student', async function (req, res) {
                             father_workplace: log.father_workplace[0]
                         }
                     })
+
                     db.write()
-                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}`)
+                    if (!responseSent) {
+                        res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${req.session.classId}`)
+                        responseSent = true;
+                    }
                 }
 
             }
         }
     });
-
 })
 app.post('/logout', function (req, res) {
     const { data } = req.body
@@ -214,14 +207,13 @@ app.post('/add-class', async function (req, res) {
             login: log.log[0],
             password: log.pass[0],
         })
-        users.push({
+        users[users.length - 1].info.push({
             info: {
                 id: id,
                 name: log.name[0],
                 class_num: Number(log.class_num[0]),
                 class_letter: log.letter[0],
                 img: img,
-                // subject: log.subject[0],
                 role: "teacher",
                 students: []
             }
@@ -245,7 +237,7 @@ app.post("/login-api", async function (req, res) {
                     const el = e.info[i].info;
                     if (el.id == user.id) {
                         if (!responseSent) {
-                            res.redirect(`/period:${req.session.period}/user:${el.id}`)
+                            res.redirect(`/period:${users[users.length - 1].period}/user:${el.id}`)
                             responseSent = true;
                         }
                     }
@@ -275,15 +267,16 @@ app.post("/id", async function (req, res) {
     }
 })
 app.post("/classid", async function (req, res) {
-    const { data } = req.body
+    const { id, period } = req.body
     await db.read()
     const { users, logins } = db.data
     let responseSent = false
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i].info;
+    const index = users.findIndex(user => user.period == period);
+    users[index].info.forEach(e => {
+        for (let i = 0; i < users[index].info.length; i++) {
+            const el = e.info;
             const ex = logins[i];
-            if (el.id == data & ex.id == data) {
+            if (el.id == id & ex.id == id) {
                 req.session.classId = el.id
                 if (!responseSent) {
                     res.send(JSON.stringify({ el, ex }))
@@ -294,17 +287,22 @@ app.post("/classid", async function (req, res) {
     });
 })
 app.post("/studentid", async function (req, res) {
-    const { sid, cid } = req.body
+    const { sid, cid, period } = req.body
     await db.read()
     const { users } = db.data
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i].info;
+    const index = users.findIndex(user => user.period == period);
+    let responseSent = false
+    users[index].info.forEach(e => {
+        for (let i = 0; i < users[index].info.length; i++) {
+            const el = e.info;
             if (el.id == cid) {
                 for (let z = 0; z < el.students.length; z++) {
                     const x = el.students[z];
                     if (x.id == sid) {
-                        res.send(JSON.stringify({ x }))
+                        if (!responseSent) {
+                            res.send(JSON.stringify({ x }))
+                            responseSent = true;
+                        }
                     }
                 }
             }
@@ -312,20 +310,21 @@ app.post("/studentid", async function (req, res) {
     });
 })
 app.post("/remove/student", async function (req, res) {
-    const { uid, sid, cid } = req.body
+    const { uid, sid, cid, period } = req.body
     await db.read()
     const { users } = db.data
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i].info;
+    const index = users.findIndex(user => user.period == period);
+    users[index].info.forEach(e => {
+        for (let i = 0; i < users[index].info.length; i++) {
+            const el = e.info;
             if (el.id == cid) {
                 for (let z = 0; z < el.students.length; z++) {
                     const x = el.students[z];
                     if (x.id == sid) {
                         let responseSent = false;
-                        if (e.info[i].info.students && Array.isArray(e.info[i].info.students)) {
-                            const index = e.info[i].info.students.findIndex(user => user.id == sid);
-                            e.info[i].info.students.splice(index, 1);
+                        if (e.info.students && Array.isArray(e.info.students)) {
+                            const index = e.info.students.findIndex(user => user.id == sid);
+                            e.info.students.splice(index, 1);
                             db.write();
                             if (!responseSent) {
                                 res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}` }));
@@ -346,21 +345,23 @@ app.post("/remove/student", async function (req, res) {
 })
 
 app.post("/remove/class", async function (req, res) {
+    console.log(200);
     const { uid, cid } = req.body
     await db.read()
     const { users, logins } = db.data
-    users.forEach(e => {
-        for (let i = 0; i < e.info.length; i++) {
-            const el = e.info[i].info;
+    let responseSent = false;
+    users[users.length - 1].info.forEach(e => {
+        for (let i = 0; i < users[users.length - 1].info.length; i++) {
+            const el = e.info;
             if (el.id == cid) {
-                let responseSent = false;
-                const usersIndex = e.info.findIndex(user => user.info.id == cid);
+                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
                 const loginsIndex = logins.findIndex(login => login.id == cid);
-                e.info.splice(usersIndex, 1)
+                console.log(usersIndex, loginsIndex);
+                users[users.length - 1].info.splice(usersIndex, 1)
                 logins.splice(loginsIndex, 1)
                 db.write()
                 if (!responseSent) {
-                    res.send(JSON.stringify({ url: `/user:${uid}` }));
+                    res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}` }));
                     responseSent = true;
                 }
                 fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
@@ -372,10 +373,11 @@ app.post("/editClass", async function (req, res) {
     await db.read()
     const { users, logins } = db.data
     const form = formidable({ multiples: false });
+    let responseSent = false
     form.parse(req, (err, fields, files) => {
         if (files.img) {
-            users.forEach(e => {
-                const usersIndex = e.info.findIndex(user => user.info.id == fields.cid);
+            users[users.length - 1].info.forEach(e => {
+                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
                 const loginsIndex = logins.findIndex(login => login.id == fields.cid);
                 // logins[loginsIndex].login = fields.login[0]
                 logins[loginsIndex].password = fields.pass[0]
@@ -388,20 +390,26 @@ app.post("/editClass", async function (req, res) {
                 fs.unlink(__dirname + `/public/images/stuff/${fields.cid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
                 fs.rename(oldPath, newPath, (error) => { if (error) res.status(500).json({ error: 'Ошибка пожалуйста обратитесь в поддержку!' }); return; });
                 db.write()
-                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                if (!responseSent) {
+                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                    responseSent = true;
+                }
             });
         } else {
-            users.forEach(e => {
-                const usersIndex = e.info.findIndex(user => user.info.id == fields.cid);
+            users[users.length - 1].info.forEach(e => {
+                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
                 const loginsIndex = logins.findIndex(login => login.id == fields.cid);
                 // logins[loginsIndex].login = fields.login[0]
                 logins[loginsIndex].password = fields.pass[0]
-                e.info[usersIndex].info.name = fields.name[0]
+                users[users.length - 1].info[usersIndex].info.name = fields.name[0]
                 // users[usersIndex].info.subject = fields.subject[0]
-                e.info[usersIndex].info.class_num = Number(fields.num[0])
-                e.info[usersIndex].info.class_letter = fields.letter[0]
+                users[users.length - 1].info[usersIndex].info.class_num = Number(fields.num[0])
+                users[users.length - 1].info[usersIndex].info.class_letter = fields.letter[0]
                 db.write()
-                res.redirect(`/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                if (!responseSent) {
+                    res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/stuff-profile`)
+                    responseSent = true;
+                }
             });
         }
     });
@@ -412,33 +420,33 @@ app.post("/editStudent", async function (req, res) {
     const form = formidable({ multiples: false });
     form.parse(req, (err, fields, files) => {
         if (files.img) {
-            users.forEach(e => {
-                const userIndex = e.info.findIndex(user => user.info.id == fields.cid);
-                const studentsIndex = e.info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
-                e.info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
-                e.info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
-                e.info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
-                e.info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
-                e.info[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
-                e.info[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
-                e.info[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
+            users[users.length - 1].info.forEach(e => {
+                const userIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
+                const studentsIndex = users[users.length - 1].info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
                 const oldPath = files.img[0].filepath;
                 const newPath = path.join(__dirname, '/public/images/student/', `${fields.sid}.webp`);
                 fs.unlink(__dirname + `/public/images/student/${fields.sid}.webp`, (err) => { if (err) res.send("Ошибка пожалуйста обратитесь в поддержку!") });
@@ -451,36 +459,39 @@ app.post("/editStudent", async function (req, res) {
             users.forEach(e => {
                 const userIndex = e.info.findIndex(user => user.info.id == fields.cid);
                 const studentsIndex = e.info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
-                e.info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
-                e.info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
-                e.info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
-                e.info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
-                e.info[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
-                e.info[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
-                e.info[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
-                e.info[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
-                e.info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_accept_date = fields.student_accept_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].serial_number = fields.serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_tel = fields.student_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_adress = fields.student_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_mahalla = fields.student_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].family_status = fields.family_status[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_attraction = fields.student_attraction[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].student_health_status = fields.student_health_status[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_name = fields.mother_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_serial_number = fields.mother_serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_birth_date = fields.mother_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_adress = fields.mother_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_mahalla = fields.mother_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_tel = fields.mother_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].mother.mother_workplace = fields.mother_workplace[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_name = fields.mother_name[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_serial_number = fields.mother_serial_number[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_birth_date = fields.mother_birth_date[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_adress = fields.mother_adress[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_mahalla = fields.mother_mahalla[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_tel = fields.mother_tel[0]
+                users[users.length - 1].info[userIndex].info.students[studentsIndex].father.father_workplace = fields.mother_workplace[0]
                 db.write()
-                res.redirect(`/user:${req.session.userId}`)
+                res.redirect(`/period:${req.session.period}/user:${req.session.userId}/class:${fields.cid[0]}/student:${fields.sid[0]}`)
             });
         }
     });
 })
 app.listen(PORT, async (res, req) => {
     console.log(`http://localhost:${PORT}`)
+    setInterval(() => {
+        listener()
+    }, 86400000);
 })
