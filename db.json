@@ -387,39 +387,7 @@
             "class_letter": "А",
             "img": "/images/stuff/1700034821774.webp",
             "role": "teacher",
-            "students": [
-              {
-                "id": "1700813524721",
-                "img": "/images/student/1700813524721.webp",
-                "student_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
-                "student_birth_date": "27/09/1100",
-                "serial_number": "AS 2313313",
-                "student_tel": "+998 (98)374-37-93",
-                "student_adress": "Ул.Пушкина Дом калатушкина кв902",
-                "student_mahalla": "МЕХРИБОНЛИК",
-                "family_status": "Многодетная (3 и более детей)",
-                "student_attraction": "        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae illo dolore molestiae quia deleniti provident earum, recusandae cupiditate culpa possimus. Minima quam sit aperiam rem nesciunt eaque velit laborum nemo?\r\n",
-                "student_health_status": "FDDFGBDDFD DBDFDFDF GFGGGFD A",
-                "mother": {
-                  "mother_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
-                  "mother_serial_number": "AS 2313313",
-                  "mother_birth_date": "27/09/1100",
-                  "mother_adress": "Ул.Пушкина Дом калатушкина кв902",
-                  "mother_mahalla": "МЕХРИБОНЛИК",
-                  "mother_tel": "+998 (98)374-37-93",
-                  "mother_workplace": "Ул.Пушкина Дом калатушкина кв902"
-                },
-                "father": {
-                  "father_name": "ЙУЛДАШЕВ ЙУЛДАШ ЙУЛДАШЕВИЧ",
-                  "father_serial_number": "AS 2313313",
-                  "father_birth_date": "27/09/1100",
-                  "father_adress": "Ул.Пушкина Дом калатушкина кв902",
-                  "father_mahalla": "МЕХРИБОНЛИК",
-                  "father_tel": "+998 (98)374-37-93",
-                  "father_workplace": "Ул.Пушкина Дом калатушкина кв902"
-                }
-              }
-            ]
+            "students": []
           }
         },
         {

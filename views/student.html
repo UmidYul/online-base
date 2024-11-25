@@ -105,7 +105,7 @@
                 <div>
                     <p class="profile_name">${arr[0].el.name}</p>
                     <p>ID: ${arr[0].el.id}</p>
-                    <p>Класс:  ${arr[0].el.class_num} ${arr[0].el.class_letter}</p>
+                    <p>Класс:  ${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
                     <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
                 </div>   
                 <img id="img-top">    
@@ -193,7 +193,8 @@
                             <p><span>Махалля:</span> ${arr[0].x.student_mahalla}</p>
                             <p><span>Семейное положение:</span> ${arr[0].x.family_status}</p>
                             <p><span>Увлечения:</span> ${arr[0].x.student_attraction}</p>
-                            <p><span>Здоровье:</span> ${arr[0].x.student_health_status}</p>    
+                            <p><span>Здоровье:</span> ${arr[0].x.student_health_status}</p>   
+                            <div id="button_line"></div>  
                         </div>
 
                         <div class="_div">
@@ -203,7 +204,7 @@
                             <p><span>Номер телефона:</span> ${arr[0].x.mother.mother_tel}</p>
                             <p><span>Адресс:</span> ${arr[0].x.mother.mother_adress}</p>
                             <p><span>Махалля:</span> ${arr[0].x.mother.mother_mahalla}</p>
-                            <p><span>Место работы:</span> ${arr[0].x.mother.mother_workplace}</p></div>    
+                            <p><span>Место работы:</span> ${arr[0].x.mother.mother_workplace}</p></div>   
                         </div>
 
                         <div class="_div">
@@ -214,7 +215,6 @@
                             <p><span>Адресс:</span> ${arr[0].x.father.father_adress}</p>
                             <p><span>Махалля:</span> ${arr[0].x.father.father_mahalla}</p>
                             <p><span>Место работы:</span> ${arr[0].x.father.father_workplace}</p></div> 
-                            <div id="button_line"></div>
                         </div>
                     `
                 }

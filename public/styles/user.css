@@ -431,8 +431,8 @@ footer {
     .profile img,
     .profile div {
         width: 300px;
-    }
 
+    }
 }
 
 @media screen and (max-width: 660px) {

@@ -10,23 +10,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/images/logo/logo.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="/login/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/login/vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="/login/vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="/login/vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="/login/util.css">
     <link rel="stylesheet" type="text/css" href="/login/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 </head>
+<style>
+    .toast {
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        border-radius: 12px;
+        background: #fff;
+        padding: 20px 35px 20px 25px;
+        box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transform: translateX(calc(100% + 30px));
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    }
+
+    .toast.active {
+        display: flex !important;
+        transform: translateX(0%);
+    }
+
+    .toast .toast-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .toast-content .check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 35px;
+        min-width: 35px;
+        background-color: rgb(255, 0, 0);
+        color: #fff;
+        font-size: 20px;
+        border-radius: 50%;
+    }
+
+    .toast-content .message {
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+    }
+
+    .message .text {
+        font-size: 16px;
+        font-weight: 400;
+        color: #666666;
+    }
+
+    .message .text.text-1 {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .toast .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        padding: 5px;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    .toast .close:hover {
+        opacity: 1;
+    }
+
+    .toast .progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+
+    }
+
+    .toast .progress:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(255, 0, 0);
+    }
+
+    .progress.active:before {
+        animation: progress 2s linear forwards;
+    }
+
+    @keyframes progress {
+        100% {
+            right: 100%;
+        }
+    }
+</style>
 
 <body>
-
+    <div class="toast">
+        <div class="toast-content">
+            <i class="fa-solid fa-exclamation check"></i>
+            <div class="message">
+                <span class="text text-1"></span>
+                <span class="text text-2"></span>
+            </div>
+        </div>
+        <span class="close">x</span>
+        <div class="progress"></div>
+    </div>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="/login/images/img-01.png" alt="IMG">
                 </div>
-                <form class="login100-form validate-form" action="/login-api" method="post">
+                <div class="login100-form validate-form">
                     <span class="login100-form-title">
                         Вход
                     </span>
@@ -53,10 +160,60 @@
                     </div>
                     <div class="text-center p-t-136">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+
+        document.querySelector(".login100-form-btn").addEventListener("click", () => {
+            fetch("/login-api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ log: document.getElementsByName("log")[0].value, pass: document.getElementsByName("pass")[0].value })
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.link) {
+                        window.location.href = data.link
+                    }
+                    if (data.err) {
+                        toast = document.querySelector(".toast");
+                        document.querySelector(".text-1").textContent = "Ошибка"
+                        document.querySelector(".text-2").innerHTML = `${data.err[0]} <br> ${data.err[1]} <br> ${data.err[2]}`
+                        console.log(document.querySelector(".text-2").textContent);
+                        (closeIcon = document.querySelector(".close")),
+                            (progress = document.querySelector(".progress"));
+
+                        let timer1, timer2;
+
+                        toast.classList.add("active");
+                        progress.classList.add("active");
+
+                        timer1 = setTimeout(() => {
+                            toast.classList.remove("active");
+                        }, 2000); //1s = 1000 milliseconds
+
+                        timer2 = setTimeout(() => {
+                            progress.classList.remove("active");
+                        }, 2300);
+
+                        closeIcon.addEventListener("click", () => {
+                            toast.classList.remove("active");
+
+                            setTimeout(() => {
+                                progress.classList.remove("active");
+                            }, 300);
+
+                            clearTimeout(timer1);
+                            clearTimeout(timer2);
+                        });
+                    }
+                })
+        })
+    </script>
     <script src="/login/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="/login/vendor/bootstrap/js/popper.js"></script>
     <script src="/login/vendor/bootstrap/js/bootstrap.min.js"></script>

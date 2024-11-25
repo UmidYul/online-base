@@ -13,8 +13,115 @@
     <title>online-base.uz</title>
 </head>
 
+<style>
+    .toast {
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        border-radius: 12px;
+        background: #fff;
+        padding: 20px 35px 20px 25px;
+        box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transform: translateX(calc(100% + 30px));
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    }
+
+    .toast.active {
+        display: flex !important;
+        transform: translateX(0%);
+    }
+
+    .toast .toast-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .toast-content .check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 35px;
+        min-width: 35px;
+        background-color: rgb(255, 0, 0);
+        color: #fff;
+        font-size: 20px;
+        border-radius: 50%;
+    }
+
+    .toast-content .message {
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+    }
+
+    .message .text {
+        font-size: 16px;
+        font-weight: 400;
+        color: #666666;
+    }
+
+    .message .text.text-1 {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .toast .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        padding: 5px;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    .toast .close:hover {
+        opacity: 1;
+    }
+
+    .toast .progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        width: 100%;
+
+    }
+
+    .toast .progress:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(255, 0, 0);
+    }
+
+    .progress.active:before {
+        animation: progress 2s linear forwards;
+    }
+
+    @keyframes progress {
+        100% {
+            right: 100%;
+        }
+    }
+</style>
 
 <body>
+    <div class="toast">
+        <div class="toast-content">
+            <i class="fa-solid fa-exclamation check"></i>
+            <div class="message">
+                <span class="text text-1"></span>
+                <span class="text text-2"></span>
+            </div>
+        </div>
+        <span class="close">x</span>
+        <div class="progress"></div>
+    </div>
     <div class="container">
         <nav>
             <div>
@@ -118,7 +225,7 @@
                 <div>
                     <p class="profile_name">${arr[0].el.name}</p>
                     <p>ID: ${arr[0].el.id}</p>
-                    <p>Класс:  ${arr[0].el.class_num} ${arr[0].el.class_letter}</p>
+                    <p>Класс:  ${arr[0].el.class_num} "${arr[0].el.class_letter}"</p>
                     <div class="col_btn"> <button onclick="logout()">Выйти</button></div>    
                 </div>   
                 <img id="img-top">    
@@ -162,7 +269,7 @@
             .then(data => {
                 let arr = []
                 arr.push(data)
-                document.getElementById("class_num_h1").innerText = "Класс: " + arr[0].el.class_num + " " + arr[0].el.class_letter
+                document.getElementById("class_num_h1").innerText = `Класс: ${arr[0].el.class_num} "${arr[0].el.class_letter}"`
                 document.getElementById("tbody").innerHTML =
                     arr[0].el.students.map(x => {
                         return `
@@ -186,7 +293,41 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        window.location.replace(data.url)
+                        if (data.link) {
+                            window.location.href = data.link
+                        }
+                        if (data.err) {
+                            toast = document.querySelector(".toast");
+                            document.querySelector(".text-1").textContent = "Ошибка"
+                            document.querySelector(".text-2").innerHTML = `${data.err[0]}`
+                            console.log(document.querySelector(".text-2").textContent);
+                            (closeIcon = document.querySelector(".close")),
+                                (progress = document.querySelector(".progress"));
+
+                            let timer1, timer2;
+
+                            toast.classList.add("active");
+                            progress.classList.add("active");
+
+                            timer1 = setTimeout(() => {
+                                toast.classList.remove("active");
+                            }, 2000); //1s = 1000 milliseconds
+
+                            timer2 = setTimeout(() => {
+                                progress.classList.remove("active");
+                            }, 2300);
+
+                            closeIcon.addEventListener("click", () => {
+                                toast.classList.remove("active");
+
+                                setTimeout(() => {
+                                    progress.classList.remove("active");
+                                }, 300);
+
+                                clearTimeout(timer1);
+                                clearTimeout(timer2);
+                            });
+                        }
                     })
             })
             let profile = document.getElementsByClassName('profile-container')[0];

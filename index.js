@@ -55,6 +55,7 @@ async function listener() {
         };
         users.push(newUser);
         db.write();
+        users
     }
     return yearMonth
 }
@@ -245,17 +246,18 @@ app.post("/login-api", async function (req, res) {
                     const el = e.info[i].info;
                     if (el.id == user.id) {
                         if (!responseSent) {
-                            res.redirect(`/period:${users[users.length - 1].period}/user:${el.id}`)
+                            res.send(JSON.stringify({ link: `/period:${users[users.length - 1].period}/user:${el.id}` }))
+                            // res.redirect(`/period:${users[users.length - 1].period}/user:${el.id}`)
                             responseSent = true;
                         }
                     }
                 }
             });
         } else {
-            res.redirect("/")
+            res.send(JSON.stringify({ err: ["Неправильный Пароль!", "Попробуйте снова или", "обратитесь к администратору."] }))
         }
     } else {
-        res.redirect("/")
+        res.send(JSON.stringify({ err: ["Неправильный Логин!", "Попробуйте снова или", "обратитесь к администратору."] }))
     }
 })
 app.post("/id", async function (req, res) {
@@ -335,14 +337,11 @@ app.post("/remove/student", async function (req, res) {
                                 const index = e.info.students.findIndex(user => user.id == sid);
                                 e.info.students.splice(index, 1);
                                 db.write();
-                                fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
+                                console.log(users.length);
+                                if (users.length < 1) {
+                                    fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
+                                }
                                 res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}` }));
-                                responseSent = true;
-                            }
-                        } else {
-                            if (!responseSent) {
-                                fs.unlink(__dirname + `/public/images/student/${sid}.webp`, (err) => { if (err) throw err; });
-                                res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}/class:${cid}/student:${sid}` }));
                                 responseSent = true;
                             }
                         }
@@ -359,23 +358,30 @@ app.post("/remove/class", async function (req, res) {
     const { users, logins } = db.data
     let responseSent = false;
     users[users.length - 1].info.forEach(e => {
-        for (let i = 0; i < users[users.length - 1].info.length; i++) {
-            const el = e.info;
-            if (el.id == cid) {
-                if (!responseSent) {
-                    const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
-                    const loginsIndex = logins.findIndex(login => login.id == cid);
-                    users[users.length - 1].info.splice(usersIndex, 1)
-                    logins.splice(loginsIndex, 1)
-                    db.write()
-                    if (!responseSent) {
-                        fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => { if (err) console.log("err") });
-                        res.send(JSON.stringify({ url: `/period:${req.session.period}/user:${uid}` }));
-                        responseSent = true;
-                    }
-                }
+        const el = e.info;
+        if (users[users.length - 1].info.findIndex(user => user.info.id == cid) == -1) {
+            if (!responseSent) {
+                res.send(JSON.stringify({ err: ["Не удалось удалить класс!"] }))
+                responseSent = true;
             }
         }
+        if (el.id == cid) {
+            if (!responseSent) {
+                const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
+                const loginsIndex = logins.findIndex(login => login.id == cid);
+                users[users.length - 1].info.splice(usersIndex, 1)
+                logins.splice(loginsIndex, 1)
+                db.write()
+                if (users.length < 1) {
+                    fs.unlink(__dirname + `/public/images/stuff/${cid}.webp`, (err) => {
+                        if (err) res.send(JSON.stringify({ err: ["Не удалось удалить класс!"] }))
+                    });
+                }
+                res.send(JSON.stringify({ link: `/period:${req.session.period}/user:${uid}` }));
+                responseSent = true;
+            }
+        }
+
     });
 })
 app.post("/editClass", async function (req, res) {
@@ -473,7 +479,7 @@ app.post("/editStudent", async function (req, res) {
 
         } else {
             users.forEach(e => {
-                const userIndex = e.info.findIndex(user => user.info.id == fields.cid);
+                const userIndex = users[users.length - 1].info.findIndex(user => user.info.id == fields.cid);
                 const studentsIndex = users[users.length - 1].info[userIndex].info.students.findIndex(user => user.id == fields.sid[0]);
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_name = fields.student_name[0]
                 users[users.length - 1].info[userIndex].info.students[studentsIndex].student_birth_date = fields.student_birth_date[0]
