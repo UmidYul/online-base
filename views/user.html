@@ -23,6 +23,11 @@
             </div>
             <img id="profile-img">
         </nav>
+        <div class="pagination">
+            <button class="prev"></button>
+            <p class="date"></p>
+            <button class="next"></button>
+        </div>
         <select id="class_num_option">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -71,6 +76,8 @@
     }
 
     window.onload = function () {
+        document.getElementsByClassName('prev')[0].textContent = "<"
+        document.getElementsByClassName('next')[0].textContent = ">"
         const period = window.location.href.slice(-34, -19)
         const id = window.location.href.slice(-13)
         const response = fetch("/id", {
@@ -90,7 +97,24 @@
                     const e = z[i];
                     ar.push(e.period)
                 }
-                console.log(ar);
+                let num = ar.findIndex(date => date == period)
+                document.getElementsByClassName('date')[0].innerText = ar[num].slice(0, 4) + "/" + ar[num].slice(-7, -3)
+                if (num == 0) {
+                    document.getElementsByClassName('next')[0].style.display = "none"
+                } if (num > 0) {
+                    document.getElementsByClassName('next')[0].style.display = "block"
+                }
+                if (num == ar.findIndex(date => date == ar.at(-1))) {
+                    document.getElementsByClassName('prev')[0].style.display = "none"
+                }
+                document.getElementsByClassName('prev')[0].addEventListener('click', () => {
+                    num += 1
+                    window.location.href = `/period:${ar[num]}/user:${id}`
+                })
+                document.getElementsByClassName('next')[0].addEventListener('click', () => {
+                    num -= 1
+                    window.location.href = `/period:${ar[num]}/user:${id}`
+                })
                 document.getElementsByClassName('profile-div')[0].innerHTML =
                     arr.map(i => {
                         if (arr[0].el.role == "admin") {
@@ -107,7 +131,6 @@
             `
                         }
                         else {
-                            console.log(arr)
                             return `
             <i class="exit-btn fa-solid fa-xmark"></i>
             <div class="profile">
@@ -125,7 +148,6 @@
 
                 if (arr[0].el.role == "admin") {
                     document.getElementById("thead").innerHTML =
-
                         `
                                         <tr>
                                 <th>Класс</th>

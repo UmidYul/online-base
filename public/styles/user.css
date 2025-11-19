@@ -284,3 +284,14 @@ select {
 .button-31:focus {
     opacity: .75;
 }
+
+.pagination {
+    display: flex;
+    gap: 5px;
+}
+
+.next,
+.prev {
+    font-weight: bolder;
+    font-style: normal;
+}

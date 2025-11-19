@@ -69,7 +69,6 @@ app.get('/', async function (req, res) {
 app.post("/date", async (req, res) => {
     await db.read()
     const { users } = db.data
-    console.log(users[users.length - 1].period);
     res.send({ date: users[users.length - 1].period })
 })
 app.get("/period:date/user:id/class:id/student:id", authMiddleware, function (req, res) {
@@ -345,7 +344,6 @@ app.post("/remove/student", async function (req, res) {
 })
 
 app.post("/remove/class", async function (req, res) {
-    console.log(200);
     const { uid, cid } = req.body
     await db.read()
     const { users, logins } = db.data
@@ -356,7 +354,6 @@ app.post("/remove/class", async function (req, res) {
             if (el.id == cid) {
                 const usersIndex = users[users.length - 1].info.findIndex(user => user.info.id == cid);
                 const loginsIndex = logins.findIndex(login => login.id == cid);
-                console.log(usersIndex, loginsIndex);
                 users[users.length - 1].info.splice(usersIndex, 1)
                 logins.splice(loginsIndex, 1)
                 db.write()
